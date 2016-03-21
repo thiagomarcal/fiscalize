@@ -1,32 +1,39 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+<title>index</title>
 
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-	
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
-	<script src="js/myApp.js"></script>
-	<script src="js/controller.js"></script>
+<link href="assets/styles/style.css"           rel="stylesheet" type="text/css">
+<link href="assets/styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="assets/styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="assets/styles/animate.css"         rel="stylesheet" type="text/css">
 
-        <title>Teste</title>
-    </head>
-    <body>
-      <div ng-controller="controller"> 
-	<p><button class="myButton" ng-click="alertDeviceInfo()">Device</button></p>
-	<p><button class="myButton" ng-click="alertGeoLocation()">Location</button></p>
-	<p><button class="myButton" ng-click="beepNotify()">Beep</button></p>
-	<p><button class="myButton" ng-click="vibrateNotify()">Vibrate</button></p>
-      </div>
+<script type="text/javascript" src="assets/scripts/jquery.js"></script>
+<script type="text/javascript" src="assets/scripts/jqueryui.js"></script>
+<script type="text/javascript" src="assets/scripts/angular.min.js"></script>
+<script type="text/javascript" src="assets/scripts/angular-route.js"></script>
+<script type="text/javascript" src="assets/scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="assets/scripts/custom.js"></script>
 
-      <script type="text/javascript">
-	app.initialize();
-      </script>
+<script type="text/javascript" src="assets/scripts/myApp.js"></script>
+<script type="text/javascript" src="assets/scripts/requisicao.js"></script>
+<script type="text/javascript" src="components/signup/signupController.js"></script>
+<script type="text/javascript" src="components/home/homeController.js"></script>
 
-    </Body>
-</html>
+</head>
+
+<body class="dual-sidebar" ng-app="myApp" > 
+  
+  <!-- MAIN CONTENT AND INJECTED VIEWS -->
+  <div id="main" >
+    
+    <div ng-view> </div>
+
+  </div>                
+
+  
+</body>
