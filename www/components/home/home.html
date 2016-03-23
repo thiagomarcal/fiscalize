@@ -1,23 +1,24 @@
-<div ng-controller="HomeController">
-	<h1>Home Page</h1>
-
-	<form>
+<div>
+	
+	<!-- <form>
 		Procurar: <input type="text" name="seach" ng-model="input"><br>
 		<input type="submit" value="Consultar" ng-click="search(input)">
-	</form>
+	</form> -->
 
-	<table>
-		<tr ng-repeat="convenio in convenios">
-			<td>{{ convenio.NR_CONVENIO }}</td>
-			<td>{{ convenio.TX_MODALIDADE }}</td>
-			<td>{{ convenio.TX_SITUACAO }}</td>
-			<td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
-			<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
-			<td>{{ convenio.UF_PROPONENTE }}</td>
-			<td>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</td>
-			<td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
-			<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
+	<slick ng-if="convenios.length" arrows="true" touchMove="true">
+	  		<div ng-repeat="convenio in convenios" class="staff-slider">
+	  			<h3>{{ convenio.NR_CONVENIO }}</h3>
+				<em class="color-red-dark">{{ convenio.TX_SITUACAO }}</em>
+				<span style="text-align:left;">
+					<em>{{ convenio.TX_MODALIDADE }}</em>
+					<em>{{ convenio.NM_ORGAO_SUPERIOR }}</em>
+					<em>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</em>
+					<em>{{ convenio.UF_PROPONENTE }}</em>
+					<em>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</em>
+					<em>{{ convenio.CD_IDENTIF_PROPONENTE }}</em>
+					<em>{{ convenio.TX_OBJETO_CONVENIO }}</em>
+				</span>	
+	  		</div>
+	</slick>
 
-		</table>
-		
-	</div>
+</div>

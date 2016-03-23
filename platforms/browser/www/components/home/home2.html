@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+<title>index</title>
+
+<link rel="icon" type="image/png" href="../../assets/images/splash/android-chrome-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" sizes="196x196" href="../../../assets/images/splash/apple-touch-icon-196x196.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/splash/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../assets/images/splash/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../../assets/images/splash/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../../assets/images/splash/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../../assets/images/splash/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../../assets/images/splash/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../../assets/images/splash/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../../assets/images/splash/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="57x57" href="../../assets/images/splash/apple-touch-icon-57x57.png">  
+<link rel="icon" type="image/png" href="../../assets/images/splash/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../assets/images/splash/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/images/splash/favicon-16x16.png" sizes="16x16">
+<link rel="shortcut icon" href="../../assets/images/splash/favicon.ico" type="image/x-icon" /> 
+
+
+
+<link href="../../assets/styles/style.css"           rel="stylesheet" type="text/css">
+<link href="../../assets/styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="../../assets/styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="../../assets/styles/animate.css"         rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../../bower_components/slick-carousel/slick/slick.css">
+<link rel="stylesheet" href="../../bower_components/slick-carousel/slick/slick-theme.css">
+
+
+<script type="text/javascript" src="../../assets/scripts/jquery.js"></script>
+<script type="text/javascript" src="../../assets/scripts/jqueryui.js"></script>
+<script type="text/javascript" src="../../assets/scripts/angular.min.js"></script>
+<script type="text/javascript" src="../../assets/scripts/angular-route.js"></script>
+<script type="text/javascript" src="../../assets/scripts/angular-touch.min.js"></script>
+<script type="text/javascript" src="../../assets/scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="../../assets/scripts/custom.js"></script>
+
+
+<script type="text/javascript" src="../../assets/scripts/myApp.js"></script>
+<script type="text/javascript" src="../../assets/scripts/requisicao.js"></script>
+<script type="text/javascript" src="../../components/signup/signupController.js"></script>
+<script type="text/javascript" src="../../components/home/homeController.js"></script>
+
+<script src="../../bower_components/slick-carousel/slick/slick.js"></script>
+<script src="../../bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+
+</head>
+
+<body class="dual-sidebar" ng-app="myApp" > 
+  	<div ng-controller="HomeController">
+		<h1>Home Page</h1>
+		<!-- <form>
+			Procurar: <input type="text" name="seach" ng-model="input"><br>
+			<input type="submit" value="Consultar" ng-click="search(input)">
+		</form> -->
+
+		<!-- <div class="clearfix" slick-slider="{dots: true}">
+	    	<div ng-repeat="thing in awesomeThings"><h3>{{ thing }}</h3></div>
+	 	</div> -->
+
+
+		<slick ng-if="convenios.length">
+	  		<div ng-repeat="convenio in convenios">
+	  			<h3>{{ convenio.NR_CONVENIO }}</h3>
+				<em class="color-red-dark">{{ convenio.TX_SITUACAO }}</em>
+	  		</div>
+		</slick>
+
+		 <slick infinite="true" dots="true" arrows="true" data="awesomeThings" settings="slickConfig">
+	  		<div ng-repeat="thing in awesomeThings"><h3>{{ thing }}</h3></div>
+		</slick>
+
+		<!-- <slick ng-if="convenios.length" slides-to-show=3 slides-to-scroll=3>
+			<div ng-repeat="convenio in convenios">
+				<h3>{{ convenio.NR_CONVENIO }}</h3>
+			</div>
+		</slick> -->
+
+		<slick slides-to-show=3 slides-to-scroll=3>
+		  <div ng-repeat="i in [1,2,3,4,5,6,7,8,9,10]"><h3>{{ i }}</h3></div>
+		</slick>
+	</div>
+</body>
+
