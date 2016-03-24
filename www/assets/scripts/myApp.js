@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router','ngTouch','slickCarousel']);
+var myApp = angular.module('myApp', ['ui.router','ngTouch','slickCarousel', 'angular-carousel']);
 
 // myApp.config(function($routeProvider) {
 //     $routeProvider

@@ -1,0 +1,40 @@
+.slicker {
+   	width: 90%;
+	clear: both;
+	margin-bottom: 27px;
+    margin-left:5%; 
+    margin-right:5%;
+}
+
+.slicker th {
+	vertical-align: middle;
+	border-bottom: 1px solid #e9e9e9;
+	border-right: 1px solid #e9e9e9;
+	font-weight: bold;
+	color: #555;
+	background-color: #f6f6f6;
+}
+
+.slicker tr {
+	line-height: 18px;
+}
+
+.slicker td {
+	border-right: 1px solid #e9e9e9;
+	border-bottom: 1px solid #e9e9e9;
+	text-align: left;
+	color: #666;
+	padding-top: 9px;
+	padding-bottom: 9px;
+	line-height: 18px;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+}
+
+.slicker tr:hover > td {
+	background: #cacaca;
+}
+
+.slicker tr:nth-child(even) {
+    background-color: #000000;
+}
