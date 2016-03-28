@@ -1,41 +1,40 @@
 <div>
-	
-	<!-- <form>
-		Procurar: <input type="text" name="seach" ng-model="input"><br>
-		<input type="submit" value="Consultar" ng-click="search(input)">
-	</form> -->
 
-	<slick ng-if="convenios.length">
-	  		<div ng-repeat="convenio in convenios" class="staff-slider">
-	  			<h3>{{ convenio.NR_CONVENIO }}</h3>
-				<em class="color-red-dark">{{ convenio.TX_SITUACAO }} </em>
+	<div class="staff-slider">
+                    <div class="staff-slider-transition" data-snap-ignore="true">
+                        <div class="staff-item" ng-if="convenios.length"  ng-repeat="convenio in convenios">
+                           <h3>{{ convenio.NR_CONVENIO }}</h3>
+							<em class="color-red-dark">{{ convenio.TX_SITUACAO }} </em>
 
-				<table class="slicker">
-					<tr>
-						<td>Modalidade:</td>
-						<td>{{ convenio.TX_MODALIDADE }}</td>
-					</tr>
-					<td>Orgão:</td>
-					<td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
-					<tr>
-						<td>Esfera Proponente:</td>
-						<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
-					</tr>
-					<td>UF:</td>
-					<td>{{ convenio.UF_PROPONENTE }}</td>
-					<tr>
-						<td>Município:</td>
-						<td>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</td>
-					</tr>
-					<td>Identificador:</td>
-					<td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
-					<tr>
-						<td>Objeto:</td>
-						<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
-					</tr>
-					
-				</table>
-	  		</div>
-	</slick>
+							<table class="slicker">
+								<tr>
+									<td>Modalidade:</td>
+									<td>{{ convenio.TX_MODALIDADE }}</td>
+								</tr>
+								<td>Orgão:</td>
+								<td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
+								<tr>
+									<td>Esfera Proponente:</td>
+									<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
+								</tr>
+								<td>UF:</td>
+								<td>{{ convenio.UF_PROPONENTE }}</td>
+								<tr>
+									<td>Município:</td>
+									<td>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</td>
+								</tr>
+								<td>Identificador:</td>
+								<td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
+								<tr>
+									<td>Objeto:</td>
+									<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
+								</tr>
+							</table>  
+                        </div>
+                        
+                    </div>
+                    <a class="next-staff-slider" href="#"><i class="fa fa-angle-right"></i></a>
+                    <a class="prev-staff-slider" href="#"><i class="fa fa-angle-left"></i></a>
+                </div>
 
 </div>

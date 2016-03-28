@@ -161,36 +161,36 @@ $( document ).ready(function() {
         
         //Staff Slider No Transition
         $('.staff-slider-no-transition').owlCarousel({
-            autoplay:true,
+            autoplay:false,
             autoplayTimeout:5000,
             autoplayHoverPause:true,
-            lazyLoad:true,
-            loop:true,
+            lazyLoad:false,
+            loop:false,
             margin:10,
             nav:false,
             dots:false,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:2
-                },
-                1000:{
-                    items:3
-                }
-            }
+            // responsive:{
+            //     0:{
+            //         items:1
+            //     },
+            //     600:{
+            //         items:2
+            //     },
+            //     1000:{
+            //         items:3
+            //     }
+            // }
         });
         
         //Staff Slider With Transition
         $('.staff-slider-transition').owlCarousel({
-            autoplay:true,
+            autoplay:false,
             autoplayTimeout:5000,
             autoplayHoverPause:true,
-            animateOut: 'fadeOut',
-            animateIn: 'fadeIn',
+            // animateOut: 'fadeOut',
+            // animateIn: 'fadeIn',
             lazyLoad:true,
-            loop:true,
+            loop:false,
             margin:10,
             nav:false,
             dots:false,
@@ -273,7 +273,7 @@ $( document ).ready(function() {
         }      
         slider_dots();
 
-    }, 1);
+    }, 1000);
 
 	//Detect if iOS WebApp Engaged and permit navigation without deploying Safari
 	(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")

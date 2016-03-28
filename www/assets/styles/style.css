@@ -92,6 +92,37 @@
     color:#FFFFFF;
 }
 
+
+#header-fixed .search-input{
+    position:absolute;
+    z-index:10;
+    right:60px;
+    top:20px;
+    height:20px;
+    text-align:center;
+    color:#212121;
+}
+
+#header-fixed .seach-icon {
+    position:absolute;
+    z-index:10;
+    right:0px;
+    top:0px;
+    width:60px;
+    height:60px;
+    line-height:60px;
+    text-align:center;
+    color:#FFFFFF;
+}
+
+#header-fixed .seach-icon i{
+    width:60px;
+    height:60px;
+    line-height:60px;
+    text-align:center;
+}
+
+
 #header-fixed .open-right-sidebar i{
     width:60px;
     height:60px;

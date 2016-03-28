@@ -28,22 +28,17 @@
 <link href="assets/styles/font-awesome.css"    rel="stylesheet" type="text/css">
 <link href="assets/styles/animate.css"         rel="stylesheet" type="text/css">
 <link href="assets/css/slicker.css"         rel="stylesheet" type="text/css">
-<link href="assets/styles/angular-carousel.css" rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick.css">
-<link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick-theme.css">
-
+<!-- <link href="assets/styles/styles.css"           rel="stylesheet" type="text/css"> -->
 
 <script type="text/javascript" src="assets/scripts/jquery.js"></script>
 <script type="text/javascript" src="assets/scripts/jqueryui.js"></script>
 <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
-<!-- <script type="text/javascript" src="assets/scripts/angular-route.js"></script> -->
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
 <script type="text/javascript" src="assets/scripts/angular-touch.min.js"></script>
 <script type="text/javascript" src="assets/scripts/framework-plugins.js"></script>
 <script type="text/javascript" src="assets/scripts/custom.js"></script>
-<script type="text/javascript" src="assets/scripts/angular-carousel.js"></script>
 
 
 <script type="text/javascript" src="assets/scripts/myApp.js"></script>
@@ -51,8 +46,10 @@
 <script type="text/javascript" src="components/signup/signupController.js"></script>
 <script type="text/javascript" src="components/home/homeController.js"></script>
 
-<script src="bower_components/slick-carousel/slick/slick.js"></script>
-<script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+
+<!-- <script src="assets/scripts/iscroll.js"></script>
+<script src="assets/scripts/scroll.js"></script> -->
+
 
 </head>
 
@@ -73,7 +70,15 @@
 	<div id="header-fixed">
 	    <a class="open-left-sidebar" href="#"><i class="fa fa-navicon"></i></a>
 	    <a class="header-logo" href="#"><img src="assets/images/logo-light.png" alt="img"></a>
-	    <a class="open-right-sidebar" href="#"><i class="fa fa-envelope-o"></i></a>
+	    
+
+	    
+	    	<a class="seach-icon" href="#"><i class="fa fa-search"></i></a>
+	    	<input class="search-input" class= ng-model="searchInput" placeholder="Search here">
+	    
+	   
+
+
 	</div>
 
 
