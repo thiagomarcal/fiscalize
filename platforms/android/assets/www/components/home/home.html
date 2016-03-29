@@ -1,12 +1,19 @@
 
 	<div class="scrollable" ui-state="searchBar">
-		<div class="scrollable-header">
+		<!-- <div class="scrollable-header">
     		<input ng-submit="search" ng-model="searchParam"
 				type="search"
 				class="form-control"
 				placeholder="Search.." />
     		<a class='form-control btn btn-primary' ng-click='search()'>search</a>
-		</div>
+		</div> -->
+
+		
+			<form class="searchbox" action="">
+				<input ng-model="searchParam" type="search" placeholder="Search"/>
+				<button type="submit" value="search" ng-click='search()'>&nbsp;</button>
+			</form>
+		
 			
 		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 

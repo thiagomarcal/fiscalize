@@ -16,15 +16,25 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 
 	// //Requisition Search 
 	$scope.search = function() {
-		$scope.convenios = [];
-		$scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA';
-		$scope.requisition();
+		if (angular.isUndefined($scope.searchParam) || $scope.searchParam == null) {
+			$scope.home();
+		}
+		else {
+			$scope.convenios = [];
+			$scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA';
+			$scope.requisition();
+		};
+
 	}
 
 	// Requisition Scroll 
 	$scope.loadMore = function () {
 		$scope.requisition();
 	};
+
+	$scope.flagSearch = function() {
+		$scope.advSearch = !$scope.advSearch;
+	}
 
 	//Requisition Convenios
 	$scope.requisition = function() {
