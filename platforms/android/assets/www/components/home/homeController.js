@@ -1,10 +1,42 @@
 myApp.controller('HomeController', function($scope, $timeout , $http, $location, $stateParams, requisicaoFactory)  {
 
-	//Requisition Convenios Factory
-	requisicaoConvenios = function(page, pagesize) {
+	// Page Initial Value
+	page = 1;
 
-				requisicaoFactory.getRequest('http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+ page +'&pagesize='+ pagesize +'').then(function(valorRetornado) {
-				convenios = angular.fromJson(valorRetornado._embedded["rh:doc"]);
+	// Page Size Const Value
+	PAGESIZE = 10;
+
+	
+	// //Requisition Home 
+	$scope.home = function() {
+		$scope.convenios = [];
+		$scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+ page +'&pagesize='+ PAGESIZE +'';
+		$scope.requisition();
+	}
+
+	// //Requisition Search 
+	$scope.search = function() {
+		$scope.convenios = [];
+		$scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA';
+		$scope.requisition();
+	}
+
+	// Requisition Scroll 
+	$scope.loadMore = function () {
+		$scope.requisition();
+	};
+
+	//Requisition Convenios
+	$scope.requisition = function() {
+
+				requisicaoFactory.getRequest($scope.url).then(function(result) {
+				convenios_temp = angular.fromJson(result._embedded["rh:doc"]);
+
+			    angular.forEach(convenios_temp, function(value, key) {
+			    	$scope.convenios.push(value);
+				});
+
+				page++;
 
 			}, function(reason) {
 			     alert("Erro ver console!")
@@ -15,17 +47,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			})
 	}
 
-	// Requisition Initial Call
-	requisicaoConvenios(page,10);
-
-
-	$('.staff-slider-transition').owlCarousel({
-    	onTouched: callback
-	});
-
-    function callback(){
-        alert('Owl has been touched')
-    }
-
+	// Initial Call Home
+	$scope.home();
 
 });

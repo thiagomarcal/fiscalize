@@ -182,34 +182,11 @@ $( document ).ready(function() {
             // }
         });
         
-        //Staff Slider With Transition
-        $('.staff-slider-transition').owlCarousel({
-            autoplay:false,
-            autoplayTimeout:5000,
-            autoplayHoverPause:true,
-            // animateOut: 'fadeOut',
-            // animateIn: 'fadeIn',
-            lazyLoad:true,
-            loop:false,
-            margin:10,
-            nav:false,
-            dots:false,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:2
-                },
-                1000:{
-                    items:3
-                }
-            }
-        });
+        
         
         $('.next-staff-slider').click(function() {$('.staff-slider-no-transition, .staff-slider-transition').trigger('next.owl.carousel');	return false;}); 
         $('.prev-staff-slider').click(function() {$('.staff-slider-no-transition, .staff-slider-transition').trigger('prev.owl.carousel');	return false;});
-        
+    
         
         //Quote Slider No Transition
         $('.quote-slider-no-transition').owlCarousel({

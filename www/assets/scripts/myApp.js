@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router','ngTouch']);
+var myApp = angular.module('myApp', ['ui.router', 'mobile-angular-ui']);
 
 // myApp.config(function($routeProvider) {
 //     $routeProvider
@@ -16,11 +16,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
         .state('home', {
             url:'/',
             templateUrl: 'components/home/home.html',
-            controller: 'HomeController'
-        })
-        .state('search', {
-            url:'/search/?search',
-            templateUrl: 'components/search/search.html',
             controller: 'HomeController'
         })
 

@@ -1,41 +1,73 @@
 
+	<div class="scrollable" ui-state="searchBar">
+		<div class="scrollable-header">
+    		<input ng-submit="search" ng-model="searchParam"
+				type="search"
+				class="form-control"
+				placeholder="Search.." />
+    		<a class='form-control btn btn-primary' ng-click='search()'>search</a>
+		</div>
+			
+		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 
-	<div class="staff-slider">
-					<div class="staff-slider-transition" data-snap-ignore="true">
-						<div  class="staff-item" ng-if="convenios.length"  ng-repeat="convenio in convenios">
-						   <h3>{{ convenio.NR_CONVENIO }}</h3>
-							<em class="color-red-dark">{{ convenio.TX_SITUACAO }} </em>
+			<div class="section" ng-repeat="convenio in convenios">
+				<div class="panel panel-default" ng-repeat="idx in [1,2,3]">
+					<div class="panel-heading">
+						<div class="btn-group pull-right">
+							<a ui-turn-on='myDropdown{{idx}}' class='btn'>
+								<i class="fa fa-ellipsis-v"></i>
+							</a>
+							<ul 
+								ui-state="myDropdown{{idx}}"
+								class="dropdown-menu"
+								ui-outer-click="Ui.turnOff('myDropdown' + idx)"
+								ui-outer-click-if="Ui.active('myDropdown' + idx)"
+								role="menu"
+								ui-show="myDropdown{{idx}}"
+								ui-turn-off="myDropdown{{idx}}">
 
-							<table class="slicker">
-								<tr>
-									<td>Modalidade:</td>
-									<td>{{ convenio.TX_MODALIDADE }}</td>
-								</tr>
-								<td>Orgão:</td>
-								<td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
-								<tr>
-									<td>Esfera Proponente:</td>
-									<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
-								</tr>
-								<td>UF:</td>
-								<td>{{ convenio.UF_PROPONENTE }}</td>
-								<tr>
-									<td>Município:</td>
-									<td>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</td>
-								</tr>
-								<td>Identificador:</td>
-								<td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
-								<tr>
-									<td>Objeto:</td>
-									<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
-								</tr>
-							</table>  
+									<li><a>Denunciar</a></li>
+									<li><a>Fiscalizar</a></li>
+									<li><a>Something else here</a></li>
+									<li class="divider"></li>
+									<li><a>Separated link</a></li>
+							</ul>
 						</div>
-						
+						<h3 class="panel-title">Convenio: {{ convenio.NR_CONVENIO }}</h3>
 					</div>
-					<a class="next-staff-slider" href="#"><i class="fa fa-angle-right"></i></a>
-					<a class="prev-staff-slider" href="#"><i class="fa fa-angle-left"></i></a>
+					<div class="panel-body">
+						
+
+										<table>
+											<tr>
+												<td>Situação:</td>
+												<td><em>{{ convenio.TX_SITUACAO }} </em></td>
+											</tr>
+											<tr>
+												<td>Modalidade:</td>
+												<td>{{ convenio.TX_MODALIDADE }}</td>
+											</tr>
+											<td>Orgão:</td>
+											<td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
+											<tr>
+												<td>Esfera Proponente:</td>
+												<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
+											</tr>
+											<td>UF:</td>
+											<td>{{ convenio.UF_PROPONENTE }}</td>
+											<tr>
+												<td>Município:</td>
+												<td>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</td>
+											</tr>
+											<td>Identificador:</td>
+											<td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
+											<tr>
+												<td>Objeto:</td>
+												<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
+											</tr>
+										</table>  
+					</div>
+				</div>
+	    	</div>
+		</div>
 	</div>
-
-
-  

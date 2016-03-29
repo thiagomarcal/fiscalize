@@ -7,152 +7,74 @@
     
 <title>index</title>
 
-<link rel="icon" type="image/png" href="assets/images/splash/android-chrome-192x192.png" sizes="192x192">
-<link rel="apple-touch-icon" sizes="196x196" href="assets/images/splash/apple-touch-icon-196x196.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/images/splash/apple-touch-icon-180x180.png">
-<link rel="apple-touch-icon" sizes="152x152" href="assets/images/splash/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="144x144" href="assets/images/splash/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="120x120" href="assets/images/splash/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="114x114" href="assets/images/splash/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="76x76" href="assets/images/splash/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="72x72" href="assets/images/splash/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="60x60" href="assets/images/splash/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="57x57" href="assets/images/splash/apple-touch-icon-57x57.png">  
-<link rel="icon" type="image/png" href="assets/images/splash/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="assets/images/splash/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="assets/images/splash/favicon-16x16.png" sizes="16x16">
 <link rel="shortcut icon" href="assets/images/splash/favicon.ico" type="image/x-icon" /> 
 
-<link href="assets/styles/style.css"           rel="stylesheet" type="text/css">
-<link href="assets/styles/framework.css"       rel="stylesheet" type="text/css">
-<link href="assets/styles/font-awesome.css"    rel="stylesheet" type="text/css">
-<link href="assets/styles/animate.css"         rel="stylesheet" type="text/css">
-<link href="assets/css/slicker.css"         rel="stylesheet" type="text/css">
-<link href="assets/styles/angular-carousel.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.css" />
+<link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.css" />
+<link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.css" />
 
-<link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick.css">
-<link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick-theme.css">
-
-
-<script type="text/javascript" src="assets/scripts/jquery.js"></script>
-<script type="text/javascript" src="assets/scripts/jqueryui.js"></script>
 <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
-<!-- <script type="text/javascript" src="assets/scripts/angular-route.js"></script> -->
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
-<script type="text/javascript" src="assets/scripts/angular-touch.min.js"></script>
-<script type="text/javascript" src="assets/scripts/framework-plugins.js"></script>
-<script type="text/javascript" src="assets/scripts/custom.js"></script>
-<script type="text/javascript" src="assets/scripts/angular-carousel.js"></script>
-
+<script src="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
 
 <script type="text/javascript" src="assets/scripts/myApp.js"></script>
 <script type="text/javascript" src="assets/scripts/requisicao.js"></script>
 <script type="text/javascript" src="components/signup/signupController.js"></script>
 <script type="text/javascript" src="components/home/homeController.js"></script>
 
-<script src="bower_components/slick-carousel/slick/slick.js"></script>
-<script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
 
 </head>
 
-<body class="dual-sidebar" ng-app="myApp" > 
+<body ng-app="myApp">
 
-	<!-- PRELOADER -->
-	<div id="preloader">
-		<div id="status">
-			<div class="preloader-logo"></div>
-			<h3 class="center-text">Welcome</h3>
-			<p class="center-text smaller-text">
-				We're loading the content, give us a second. This won't take long!
-			</p>
+  <!-- Sidebars -->
+	<div class="sidebar sidebar-left">
+		<div class="scrollable">
+			<h1 class="scrollable-header app-name">My App</h1>  
+			<div class="scrollable-content">
+				<div class="list-group" ui-turn-off='uiSidebarLeft'>
+					<a class="list-group-item" href="#/link1">Link 1 
+					<i class="fa fa-chevron-right pull-right"></i></a>
+					<a class="list-group-item" href="#/link2">Link 2
+					<i class="fa fa-chevron-right pull-right"></i></a>
+				</div>
+			</div>
 		</div>
 	</div>
 
-	<!-- HEADER -->
-	<div id="header-fixed">
-	    <a class="open-left-sidebar" href="#"><i class="fa fa-navicon"></i></a>
-	    <a class="header-logo" href="#"><img src="assets/images/logo-light.png" alt="img"></a>
-	    <a class="open-right-sidebar" href="#"><i class="fa fa-envelope-o"></i></a>
+  <div class="sidebar sidebar-right"><!-- ... --></div>
+
+  <div class="app">
+    <div class="navbar navbar-app navbar-absolute-top">
+		<div class="navbar-brand navbar-brand-center">
+			Navbar Brand
+		</div>
+
+		<div class="btn-group pull-left">
+			<div class="btn btn-navbar">
+				<a href ui-toggle='uiSidebarLeft'>left</a>
+			</div>
+		</div>
+
+		<div class="btn-group pull-right">
+			<div class="btn btn-navbar">
+				Right Action
+			</div>
+		</div>
 	</div>
+    <div class="navbar navbar-app navbar-absolute-bottom"><!-- Bottom Navbar --></div>
 
+    <!-- App body -->
 
-	<div class="all-elements">
-	    <div class="snap-drawers">
-	        <div class="snap-drawer snap-drawer-left" >        
-	            <div class="sidebar-header">
-	                <a href="#"><i class="fa fa-facebook"></i></a>
-	                <a href="#"><i class="fa fa-twitter"></i></a>
-	                <a href="#"><i class="fa fa-phone"></i></a>
-	                <a href="#"><i class="fa fa-comment-o"></i></a>
-	                <a class="close-sidebar" href="#"><i class="fa fa-times"></i></a>
-	            </div>   
-	            
-	            <div class="sidebar-logo">
-	                <img src="assets/images/logo-sidebar.png" alt="img">
-	            </div>
-	        
-	            <p class="sidebar-divider">Navigation</p>
-	            
-	            <div class="sidebar-menu">
-	                <div class="has-submenu">
-	                    <a class="menu-item show-submenu submenu-active" href="#">
-	                        <i class="fa fa-home"></i>
-	                        <em>Homepages</em>
-	                        <strong>5</strong>
-	                    </a> 
-	                    <div class="submenu submenu-active">
-	                        <a class="submenu-item submenu-item-active" href="index.html">    <i class="fa fa-angle-right"></i><em>   Classic    </em><i class="fa fa-circle"></i></a>
-	                        <a class="submenu-item" href="index2.html">        <i class="fa fa-angle-right"></i><em>   Round     </em><i class="fa fa-circle"></i></a>
-	                        <a class="submenu-item" href="index3.html">        <i class="fa fa-angle-right"></i><em>   Fullscreen    </em><i class="fa fa-circle"></i></a>
-	                        <a class="submenu-item" href="index4.html">       <i class="fa fa-angle-right"></i><em>   No Slider    </em><i class="fa fa-circle"></i></a>
-	                        <a class="submenu-item" href="index5.html">       <i class="fa fa-angle-right"></i><em>   Thumbnails    </em><i class="fa fa-circle"></i></a>
-	                    </div>
-	                </div>                 
-	                              
+    <div class='app-body'>
+      <div class='app-content'>
+       	<div ui-view></div> 
+      </div>
+    </div>
+  </div><!-- ~ .app -->
 
-	            </div>
-	            
-	           
-	            <p class="sidebar-divider">Contact Us</p>
-	            
-	            <div class="sidebar-menu">
-	                <a class="menu-item" href="tel:+123 456 7890">
-	                    <i class="fa fa-phone"></i>
-	                    <em>Call Us</em>
-	                </a>                   
-	                <a class="menu-item" href="sms:+123 456 7890">
-	                    <i class="fa fa-comment-o"></i>
-	                    <em>Text Us</em>
-	                </a>                 
-	                <a class="menu-item" href="mailto:someone@yoursite.com?subject=Message from ThemeForest">
-	                    <i class="fa fa-envelope-o"></i>
-	                    <em>Mail Us</em>
-	                </a>                     
-	            </div>
-	            
-	            <p class="sidebar-footer">Copyright 2015. All rights reserved</p>
-	        </div>
-	        
-	        <div id="content" class="snap-content" data-snap-ignore="true">
-	            <div class="content">
-	            <div class="header-clear"></div>
-			        <div class="container-fullscreen">
-			        	<div>
-			            <!--Page content goes here, fixed elements go above the all elements class-->
-			                
-			                
-				            <!-- MAIN CONTENT AND INJECTED VIEWS -->
-							<div ui-view data-snap-ignore="true"></div>                    
-			                
-			                
-			            <!-- End of entire page content-->
-			            </div> 
-			        </div>
-		        </div>
-		    </div>    
-    	</div>    
-    	<a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Back to top</a>
-	</div>
+  <!-- Modals and Overlays -->
+  <div ui-yield-to="modals"></div>
+
 
 </body>

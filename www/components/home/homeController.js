@@ -1,15 +1,42 @@
 myApp.controller('HomeController', function($scope, $timeout , $http, $location, $stateParams, requisicaoFactory)  {
 
-	//Requisition Convenios Factory
-	$scope.requisicaoConvenios = function(page, pagesize) {
+	// Page Initial Value
+	page = 1;
 
-				requisicaoFactory.getRequest('http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+ page +'&pagesize='+ pagesize +'').then(function(valorRetornado) {
-				$scope.convenios = angular.fromJson(valorRetornado._embedded["rh:doc"]);
+	// Page Size Const Value
+	PAGESIZE = 10;
 
-			 //    angular.forEach(convenios_temp, function(value, key) {
-			 //    	$scope.convenios.push(value);
-				// });
+	
+	// //Requisition Home 
+	$scope.home = function() {
+		$scope.convenios = [];
+		$scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+ page +'&pagesize='+ PAGESIZE +'';
+		$scope.requisition();
+	}
 
+	// //Requisition Search 
+	$scope.search = function() {
+		$scope.convenios = [];
+		$scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA';
+		$scope.requisition();
+	}
+
+	// Requisition Scroll 
+	$scope.loadMore = function () {
+		$scope.requisition();
+	};
+
+	//Requisition Convenios
+	$scope.requisition = function() {
+
+				requisicaoFactory.getRequest($scope.url).then(function(result) {
+				convenios_temp = angular.fromJson(result._embedded["rh:doc"]);
+
+			    angular.forEach(convenios_temp, function(value, key) {
+			    	$scope.convenios.push(value);
+				});
+
+				page++;
 
 			}, function(reason) {
 			     alert("Erro ver console!")
@@ -20,41 +47,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			})
 	}
 
-	// Requisition Initial Call
-	$scope.requisicaoConvenios(1,25);
-
-$( document ).ready(function() {
-
-
-		 setTimeout(function() {
-	        //Simple Slider
-	        
-	     	var owl = $('.staff-slider-transition');
-
-			//Staff Slider With Transition
-		        owl.owlCarousel({
-		            autoplay:false,
-		            items:1,
-		            autoplayTimeout:5000,
-		            autoplayHoverPause:true,
-		            lazyLoad:false,
-		            loop:false,
-		            margin:10,
-		            nav:false,
-		            dots:false	     
-		        });
-
-
-		  //       owl.on('dragged.owl.carousel', function(e) {
-		  //       	if (e.item.index === (e.item.count)) {
-		  //       		alert("ULTIMO" + "INDEX: " + e.item.index + "Count: " + e.item.count);	
-		  //       	}
-				// });
-
-		      
-	    }, 1000);
-	
-
-}); 
+	// Initial Call Home
+	$scope.home();
 
 });

@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router','ngTouch','slickCarousel', 'angular-carousel']);
+var myApp = angular.module('myApp', ['ui.router', 'mobile-angular-ui']);
 
 // myApp.config(function($routeProvider) {
 //     $routeProvider
@@ -18,4 +18,5 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             templateUrl: 'components/home/home.html',
             controller: 'HomeController'
         })
+
 }]);

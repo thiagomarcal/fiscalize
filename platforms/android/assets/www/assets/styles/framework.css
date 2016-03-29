@@ -174,9 +174,9 @@ body {
 	overflow-x:hidden;
 }
 
-body::-webkit-scrollbar { 
+/*body::-webkit-scrollbar { 
     display: none; 
-}
+}*/
 
 a:hover{
 	text-decoration:none!important;
@@ -6574,7 +6574,7 @@ ul.tabs li.active-tab{
 /*------------------------------*/
 
 .snap-content {
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     right: 0;
     bottom: 0;
