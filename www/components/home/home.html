@@ -9,16 +9,29 @@
 		</div> -->
 
 		
-			<form class="searchbox" action="">
-				<button ng-click='flagSearch()'>adv</button>
+			<div class="searchbox">
+				<button id="advancedsearch" ng-click='flagSearch()' class='btn btn-primary pull-left'>&nbsp;</button>
 				<input ng-model="searchParam" type="search" placeholder="Search"/>
 				<button id="searchSubmit"type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
 
 				<div ng-show="advSearch">
-					TESTESTESTESTESTESTESETTEEEE!!!!
+					<label> Estado: </label><br>
+					<select ng-model="estadoSelecionado" ng-options="estado.UF_PROPONENTE for estado in estados">
+						<option value="">
+							Selecionar
+						</option>
+					</select><br>
+
+					<label> Ministério: </label><br>
+					<select ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
+						<option value="">
+							Selecionar
+						</option>
+					</select><br>
+
 				</div>
 
-			</form>
+			</div>
 
 			
 		
@@ -26,22 +39,23 @@
 		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 
 			<div class="section" ng-repeat="convenio in convenios">
-				<div class="panel panel-default" ng-repeat="idx in [1,2,3]">
+				<div class="panel panel-default" >
 					<div class="panel-heading">
 						<div class="btn-group pull-right">
-							<a ui-turn-on='myDropdown{{idx}}' class='btn'>
+							<a ui-turn-on='myDropdown{{convenio.NR_CONVENIO}}' class='btn'>
 								<i class="fa fa-ellipsis-v"></i>
 							</a>
 							<ul 
-								ui-state="myDropdown{{idx}}"
+								ui-state="myDropdown{{convenio.NR_CONVENIO}}"
 								class="dropdown-menu"
-								ui-outer-click="Ui.turnOff('myDropdown' + idx)"
-								ui-outer-click-if="Ui.active('myDropdown' + idx)"
+								ui-outer-click="Ui.turnOff('myDropdown' + convenio.NR_CONVENIO)"
+								ui-outer-click-if="Ui.active('myDropdown' + convenio.NR_CONVENIO)"
 								role="menu"
-								ui-show="myDropdown{{idx}}"
-								ui-turn-off="myDropdown{{idx}}">
+								ui-show="myDropdown{{convenio.NR_CONVENIO}}"
+								ui-turn-off="myDropdown{{convenio.NR_CONVENIO}}">
 
-									<li><a>Denunciar</a></li>
+									<!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
+									<li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
 									<li><a>Fiscalizar</a></li>
 									<li><a>Something else here</a></li>
 									<li class="divider"></li>
@@ -85,4 +99,8 @@
 				</div>
 	    	</div>
 		</div>
+
+
+
+
 	</div>

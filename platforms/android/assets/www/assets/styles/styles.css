@@ -6,7 +6,6 @@
 }
 
 input[type="search"]{
- width:85%;
  padding:5px;
  border-radius:6px;
  border:none;
@@ -15,7 +14,7 @@ input[type="search"]{
  background-color:#fffbf8;
 }
 
-button[type="submit"]{
+#searchSubmit{
  width:35px;
  height:30px;
  background-image:url(../images/search-btn.png);
@@ -24,7 +23,19 @@ button[type="submit"]{
  background-color:transparent;
  -webkit-background-size:20px 20px;
  background-size:20px 20px;
- background-size:20px 20px;
+ border:none;
+ cursor:pointer;
+}
+
+#advancedsearch{
+ width:35px;
+ height:30px;
+ background-image:url(../images/advsearch-btn.png);
+ background-repeat: no-repeat;
+ background-position: 0px -2px;
+ background-color:transparent;
+ -webkit-background-size:20px 20px;
+ background-size:35px 35px;
  border:none;
  cursor:pointer;
 }

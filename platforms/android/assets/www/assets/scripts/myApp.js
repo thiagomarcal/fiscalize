@@ -18,5 +18,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             templateUrl: 'components/home/home.html',
             controller: 'HomeController'
         })
+         .state('denuncia', {
+            url:'/denuncia/:convenioId',
+            templateUrl: 'components/denuncia/denuncia.html',
+            controller: 'DenunciaController'
+        });
 
 }]);
