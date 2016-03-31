@@ -1,0 +1,67 @@
+<div ui-content-for="title">
+  <span>Detalhe</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class='section'>
+
+      <legend>Detalhe - Convênio: {{convenio}}</legend>
+
+      <ui-state id='activeTab' default='1'></ui-state>
+
+      <ul class="nav nav-tabs">
+        <li ui-class="{'active': activeTab == 1}">
+          <a ui-set="{'activeTab': 1}">Resumo</a>
+        </li>
+        <li ui-class="{'active': activeTab == 2}">
+          <a ui-set="{'activeTab': 2}">Geral</a>
+        </li>
+        <li ui-class="{'active': activeTab == 3}">
+          <a ui-set="{'activeTab': 3}">Análise</a>
+        </li>
+      </ul>
+
+      <div ui-if="activeTab == 1">
+        <h3 class="page-header">Resumo - {{convenio}}</h3>
+        
+
+         <div class="panel-group" ui-state='myAccordion' ui-default='2'>
+            <div class="panel panel-default" ng-repeat="i in [1,2,3]">
+              <div class="panel-heading" ui-set="{'myAccordion': i}">
+
+                <h4 class="panel-title">
+                    Collapsible Group Item #{{i}}
+                </h4>
+              </div>
+
+              <div ui-if="myAccordion == {{i}}">
+                <div class="panel-body">
+                  {{lorem}}
+                </div>
+              </div>
+            </div>
+        </div>
+  
+
+
+
+
+
+
+      </div>
+
+      <div ui-if="activeTab == 2">
+        <h3 class="page-header">Geral</h3>
+        <p>TESTE22222222222222</p>
+      </div>
+
+      <div ui-if="activeTab == 3">
+        <h3 class="page-header">Análise</h3>
+        <p>TESTE33333333333333</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

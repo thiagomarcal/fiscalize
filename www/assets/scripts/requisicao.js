@@ -17,6 +17,13 @@ myApp.factory('requisicaoFactory', function($http) {
 					.then(function (result) {
 						return result.data;
 					}); 
+			},
+
+			putRequest: function (url, obj) {
+				return $http.put(url, obj)
+					.then(function (result) {
+						return result.data;
+					}); 
 			}
 	}
 	

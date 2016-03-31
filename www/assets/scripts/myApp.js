@@ -10,9 +10,18 @@ myApp.config(function($routeProvider) {
     .when('/denuncia/:convenioId', {
         templateUrl: 'components/denuncia/denuncia.html',
         controller: 'DenunciaController'
+        })
+    .when('/detalhe/:convenioId', {
+        templateUrl: 'components/detalhe/detalhe.html',
+        controller: 'DetalheController'
         });
 });
 
+
+myApp.factory('convenios', function () {
+    var convenios = [];
+    return convenios;
+});
 
 
 // myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

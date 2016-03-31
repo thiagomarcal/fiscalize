@@ -1,18 +1,20 @@
-myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory)  {
+myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, convenios)  {
 
 	// Page Initial Value
 	page = 1;
 
-	// Page Size Const Value
+	// Const Values
 	PAGESIZE = 10;
-
 	ADDRESS= 'http://74.124.24.115:8080'
+	COLLECTION = 'ConveniosProgramasFTS'
 
 	// Requisition Home 
 	$scope.home = function() {
-		$scope.convenios = [];
-		$scope.url = '/hackathon/ConveniosProgramas?count&page='+ page +'&pagesize='+ PAGESIZE +'&hal=f';
-		$scope.requisition();
+		if (angular.isUndefined($scope.convenios)) {
+			$scope.convenios = [];
+			$scope.url = '/hackathon/'+COLLECTION+'?count&page='+ page +'&pagesize='+ PAGESIZE +'&hal=f';
+			$scope.requisition();
+		};
 	}
 
 	// Requisition Search 
@@ -24,9 +26,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			$scope.convenios = [];
 			estado = angular.isUndefined($scope.estadoSelecionado)?"":$scope.estadoSelecionado.UF_PROPONENTE; 
 			ministerio = angular.isUndefined($scope.ministerioSelecionado)?"":$scope.ministerioSelecionado.NM_ORGAO_SUPERIOR; 
-			$scope.url = '/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"},UF_PROPONENTE:{$regex:"'+ estado +'"},NM_ORGAO_SUPERIOR:{$regex:"'+ ministerio +'"}}&sort_by=DT_INICIO_VIGENCIA&hal=f';
-			// 'http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS?count&page=1&pagesize=10&filter={CD_ORGAO_SUPERIOR:%20,UF_PROPONENTE:%22RJ%22,NM_MUNICIPIO_PROPONENTE:%22MESQUITA%22,$text:{$search:%22cancer%22}},{score:{$meta:%22textScore%22}}&sort_by={score:{$meta:%22textScore%22}}&sort_by=DT_INICIO_VIGENCIA'
-			// $scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA';
+			$scope.url = '/hackathon/'+COLLECTION+'?count&page='+page+'&pagesize='+PAGESIZE+'&filter={UF_PROPONENTE:{$regex:"'+ estado +'"},NM_ORGAO_SUPERIOR:{$regex:"'+ ministerio +'"},$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA&hal=f';
 			$scope.requisition();
 		};
 
@@ -56,6 +56,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 				    	angular.forEach(convenios_temp, function(value, key) {
 				    		$scope.convenios.push(value);
 						});	
+
 					};	
 
 					$scope.url = angular.isDefined(result._links.next.href)?result._links.next.href: null;
@@ -107,6 +108,5 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 	$scope.home();
 	$scope.requisitionEstados();
 	$scope.requisitionMinisterios();
-
 
 });
