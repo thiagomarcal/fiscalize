@@ -6,7 +6,7 @@
   <div class="scrollable-content">
     <div class='section'>
 
-      <legend>Detalhe - Convênio: {{convenio}}</legend>
+      <legend>Detalhe - Convênio: {{convenio.NR_CONVENIO}}</legend>
 
       <ui-state id='activeTab' default='1'></ui-state>
 
@@ -23,21 +23,162 @@
       </ul>
 
       <div ui-if="activeTab == 1">
-        <h3 class="page-header">Resumo - {{convenio}}</h3>
+        
         
 
-         <div class="panel-group" ui-state='myAccordion' ui-default='2'>
-            <div class="panel panel-default" ng-repeat="i in [1,2,3]">
-              <div class="panel-heading" ui-set="{'myAccordion': i}">
+         <div class="panel-group" ui-state='myAccordion'>
+            <div class="panel panel-default">
+              <div class="panel-heading" ui-set="{'myAccordion': 1}">
 
                 <h4 class="panel-title">
-                    Collapsible Group Item #{{i}}
+                    Dados
                 </h4>
               </div>
 
-              <div ui-if="myAccordion == {{i}}">
+              <div ui-if="myAccordion == 1">
                 <div class="panel-body">
-                  {{lorem}}
+                  <table>
+                      <tr>
+                        <td>Órgão Concedente:</td>
+                        <td><em>{{ convenio.NM_ORGAO_CONCEDENTE }} </em></td>
+                      </tr>
+                      <tr>
+                        <td>Proponente:</td>
+                        <td>{{ convenio.NM_PROPONENTE }}</td>
+                      </tr>
+                        <td>CNPJ:</td>
+                        <td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
+                      <tr>
+                        <td>UF:</td>
+                        <td>{{ convenio.UF_PROPONENTE }}</td>
+                      </tr>
+                        <td>Situação:</td>
+                        <td>{{ convenio.TX_SITUACAO }}</td>
+                      <tr>
+                        <td>Vigência:</td>
+                        <td>{{ convenio.DT_INICIO_VIGENCIA }} - {{convenio.DT_FIM_VIGENCIA }}</td>
+                      </tr>
+                    </table>  
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading" ui-set="{'myAccordion': 2}">
+
+                <h4 class="panel-title">
+                    Valores
+                </h4>
+              </div>
+
+              <div ui-if="myAccordion == 2">
+
+               <div class="panel-body">
+
+                 <ui-state id='activeSubTab' default='1'></ui-state>
+
+                <div class="btn-group justified nav-tabs">
+                  <a ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Consolidado</a>
+                  <a ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Detalhado</a>
+                </div>  
+
+              <div ui-if="activeSubTab == 1">
+                 <div class="panel-body">
+                        <table>
+                            <tr>
+                              <td>Valor Total do Convênio:</td>
+                              <td>{{ convenio.VL_GLOBAL }}</td>
+                            </tr>  
+                            <tr>
+                              <td>Valor do Repasse:</td>
+                              <td>{{ convenio.VL_REPASSE }}</td>
+                            </tr>
+                            <tr>
+                              <td>Valor de Contrapartida:</td>
+                              <td>{{ convenio.VL_CONTRAPARTIDA_TOTAL }}</td>
+                            </tr>
+                        </table> 
+                 </div>       
+              </div>
+
+               <div ui-if="activeSubTab == 2">
+                  <div class="panel-body">
+                      <div class="scrollable-content">
+                          <div class='section'>
+                              <table class="table  table-responsive">
+                                 <tr>
+                                    <th>Tipo</th>
+                                    <th>Data</th>
+                                    <th>Valor</th>
+                                 </tr>
+                                <tr ng-repeat="detalheValor in convenio.PagamentoOBTVs">
+                                  <td >{{ detalheValor.TX_TIPO_MOVIMENTACAO }}</td>
+                                  <td>{{ detalheValor.DT_INCLUSAO_MOV_FINANCEIRA }}</td>
+                                  <td>{{ detalheValor.VL_PAGAMENTO }}</td>
+                                </tr>
+                              </table>
+                          </div>  
+                        </div>  
+                  </div>    
+              </div>
+            </div>
+            </div>
+
+             <div class="panel panel-default">
+              <div class="panel-heading" ui-set="{'myAccordion': 3}">
+
+                <h4 class="panel-title">
+                    Objeto
+                </h4>
+              </div>
+
+
+              <div ui-if="myAccordion == 3">
+                <div class="panel-body">
+                  <table>
+                      <tr>
+                        <td>Objeto do Convênio:</td>
+                        <td><em>  {{ convenio.TX_OBJETO_CONVENIO }} </em></td>
+                      </tr>
+                      <tr>
+                        <td>Cumprimento do Objeto:</td>
+                        <td>  {{ convenio.TX_JUSTIFICATIVA }}</td>
+                      </tr>
+                    </table>  
+                </div>
+                </div>
+              </div>
+
+               <div class="panel panel-default">
+              <div class="panel-heading" ui-set="{'myAccordion': 4}">
+
+                <h4 class="panel-title">
+                    Metas
+                </h4>
+              </div>
+
+              <div ui-if="myAccordion == 4">
+                <div class="panel-body">
+                  <table>
+                      <tr>
+                        <td>Cumpridas:
+                        <ul>
+                          <li ng-if="checkDate(metas.DT_TERMINO)" ng-repeat="metas in convenio.CronogramaFisicoPTs" >
+                              {{ metas.TX_ESPECIFICACAO }} - Data: {{metas.DT_TERMINO}}
+                          </li>
+                        </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Não Cumpridas:
+                        <li ng-if="!checkDate(metas.DT_TERMINO)" ng-repeat="metas in convenio.CronogramaFisicoPTs" >
+                              {{ metas.TX_ESPECIFICACAO }} - Data: {{metas.DT_TERMINO}}
+                          </li>
+                        </td>
+                        
+                      </tr>
+                    </table>  
+                </div>
                 </div>
               </div>
             </div>
