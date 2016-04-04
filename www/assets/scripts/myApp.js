@@ -1,5 +1,4 @@
-// var myApp = angular.module('myApp', ['ui.router', 'mobile-angular-ui']);
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs']);
 
 myApp.config(function($routeProvider) {
     $routeProvider
@@ -22,20 +21,3 @@ myApp.factory('convenios', function () {
     var convenios = [];
     return convenios;
 });
-
-
-// myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-//  	$urlRouterProvider.otherwise('/');
-//     $stateProvider
-//         .state('home', {
-//             url:'/',
-//             templateUrl: 'components/home/home.html',
-//             controller: 'HomeController'
-//         })
-//          .state('denuncia', {
-//             url:'/denuncia/:convenioId',
-//             templateUrl: 'components/denuncia/denuncia.html',
-//             controller: 'DenunciaController'
-//         });
-
-// }]);

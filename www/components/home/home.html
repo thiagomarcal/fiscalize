@@ -16,14 +16,14 @@
 
 				<div ng-show="advSearch">
 					<label> Estado: </label><br>
-					<select ng-model="estadoSelecionado" ng-options="estado.UF_PROPONENTE for estado in estados">
+					<select class="form-control" ng-model="estadoSelecionado" ng-options="estado.UF_PROPONENTE for estado in estados">
 						<option value="">
 							Selecionar
 						</option>
 					</select><br>
 
 					<label> Ministério: </label><br>
-					<select ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
+					<select class="form-control" ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
 						<option value="">
 							Selecionar
 						</option>
