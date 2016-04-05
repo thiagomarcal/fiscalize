@@ -1,5 +1,50 @@
-<div>
+<div ui-content-for="title">
+  <span>Denuncia</span>
+</div>
 
-	{{teste}}
+<div class="scrollable">
+ <div class="scrollable-content section">
+   
+  <form role="form" id="denunciaForm" ng-submit='denunciar()'>
+    <fieldset>
+      <legend>Denuncia - Convênio: {{denuncia.NR_CONVENIO}}</legend>
+        <div class="form-group has-success has-feedback">
+          
+        <label> Tipo da Denuncia: </label>
+			<select ng-model="denuncia.tipo" class="form-control" ng-options="tipo.name for tipo in tipoDenuncias track by $index">
+			</select>
+		</div>
 
+		<div class="form-group has-success has-feedback">
+        	<label> Motivo: </label><br>
+			<textarea style="resize: none;" ng-model="denuncia.motivo" class="form-control" rows="6" cols="100" name="comment" form="denunciaForm" draggable="false"></textarea>
+        </div>
+
+        <div class="form-group has-success has-feedback">
+          <label>Email(opcional):</label>
+          <input type="email"
+                 ng-model="denuncia.email"
+                 class="form-control"
+                 placeholder="Enter email">
+        </div>
+
+        <div class="form-group has-success has-feedback">
+          <label>Telefone(opcional):</label>
+          <input type="text"
+                 ng-model="denuncia.phone"
+                 class="form-control"
+                 placeholder="Enter phone">
+        </div>
+
+
+
+    </fieldset>
+    <hr>
+
+    <button class="btn btn-primary btn-block">
+      Denunciar
+    </button>
+
+  </form>
+ </div>
 </div>

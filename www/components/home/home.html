@@ -28,13 +28,8 @@
 							Selecionar
 						</option>
 					</select><br>
-
 				</div>
-
 			</div>
-
-			
-		
 			
 		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 
@@ -57,7 +52,7 @@
 									<!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
 									<li><a href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
 									<li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
-									<li><a>Fiscalizar</a></li>
+									<li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>
 									<li class="divider"></li>
 									<li><a>Separated link</a></li>
 							</ul>
@@ -98,7 +93,7 @@
 												<td>Valor Total:</td>
 												<td>{{ convenio.VL_GLOBAL }}</td>
 											</tr>
-										</table>  
+						</table>  
 					</div>
 				</div>
 	    	</div>

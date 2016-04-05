@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, convenios)  {
+myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory,$cordovaDevice, myCache)  {
 
 	// Page Initial Value
 	page = 1;
@@ -102,11 +102,70 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			})
 	}
 
+	// Requisition Estados
+	$scope.requisitionFiscalizados = function() {
+
+			$scope.uuid = myCache.get('uuid');
+
+			requisicaoFactory.getRequest(ADDRESS+'/hackathon/Fiscalizados?filter={uuid:"'+ $scope.uuid +'"},{situacao:1}').then(function(result) {
+			$scope.fiscalizados = angular.fromJson(result._embedded["rh:doc"]);
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);
+			})	
+
+	}
+
+	$scope.fiscalizar = function(convenio) {
+
+		convenio_fiscalizado = {};
+		convenio_fiscalizado.NR_CONVENIO = convenio.NR_CONVENIO;
+		convenio_fiscalizado.NM_ORGAO_SUPERIOR = convenio.NM_ORGAO_SUPERIOR;
+		convenio_fiscalizado.TX_SITUACAO = convenio.TX_SITUACAO;
+		convenio_fiscalizado.DT_INICIO_VIGENCIA = convenio.DT_INICIO_VIGENCIA;
+		convenio_fiscalizado.DT_FIM_VIGENCIA = convenio.DT_FIM_VIGENCIA;
+		convenio_fiscalizado.VL_GLOBAL = convenio.VL_GLOBAL;
+
+		// Create Post Object
+		$scope.fiscalizado = {};
+		$scope.fiscalizado.uuid = $scope.uuid;
+		$scope.fiscalizado.convenio = convenio_fiscalizado;
+		$scope.fiscalizado.situacao = 1;
+		$scope.fiscalizado.dt_updated = new Date();
+
+
+
+		//Post Requisition
+		requisicaoFactory.postRequest(ADDRESS+'/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
+			alert('UUID: '+ $scope.fiscalizado.uuid +' Fiscalizando Convenio: ' +  $scope.fiscalizado.convenio.NR_CONVENIO);
+		}, function(reason) {
+		    alert("Erro ver console!")
+		    console.log("reason:", reason);
+		    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+		}, function(update) {
+		    console.log("update:", update);
+		})
+	}
+ 	
+	// Capture Mobile UUID
+	// document.addEventListener("deviceready", function () {
+	// 	uuid = $cordovaDevice.getUUID();
+	// 	if (angular.isUndefined($scope.uuid) || $scope.uuid == null) {
+	// 		uuid = 'b07b42e74b01efed'
+	// 	};
+	// }, false);
+
+
 
 
 	// Initial Call Home
 	$scope.home();
 	$scope.requisitionEstados();
 	$scope.requisitionMinisterios();
+	$scope.requisitionFiscalizados();
 
 });

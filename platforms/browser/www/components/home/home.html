@@ -28,13 +28,8 @@
 							Selecionar
 						</option>
 					</select><br>
-
 				</div>
-
 			</div>
-
-			
-		
 			
 		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 
@@ -57,7 +52,7 @@
 									<!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
 									<li><a href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
 									<li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
-									<li><a>Fiscalizar</a></li>
+									<li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>
 									<li class="divider"></li>
 									<li><a>Separated link</a></li>
 							</ul>
@@ -82,19 +77,23 @@
 												<td>Esfera Proponente:</td>
 												<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
 											</tr>
-											<td>UF:</td>
-											<td>{{ convenio.UF_PROPONENTE }}</td>
 											<tr>
 												<td>Município:</td>
-												<td>{{ convenio.NM_MUNICIPIO_PROPONENTE }}</td>
+												<td>{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</td>
 											</tr>
-											<td>Identificador:</td>
-											<td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
 											<tr>
 												<td>Objeto:</td>
 												<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
 											</tr>
-										</table>  
+											<tr>
+												<td>Vigência:</td>
+												<td>{{ convenio.DT_INICIO_VIGENCIA + " - " + convenio.DT_FIM_VIGENCIA }}</td>
+											</tr>
+											<tr>
+												<td>Valor Total:</td>
+												<td>{{ convenio.VL_GLOBAL }}</td>
+											</tr>
+						</table>  
 					</div>
 				</div>
 	    	</div>
