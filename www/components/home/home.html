@@ -1,110 +1,94 @@
-
-	<div class="scrollable" ui-state="searchBar">
-		<!-- <div class="scrollable-header">
+<div class="scrollable" ui-state="searchBar">
+    <!-- <div class="scrollable-header">
     		<input ng-submit="search" ng-model="searchParam"
 				type="search"
 				class="form-control"
 				placeholder="Search.." />
     		<a class='form-control btn btn-primary' ng-click='search()'>search</a>
 		</div> -->
-
-		
-			<div class="searchbox">
-				<button id="advancedsearch" ng-click='flagSearch()' class='btn btn-primary pull-left'>&nbsp;</button>
-				<input ng-model="searchParam" type="search" placeholder="Search"/>
-				<button id="searchSubmit"type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
-
-				<div ng-show="advSearch">
-					<label> Estado: </label><br>
-					<select class="form-control" ng-model="estadoSelecionado" ng-options="estado.UF_PROPONENTE for estado in estados">
-						<option value="">
-							Selecionar
-						</option>
-					</select><br>
-
-					<label> Ministério: </label><br>
-					<select class="form-control" ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
-						<option value="">
-							Selecionar
-						</option>
-					</select><br>
-
-				</div>
-
-			</div>
-
-			
-		
-			
-		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
-
-			<div class="section" ng-repeat="convenio in convenios">
-				<div class="panel panel-default" >
-					<div class="panel-heading">
-						<div class="btn-group pull-right">
-							<a ui-turn-on='myDropdown{{convenio.NR_CONVENIO}}' class='btn'>
-								<i class="fa fa-ellipsis-v"></i>
-							</a>
-							<ul 
-								ui-state="myDropdown{{convenio.NR_CONVENIO}}"
-								class="dropdown-menu"
-								ui-outer-click="Ui.turnOff('myDropdown' + convenio.NR_CONVENIO)"
-								ui-outer-click-if="Ui.active('myDropdown' + convenio.NR_CONVENIO)"
-								role="menu"
-								ui-show="myDropdown{{convenio.NR_CONVENIO}}"
-								ui-turn-off="myDropdown{{convenio.NR_CONVENIO}}">
-
-									<!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
-									<li><a href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
-									<li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
-									<li><a>Fiscalizar</a></li>
-									<li class="divider"></li>
-									<li><a>Separated link</a></li>
-							</ul>
-						</div>
-						<h3 class="panel-title">Convenio: {{ convenio.NR_CONVENIO }}</h3>
-					</div>
-					<div class="panel-body">
-						
-
-										<table>
-											<tr>
-												<td>Situação:</td>
-												<td><em>{{ convenio.TX_SITUACAO }} </em></td>
-											</tr>
-											<tr>
-												<td>Modalidade:</td>
-												<td>{{ convenio.TX_MODALIDADE }}</td>
-											</tr>
-											<td>Orgão:</td>
-											<td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
-											<tr>
-												<td>Esfera Proponente:</td>
-												<td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
-											</tr>
-											<tr>
-												<td>Município:</td>
-												<td>{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</td>
-											</tr>
-											<tr>
-												<td>Objeto:</td>
-												<td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
-											</tr>
-											<tr>
-												<td>Vigência:</td>
-												<td>{{ convenio.DT_INICIO_VIGENCIA + " - " + convenio.DT_FIM_VIGENCIA }}</td>
-											</tr>
-											<tr>
-												<td>Valor Total:</td>
-												<td>{{ convenio.VL_GLOBAL }}</td>
-											</tr>
-										</table>  
-					</div>
-				</div>
-	    	</div>
-		</div>
-
-
-
-
-	</div>
+    <div class="searchbox">
+        <button id="advancedsearch" ng-click='flagSearch()' class='btn btn-primary pull-left'>&nbsp;</button>
+        <input ng-model="searchParam" type="search" placeholder="Search" />
+        <button id="searchSubmit" type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
+        <div ng-show="advSearch">
+            <label> Estado: </label>
+            <br>
+            <select class="form-control" ng-model="estadoSelecionado" ng-options="estado.UF_PROPONENTE for estado in estados">
+                <option value="">
+                    Selecionar
+                </option>
+            </select>
+            <br>
+            <label> Ministério: </label>
+            <br>
+            <select class="form-control" ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
+                <option value="">
+                    Selecionar
+                </option>
+            </select>
+            <br>
+        </div>
+    </div>
+    <div class="scrollable-content section" ui-scroll-bottom="loadMore()">
+        <div class="section" ng-repeat="convenio in convenios">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a ui-turn-on='myDropdown{{convenio.NR_CONVENIO}}' class='btn'>
+                            <i class="fa fa-ellipsis-v"></i>
+                        </a>
+                        <ul ui-state="myDropdown{{convenio.NR_CONVENIO}}" class="dropdown-menu" ui-outer-click="Ui.turnOff('myDropdown' + convenio.NR_CONVENIO)" ui-outer-click-if="Ui.active('myDropdown' + convenio.NR_CONVENIO)" role="menu" ui-show="myDropdown{{convenio.NR_CONVENIO}}" ui-turn-off="myDropdown{{convenio.NR_CONVENIO}}">
+                            <!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
+                            <li><a href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
+                            <li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
+                            <li><a>Fiscalizar</a></li>
+                            <li class="divider"></li>
+                            <li><a>Separated link</a></li>
+                        </ul>
+                    </div>
+                    <h3 class="panel-title">Convênio: {{ convenio.NR_CONVENIO }}</h3>
+                </div>
+                <div class="panel-body">
+                    <table>
+                        <tr>
+                            <td>Situação:</td>
+                            <td><em>{{ convenio.TX_SITUACAO }} </em></td>
+                        </tr>
+                        <tr>
+                            <td>Orgão Superior:</td>
+                            <td>{{ convenio.NM_ORGAO_SUPERIOR }}</td>
+                        </tr>
+                        <tr>
+                            <td>Orgão Concedente:</td>
+                            <td>{{ convenio.NM_ORGAO_CONCEDENTE }}</td>
+                        </tr>
+                        <tr>
+                            <td>Esfera:</td>
+                            <td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
+                        </tr>
+                        <tr>
+                            <td>Município:</td>
+                            <td>{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</td>
+                        </tr>
+                        <tr>
+                            <td>Programa:</td>
+                            <td>{{ convenio.NM_PROGRAMA }}</td>
+                        </tr>
+                        <tr>
+                            <td>Objeto:</td>
+                            <td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
+                        </tr>
+                        <tr>
+                            <td>Vigência:</td>
+                            <td>{{ convenio.DT_INICIO_VIGENCIA + " - " + convenio.DT_FIM_VIGENCIA }}</td>
+                        </tr>
+                        <tr>
+                            <td>Valor Total:</td>
+                            <td>{{ convenio.VL_GLOBAL }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -42,18 +42,19 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 				$scope.totalPlano = 0;
 				angular.forEach($scope.planoAplicacao, function(value, key) {
 					if (angular.isDefined(value.VL_TOTAL) || value.VL_TOTAL != null) {
-				    	value.VL_TOTAL = parseFloat(value.VL_TOTAL.replace(/[^0-9\,]+/g,""));
+				    	value.VL_TOTAL_FLOAT = parseFloat(value.VL_TOTAL.replace(/[^0-9\,]+/g,""));
+				    	value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
 					};
 				});	
 
 				var linq = Enumerable.From($scope.planoAplicacao);
 				var result =
-			    linq.GroupBy(function(x){ return x["NM_NATUREZADESPESA"]; })
+			    linq.GroupBy(function(x){ return x["DESPESA"]; })
 			        .Select(function(x){
 			          return {
 			            label: x.Key(),
 			            color: $scope.getRandomColor(),
-			            value: x.Sum(function(y){ return y["VL_TOTAL"]|0; })
+			            value: x.Sum(function(y){ return y["VL_TOTAL_FLOAT"]|0; })
 			          };
 			        }).ToArray();
 
@@ -128,6 +129,146 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			        }
 			      ]
 			    };
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
+	$scope.requisitionExecucaoFinanceira = function() {
+
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/ExecucaoFinanceira?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				$scope.execucaoFinanceira = angular.fromJson(result._embedded["rh:doc"]);
+
+				angular.forEach($scope.execucaoFinanceira, function(value, key) {
+					if (angular.isDefined(value.VL_DESEMBOLSADO) || value.VL_DESEMBOLSADO != null) {
+				    	value.VL_DESEMBOLSADO_FLOAT = parseFloat(value.VL_DESEMBOLSADO.replace(/[^0-9\,]+/g,""));
+				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
+					};
+				});	
+
+				var linq = Enumerable.From($scope.execucaoFinanceira);
+				var result =
+			    linq.GroupBy(function(x){ return x["DT_DESEMBOLSO"]; })
+			        .Select(function(x){
+			          return {
+			            label: x.Key(),
+			            color: $scope.getRandomColor(),
+			            value: x.Sum(function(y){ return y["VL_DESEMBOLSADO_FLOAT"]|0; })
+			          };
+			        }).ToArray();
+
+
+				$scope.dataExecucaoFinanceira = result;
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
+	$scope.requisitionPagamentoOBTV = function() {
+
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/PagamentoOBTV?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				$scope.pagamentoOBTV = angular.fromJson(result._embedded["rh:doc"]);
+
+				//angular.forEach($scope.pagamentoOBTV, function(value, key) {
+				//	if (angular.isDefined(value.VL_PAGAMENTO) || value.VL_PAGAMENTO != null) {
+				//    	value.VL_PAGAMENTO_FLOAT = parseFloat(value.VL_PAGAMENTO.replace(/[^0-9\,]+/g,""));
+				//    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
+				//	};
+				//});	
+
+				var linq = Enumerable.From($scope.pagamentoOBTV);
+				var result =
+			    linq.GroupBy(function(x){ return x["DT_INCLUSAO_MOV_FINANCEIRA"]; })
+			        .Select(function(x){
+			          return {
+			            label: x.Key(),
+			            color: $scope.getRandomColor(),
+			            value: x.Sum(function(y){ return y["VL_PAGAMENTO_FLOAT"]|0; })
+			          };
+			        }).ToArray();
+
+
+				$scope.dataPagamentoOBTV = result;
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
+	$scope.requisitionDocumentoLiquidacao = function() {
+
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/DocumentoLiquidacao?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				$scope.documentoLiquidacao = angular.fromJson(result._embedded["rh:doc"]);
+
+				angular.forEach($scope.documentoLiquidacao, function(value, key) {
+					if (angular.isDefined(value.VL_LIQUIDO_DL) || value.VL_LIQUIDO_DL != null) {
+				    	value.VL_LIQUIDO_DL_FLOAT = parseFloat(value.VL_LIQUIDO_DL.replace(/[^0-9\,]+/g,""));
+				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
+					};
+				});	
+
+				var linq = Enumerable.From($scope.documentoLiquidacao);
+				var result =
+			    linq.GroupBy(function(x){ return x["NM_IDENTIF_FAVORECIDO_DL"]; })
+			        .Select(function(x){
+			          return {
+			            label: x.Key(),
+			            color: $scope.getRandomColor(),
+			            value: x.Sum(function(y){ return y["VL_LIQUIDO_DL_FLOAT"]|0; })
+			          };
+			        }).ToArray();
+
+
+				$scope.dataDocumentoLiquidacao = result;
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
+	$scope.requisitionDiscriminacaoOBTV = function() {
+
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/DiscriminacaoOBTV?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				$scope.discriminacaoOBTV = angular.fromJson(result._embedded["rh:doc"]);
+
+				angular.forEach($scope.discriminacaoOBTV, function(value, key) {
+					if (angular.isDefined(value.VL_PAGAMENTO) || value.VL_PAGAMENTO != null) {
+				    	value.VL_PAGAMENTO_FLOAT = parseFloat(value.VL_PAGAMENTO.replace(/[^0-9\,]+/g,""));
+				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
+					};
+				});	
+
+				var linq = Enumerable.From($scope.discriminacaoOBTV);
+				var result =
+			    linq.GroupBy(function(x){ return x["TX_TIPO_AQUISICAO"]; })
+			        .Select(function(x){
+			          return {
+			            label: x.Key(),
+			            color: $scope.getRandomColor(),
+			            value: x.Sum(function(y){ return y["VL_PAGAMENTO_FLOAT"]|0; })
+			          };
+			        }).ToArray();
+
+
+				$scope.dataDiscriminacaoOBTV = result;
 
 			}, function(reason) {
 			     alert("Erro ver console!")
