@@ -1,345 +1,459 @@
 <div ui-content-for="title">
-  <span>Detalhe</span>
+    <span>Detalhe</span>
 </div>
-
 <div class="scrollable">
-  <div class="scrollable-content">
-    <div class='section'>
-
-      <legend>Detalhe - Convênio: {{convenio.NR_CONVENIO}}</legend>
-
-      <ui-state id='activeTab' default='1'></ui-state>
-
-      <ul class="nav nav-tabs">
-        <li ui-class="{'active': activeTab == 1}">
-          <a ui-set="{'activeTab': 1}">Resumo</a>
-        </li>
-        <li ui-class="{'active': activeTab == 2}">
-          <a ui-set="{'activeTab': 2}">Geral</a>
-        </li>
-        <li ui-class="{'active': activeTab == 3}">
-          <a ui-set="{'activeTab': 3}">Análise</a>
-        </li>
-      </ul>
-
-      <div ui-if="activeTab == 1">
-        
-        
-
-         <div class="panel-group" ui-state='myAccordion'>
-            <div class="panel panel-default">
-              <div class="panel-heading" ui-set="{'myAccordion': 1}">
-
-                <h4 class="panel-title">
+    <div class="scrollable-content">
+        <div class='section'>
+            <legend>Detalhe - Convênio: {{convenio.NR_CONVENIO}}</legend>
+            <ui-state id='activeTab' default='1'></ui-state>
+            <ul class="nav nav-tabs">
+                <li ui-class="{'active': activeTab == 1}">
+                    <a ui-set="{'activeTab': 1}">Resumo</a>
+                </li>
+                <li ui-class="{'active': activeTab == 2}">
+                    <a ui-set="{'activeTab': 2}">Geral</a>
+                </li>
+                <li ui-class="{'active': activeTab == 3}">
+                    <a ui-set="{'activeTab': 3}">Análise</a>
+                </li>
+            </ul>
+            <div ui-if="activeTab == 1">
+                <div class="panel-group" ui-state='myAccordion'>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" ui-set="{'myAccordion': 1}">
+                            <h4 class="panel-title">
                     Dados
                 </h4>
-              </div>
-
-              <div ui-if="myAccordion == 1">
-                <div class="panel-body">
-                  <table class="table  table-responsive">
-                      <tr>
-                        <td>Órgão Concedente:</td>
-                        <td><em>{{ convenio.NM_ORGAO_CONCEDENTE }} </em></td>
-                      </tr>
-                      <tr>
-                        <td>Proponente:</td>
-                        <td>{{ convenio.NM_PROPONENTE }}</td>
-                      </tr>
-                        <td>CNPJ:</td>
-                        <td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
-                      <tr>
-                        <td>UF:</td>
-                        <td>{{ convenio.UF_PROPONENTE }}</td>
-                      </tr>
-                        <td>Situação:</td>
-                        <td>{{ convenio.TX_SITUACAO }}</td>
-                      <tr>
-                        <td>Vigência:</td>
-                        <td>{{ convenio.DT_INICIO_VIGENCIA }} - {{convenio.DT_FIM_VIGENCIA }}</td>
-                      </tr>
-                    </table>  
-                </div>
-              </div>
-            </div>
-
-            <div class="panel panel-default">
-              <div class="panel-heading" ui-set="{'myAccordion': 2}">
-
-                <h4 class="panel-title">
-                    Planejamento
-                </h4>
-              </div>
-
-              <div ui-if="myAccordion == 2">
-
-               <div class="panel-body">
-
-                 <ui-state id='activeSubTab' default='1'></ui-state>
-
-                <div class="btn-group justified nav-tabs">
-                  <a ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Consolidado</a>
-                  <a ng-click="requisitionPlano()" ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Detalhado</a>
-                </div>  
-
-              <div ui-if="activeSubTab == 1">
-                 <div class="panel-body">
-                     
-                      <div class="progress-wrapper">
-                        <div class="progressBar ng-cloak" class="progress" style="top: 50%; bottom: auto; left: 50%; transform: translateY(-50%) translateX(-50%);">{{remaining| number:1}}%</div>
-                        <div
-                              round-progress
-                              max="valorPlano"
-                              current="valorDesembolso"
-                              color="#45ccce"
-                              bgcolor="#eaeaea"
-                              radius="100"
-                              stroke="15"
-                              semi="false"
-                              rounded="false"
-                              clockwise="true"
-                              responsive="true"
-                              duration="800"
-                              animation="easeOutCubic"
-                              animation-delay="0">
-                            <svg>
-                                <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="5%"  stop-color="green"/>
-                                    <stop offset="95%" stop-color="gold"/>
-                                </linearGradient>
-                            </svg>
                         </div>
-           
-                    </div>
-
-                        <table class="table  table-responsive">
-                            <tr>
-                              <td>Valor Total do Convênio:</td>
-                              <td>{{ convenio.VL_GLOBAL }}</td>
-                            </tr>  
-                            <tr>
-                              <td>Valor do Repasse:</td>
-                              <td>{{ convenio.VL_REPASSE }}</td>
-                            </tr>
-                            <tr>
-                              <td>Valor de Contrapartida:</td>
-                              <td>{{ convenio.VL_CONTRAPARTIDA_TOTAL }}</td>
-                            </tr>
-                            <tr>
-                              <td>Valor Desembolsado:</td>
-                              <td>{{ convenio.VL_DESEMBOLSADO }}</td>
-                            </tr>
-                        </table> 
-                 </div>       
-                </div>
-              </div>
-
-               <div ui-if="activeSubTab == 2">
-                  <div class="panel-body">
-                      <div class="scrollable-content">
-                          <div class='section'>
-                              <table class="table  table-responsive">
-                                 <thead>
-                                 <tr>
-                                    <th>Natureza</th>
-                                    <th>Despesa</th>
-                                    <th>Valor</th>
-                                 </tr>
-                                 </thead>
-                                 <tbody>
-                                <tr ng-repeat="plano in planoAplicacao">
-                                  <td >{{ plano.TX_NATUREZAAQUISICAO }}</td>
-                                  <td>{{ plano.NM_NATUREZADESPESA }}</td>
-                                  <td>{{ plano.VL_TOTAL }}</td>
-                                </tr>
-                                </tbody>
-                                <tfoot>
-                                  <tr>
-                                    <th id="total" colspan="2">Total :</th>
-                                    <td>{{ totalPlano }}</td>
+                        <div ui-if="myAccordion == 1">
+                            <div class="panel-body">
+                                <table class="table  table-responsive">
+                                    <tr>
+                                        <td>Órgão Concedente:</td>
+                                        <td><em>{{ convenio.NM_ORGAO_CONCEDENTE }} </em></td>
                                     </tr>
                                     <tr>
-                                    <th id="totalCronograma" colspan="2">Total Cronograma:</th>
-                                    <td>{{ totalCronogramaFisico }}</td>
+                                        <td>Proponente:</td>
+                                        <td>{{ convenio.NM_PROPONENTE }}</td>
                                     </tr>
-
-                                </tfoot>
-                              </table>
-                          </div>  
-                        </div>  
-                  </div>    
-              </div>
-            </div>
-            </div>
-
-            <div class="panel panel-default">
-              <div class="panel-heading" ui-set="{'myAccordion': 3}">
-
-                <h4 class="panel-title">
+                                    <tr>
+                                        <td>CNPJ:</td>
+                                        <td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>UF:</td>
+                                        <td>{{ convenio.UF_PROPONENTE }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Situação:</td>
+                                        <td>{{ convenio.TX_SITUACAO }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vigência:</td>
+                                        <td>{{ convenio.DT_INICIO_VIGENCIA }} - {{convenio.DT_FIM_VIGENCIA }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Objeto do Convênio:</td>
+                                        <td><em>  {{ convenio.TX_OBJETO_CONVENIO }} </em></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Justificativa:</td>
+                                        <td> {{ convenio.TX_JUSTIFICATIVA }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" ui-set="{'myAccordion': 2}">
+                            <h4 class="panel-title">
+                    Planejamento
+                </h4>
+                        </div>
+                        <div ui-if="myAccordion == 2">
+                            <div class="panel-body">
+                                <ui-state id='activeSubTab' default='1'></ui-state>
+                                <div class="btn-group justified nav-tabs">
+                                    <a ng-click="requisitionPlano()" ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Plano Aplicação</a>
+                                    <a ng-click="requisitionCronogramaFisico()" ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Cronograma Físico</a>
+                                    <a ng-click="requisitionCronogramaDesembolso()" ui-set="{'activeSubTab': 3}" ui-class="{'active': activeSubTab == 3}" class="btn btn-default">Cronograma Desembolso</a>
+                                </div>
+                                <div ui-if="activeSubTab == 1">
+                                    <div class="panel-body">
+                                        <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
+                                        <div tc-chartjs-legend chart-legend="legend"></div>
+                                    </div>
+                                    <div class="section" ng-repeat="row in planoAplicacao">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            </div>
+                                            <div class="panel-body">
+                                                <table>
+                                                    <tr>
+                                                        <td>Tipo:</td>
+                                                        <td>{{ row.TP_DESPESA }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Natureza:</td>
+                                                        <td><em>{{ row.NM_NATUREZADESPESA }} </em></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Descrição:</td>
+                                                        <td>{{ row.TX_DESCRICAODESPESA }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Valor Total:</td>
+                                                        <td>{{ row.VL_TOTAL }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Valor Unitário:</td>
+                                                        <td>{{ row.VL_UNITARIO }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Quantidade:</td>
+                                                        <td>{{ row.QD_NATUREZADESPESA }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ui-if="activeSubTab == 2">
+                            <div class="panel-body">
+                                <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
+                                <div tc-chartjs-legend chart-legend="legend"></div>
+                            </div>
+                            <div class="section" ng-repeat="row in cronogramaFisico">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                    </div>
+                                    <div class="panel-body">
+                                        <table>
+                                            <tr>
+                                                <td>Especificação:</td>
+                                                <td>{{ row.TX_ESPECIFICACAO }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data Início:</td>
+                                                <td>{{ row.DT_INICIO }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data Término:</td>
+                                                <td>{{ row.DT_TERMINO }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Valor Meta:</td>
+                                                <td>{{ row.VL_META }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ui-if="activeSubTab == 3">
+                            <div class="panel-body">
+                                <canvas tc-chartjs-line chart-options="optionsLine" chart-data="dataCronogramaDesembolso" chart-legend="legend"></canvas>
+                                <div tc-chartjs-legend chart-legend="legend"></div>
+                            </div>
+                            <div class="section" ng-repeat="row in cronogramaDesembolso">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                    </div>
+                                    <div class="panel-body">
+                                        <table>
+                                            <tr>
+                                                <td>Tipo:</td>
+                                                <td><em>{{ row.TX_TIPO }} </em></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data:</td>
+                                                <td>{{ row.Data }}</td>
+                                            </tr>
+                                            <td>Valor:</td>
+                                            <td>{{ row.VL_PARCELA }}</td>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" ui-set="{'myAccordion': 4}">
+                        <h4 class="panel-title">
                     Execução
                 </h4>
-              </div>
-
-              <div ui-if="myAccordion == 3">
-
-               <div class="panel-body">
-
-                 <ui-state id='activeSubTab' default='1'></ui-state>
-
-                <div class="btn-group justified nav-tabs">
-                  <a ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Consolidado</a>
-                  <a ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Detalhado</a>
-                </div>  
-
-              <div ui-if="activeSubTab == 1">
-                 <div class="panel-body">
-                     
-                      <div class="progress-wrapper">
-                        <div class="progressBar ng-cloak" class="progress" style="top: 50%; bottom: auto; left: 50%; transform: translateY(-50%) translateX(-50%);">{{remaining| number:1}}%</div>
-                        <div
-                              round-progress
-                              max="valorPlano"
-                              current="valorDesembolso"
-                              color="#45ccce"
-                              bgcolor="#eaeaea"
-                              radius="100"
-                              stroke="15"
-                              semi="false"
-                              rounded="false"
-                              clockwise="true"
-                              responsive="true"
-                              duration="800"
-                              animation="easeOutCubic"
-                              animation-delay="0">
-                            <svg>
-                                <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="5%"  stop-color="green"/>
-                                    <stop offset="95%" stop-color="gold"/>
-                                </linearGradient>
-                            </svg>
-                        </div>
-           
                     </div>
-
-                        <table class="table  table-responsive">
-                            <tr>
-                              <td>Valor Total do Convênio:</td>
-                              <td>{{ convenio.VL_GLOBAL }}</td>
-                            </tr>  
-                            <tr>
-                              <td>Valor do Repasse:</td>
-                              <td>{{ convenio.VL_REPASSE }}</td>
-                            </tr>
-                            <tr>
-                              <td>Valor de Contrapartida:</td>
-                              <td>{{ convenio.VL_CONTRAPARTIDA_TOTAL }}</td>
-                            </tr>
-                            <tr>
-                              <td>Valor Desembolsado:</td>
-                              <td>{{ convenio.VL_DESEMBOLSADO }}</td>
-                            </tr>
-                        </table> 
-                 </div>       
+                    <div ui-if="myAccordion == 4">
+                        <div class="panel-body">
+                            <ui-state id='activeSubTab' default='1'></ui-state>
+                            <div class="btn-group justified nav-tabs">
+                                <a ng-click="requisitionExecucaoFinanceira()" ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Execução Financeira</a>
+                                <a ng-click="requisitionDocumentoLiquidacao()" ui-set="{'activeSubTab': 3}" ui-class="{'active': activeSubTab == 3}" class="btn btn-default">Documento Liquidação</a>
+                                <a ng-click="requisitionPagamentoOBTV()" ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Pagamento OBTV</a>      
+                                <a ng-click="requisitionDiscriminacaoOBTV()" ui-set="{'activeSubTab': 4}" ui-class="{'active': activeSubTab == 4}" class="btn btn-default">Discriminação OBTV</a>                                
+                            </div>
+                            <div ui-if="activeSubTab == 1">
+                                <div class="panel-body">
+                                    <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
+                                    <div tc-chartjs-legend chart-legend="legend"></div>
+                                </div>
+                                <div class="section" ng-repeat="row in execucaoFinanceira">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                        </div>
+                                        <div class="panel-body">
+                                            <table>
+                                                <tr>
+                                                    <td>Data:</td>
+                                                    <td>{{ row.DT_DESEMBOLSO }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Valor:</td>
+                                                    <td><em>{{ row.VL_DESEMBOLSADO }} </em></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Núm. SIAFI:</td>
+                                                    <td>{{ row.NR_SIAFI }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-if="activeSubTab == 2">
+                        <div class="panel-body">
+                            <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>
+                        <div class="section" ng-repeat="row in pagamentoOBTV">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="panel-body">
+                                    <table>
+                                        <tr>
+                                            <td>Situação:</td>
+                                            <td>{{ row.TX_SITUACAO_MOVIMENTACAO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Movimentação Financeira:</td>
+                                            <td>{{ row.NR_MOVIMENTACAO_FINANCEIRA }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Data Movimentação:</td>
+                                            <td>{{ row.DT_INCLUSAO_MOV_FINANCEIRA }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gestor Financeiro:</td>
+                                            <td>{{ row.NM_GESTOR_FINANCEIRO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ident. Gestor Financeiro:</td>
+                                            <td>{{ row.CPF_GESTOR_FINANCEIRO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ordenador Despesa:</td>
+                                            <td>{{ row.NM_ORDENADOR_DESPESA }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ident. Ordenador Despesa:</td>
+                                            <td>{{ row.CPF_ORDENADOR_DESPESA }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Valor:</td>
+                                            <td>{{ row.VL_PAGAMENTO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Doc. Liquidação:</td>
+                                            <td>{{ row.ID_DOCLIQUIDACAO }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-if="activeSubTab == 3">
+                        <div class="panel-body">
+                            <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>
+                        <div class="section" ng-repeat="row in documentoLiquidacao">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="panel-body">
+                                    <table>
+                                        <tr>
+                                            <td>Forma Pagamento:</td>
+                                            <td><em>{{ row.TX_FORMA_PAGAMENTO }} </em></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Favorecido:</td>
+                                            <td><em>{{ row.NM_IDENTIF_FAVORECIDO_DL }} </em></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ident. Favorecido:</td>
+                                            <td><em>{{ row.CD_IDENTIF_FAVORECIDO_DL }} </em></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipo:</td>
+                                            <td>{{ row.TP_DOCUMENTO_LIQUIDACAO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Data Saída:</td>
+                                            <td>{{ row.DT_SAIDA_DL }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Valor Bruto:</td>
+                                            <td>{{ row.VL_BRUTO_DL }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Valor Líquido:</td>
+                                            <td>{{ row.VL_BRUTO_DL }}</td>
+                                        </tr>                                        
+                                        <tr>
+                                            <td>Doc. Liquidação:</td>
+                                            <td>{{ row.ID_DOCLIQUIDACAO }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-if="activeSubTab == 4">
+                        <div class="panel-body">
+                            <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>
+                        <div class="section" ng-repeat="row in discriminacaoOBTV">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="panel-body">
+                                    <table>
+                                        
+                                        <tr>
+                                            <td>Movimentação Financeira:</td>
+                                            <td>{{ row.NR_MOVIMENTACAO_FINANCEIRA }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Valor:</td>
+                                            <td>{{ row.VL_PAGAMENTO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Favorecido:</td>
+                                            <td>{{ row.NM_FAVORECIDO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ident. Favorecido:</td>
+                                            <td>{{ row.NR_IDENTIF_FAVORECIDO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipo Favorecido:</td>
+                                            <td>{{ row.TP_IDENTIF_FAVORECIDO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipo Aquisição:</td>
+                                            <td>{{ row.TX_TIPO_AQUISICAO }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Descrição:</td>
+                                            <td>{{ row.TX_DESCRICAO_ITEM }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipo:</td>
+                                            <td>{{ row.TX_TIPO_DOCUMENTO_ITEM }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-               <div ui-if="activeSubTab == 2">
-                  <div class="panel-body">
-                      <div class="scrollable-content">
-                          <div class='section'>
-                              <table class="table  table-responsive">
-                                 <tr>
-                                    <th>Tipo</th>
-                                    <th>Data</th>
-                                    <th>Valor</th>
-                                 </tr>
-                                <tr ng-repeat="detalheValor in convenio.PagamentoOBTVs">
-                                  <td >{{ detalheValor.TX_TIPO_MOVIMENTACAO }}</td>
-                                  <td>{{ detalheValor.DT_INCLUSAO_MOV_FINANCEIRA }}</td>
-                                  <td>{{ detalheValor.VL_PAGAMENTO }}</td>
-                                </tr>
-                              </table>
-                          </div>  
-                        </div>  
-                  </div>    
-              </div>
             </div>
-            </div>
-
-             <div class="panel panel-default">
-              <div class="panel-heading" ui-set="{'myAccordion': 4}">
-
-                <h4 class="panel-title">
-                    Objeto
+            <div class="panel panel-default">
+                <div class="panel-heading" ui-set="{'myAccordion': 3}">
+                    <h4 class="panel-title">
+                    Valores
                 </h4>
-              </div>
-
-
-              <div ui-if="myAccordion == 4">
-                <div class="panel-body">
-                  <table class="table  table-responsive">
-                      <tr>
-                        <td>Objeto do Convênio:</td>
-                        <td><em>  {{ convenio.TX_OBJETO_CONVENIO }} </em></td>
-                      </tr>
-                      <tr>
-                        <td>Cumprimento do Objeto:</td>
-                        <td>  {{ convenio.TX_JUSTIFICATIVA }}</td>
-                      </tr>
-                    </table>  
                 </div>
+                <div ui-if="myAccordion == 3">
+                    <div class="panel-body">
+                        <ui-state id='activeSubTab' default='1'></ui-state>
+                        <div class="btn-group justified nav-tabs">
+                            <a ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Consolidado</a>
+                            <a ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Detalhado</a>
+                        </div>
+                        <div ui-if="activeSubTab == 1">
+                            <div class="panel-body">
+                                <div class="progress-wrapper">
+                                    <div class="progressBar ng-cloak" class="progress" style="top: 50%; bottom: auto; left: 50%; transform: translateY(-50%) translateX(-50%);">{{remaining| number:1}}%</div>
+                                    <div round-progress max="valorPlano" current="valorDesembolso" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="15" semi="false" rounded="false" clockwise="true" responsive="true" duration="800" animation="easeOutCubic" animation-delay="0">
+                                        <svg>
+                                            <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+                                                <stop offset="5%" stop-color="green" />
+                                                <stop offset="95%" stop-color="gold" />
+                                            </linearGradient>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <table class="table  table-responsive">
+                                    <tr>
+                                        <td>Valor Total do Convênio:</td>
+                                        <td>{{ convenio.VL_GLOBAL }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor do Repasse:</td>
+                                        <td>{{ convenio.VL_REPASSE }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor de Contrapartida:</td>
+                                        <td>{{ convenio.VL_CONTRAPARTIDA_TOTAL }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor Desembolsado:</td>
+                                        <td>{{ convenio.VL_DESEMBOLSADO }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-if="activeSubTab == 2">
+                        <div class="panel-body">
+                            <div class="scrollable-content">
+                                <div class='section'>
+                                    <table class="table  table-responsive">
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Data</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                        <tr ng-repeat="detalheValor in convenio.PagamentoOBTVs">
+                                            <td>{{ detalheValor.TX_TIPO_MOVIMENTACAO }}</td>
+                                            <td>{{ detalheValor.DT_INCLUSAO_MOV_FINANCEIRA }}</td>
+                                            <td>{{ detalheValor.VL_PAGAMENTO }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-               <div class="panel panel-default">
-              <div class="panel-heading" ui-set="{'myAccordion': 5}">
-
-                <h4 class="panel-title">
-                    Metas
-                </h4>
-              </div>
-
-              <div ui-if="myAccordion == 5">
-                <div class="panel-body">
-                  <table>
-                      <tr>
-                        <td>Cumpridas:
-                        <ul>
-                          <li ng-if="checkDate(metas.DT_TERMINO)" ng-repeat="metas in convenio.CronogramaFisicoPTs" >
-                              {{ metas.TX_ESPECIFICACAO }} - Data: {{metas.DT_TERMINO}}
-                          </li>
-                        </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Não Cumpridas:
-                        <li ng-if="!checkDate(metas.DT_TERMINO)" ng-repeat="metas in convenio.CronogramaFisicoPTs" >
-                              {{ metas.TX_ESPECIFICACAO }} - Data: {{metas.DT_TERMINO}}
-                          </li>
-                        </td>
-                        
-                      </tr>
-                    </table>  
-                </div>
-                </div>
-              </div>
             </div>
         </div>
-
-
-      </div>
-
-      <div ui-if="activeTab == 2">
-        <h3 class="page-header">Geral</h3>
-        <p>TESTE22222222222222</p>
-      </div>
-
-      <div ui-if="activeTab == 3">
-        <h3 class="page-header">Análise</h3>
-        <p>TESTE33333333333333</p>
-      </div>
-
     </div>
-
-  </div>
+</div>
+<div ui-if="activeTab == 2">
+    <h3 class="page-header">Geral</h3>
+    <p>TESTE22222222222222</p>
+</div>
+<div ui-if="activeTab == 3">
+    <h3 class="page-header">Análise</h3>
+    <p>TESTE33333333333333</p>
+</div>
 </div>
