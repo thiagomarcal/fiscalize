@@ -1,4 +1,4 @@
-myApp.controller('DetalheController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, convenios)  {
+myApp.controller('DetalheController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache)  {
 
 	//Parametros
 	$scope.params = $routeParams;

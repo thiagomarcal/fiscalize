@@ -1,18 +1,20 @@
-myApp.controller('HomeController', function($scope, $timeout , $http, $location, $stateParams, requisicaoFactory)  {
+myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, convenios, $cordovaDevice)  {
 
 	// Page Initial Value
 	page = 1;
 
-	// Page Size Const Value
+	// Const Values
 	PAGESIZE = 10;
-
 	ADDRESS= 'http://74.124.24.115:8080'
+	COLLECTION = 'ConveniosProgramasFTS'
 
 	// Requisition Home 
 	$scope.home = function() {
-		$scope.convenios = [];
-		$scope.url = '/hackathon/ConveniosProgramas?count&page='+ page +'&pagesize='+ PAGESIZE +'&hal=f';
-		$scope.requisition();
+		if (angular.isUndefined($scope.convenios)) {
+			$scope.convenios = [];
+			$scope.url = '/hackathon/'+COLLECTION+'?count&page='+ page +'&pagesize='+ PAGESIZE +'&hal=f';
+			$scope.requisition();
+		};
 	}
 
 	// Requisition Search 
@@ -23,9 +25,8 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 		else {
 			$scope.convenios = [];
 			estado = angular.isUndefined($scope.estadoSelecionado)?"":$scope.estadoSelecionado.UF_PROPONENTE; 
-			$scope.url = '/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"},UF_PROPONENTE:{$regex:"'+ estado +'"}}&sort_by=DT_INICIO_VIGENCIA&hal=f';
-			// 'http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS?count&page=1&pagesize=10&filter={CD_ORGAO_SUPERIOR:%20,UF_PROPONENTE:%22RJ%22,NM_MUNICIPIO_PROPONENTE:%22MESQUITA%22,$text:{$search:%22cancer%22}},{score:{$meta:%22textScore%22}}&sort_by={score:{$meta:%22textScore%22}}&sort_by=DT_INICIO_VIGENCIA'
-			// $scope.url = 'http://74.124.24.115:8080/hackathon/ConveniosProgramas?count&page='+page+'&pagesize='+PAGESIZE+'&filter={$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA';
+			ministerio = angular.isUndefined($scope.ministerioSelecionado)?"":$scope.ministerioSelecionado.NM_ORGAO_SUPERIOR; 
+			$scope.url = '/hackathon/'+COLLECTION+'?count&page='+page+'&pagesize='+PAGESIZE+'&filter={UF_PROPONENTE:{$regex:"'+ estado +'"},NM_ORGAO_SUPERIOR:{$regex:"'+ ministerio +'"},$text:{$search:"'+$scope.searchParam+'"}}&sort_by=DT_INICIO_VIGENCIA&hal=f';
 			$scope.requisition();
 		};
 
@@ -55,6 +56,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 				    	angular.forEach(convenios_temp, function(value, key) {
 				    		$scope.convenios.push(value);
 						});	
+
 					};	
 
 					$scope.url = angular.isDefined(result._links.next.href)?result._links.next.href: null;
@@ -100,12 +102,50 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			})
 	}
 
+	$scope.fiscalizar = function(convenio) {
+
+		convenio_fiscalizado = {};
+		convenio_fiscalizado.NR_CONVENIO = convenio.NR_CONVENIO;
+		convenio_fiscalizado.NM_ORGAO_SUPERIOR = convenio.NM_ORGAO_SUPERIOR;
+		convenio_fiscalizado.TX_SITUACAO = convenio.TX_SITUACAO;
+		convenio_fiscalizado.DT_INICIO_VIGENCIA = convenio.DT_INICIO_VIGENCIA;
+		convenio_fiscalizado.DT_FIM_VIGENCIA = convenio.DT_FIM_VIGENCIA;
+		convenio_fiscalizado.VL_GLOBAL = convenio.VL_GLOBAL;
+
+		// Create Post Object
+		$scope.fiscalizado = {};
+		$scope.fiscalizado.uuid = $scope.uuid;
+		$scope.fiscalizado.convenio = convenio_fiscalizado;
+		$scope.fiscalizado.situacao = 1;
+		$scope.fiscalizado.dt_updated = new Date();
+
+
+
+		//Post Requisition
+		requisicaoFactory.postRequest(ADDRESS+'/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
+			alert('UUID: '+ $scope.fiscalizado.uuid +' Fiscalizando Convenio: ' +  $scope.fiscalizado.convenio.NR_CONVENIO);
+		}, function(reason) {
+		    alert("Erro ver console!")
+		    console.log("reason:", reason);
+		    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+		}, function(update) {
+		    console.log("update:", update);
+		})
+	}
+
+ 	
+	// Capture Mobile UUID
+	document.addEventListener("deviceready", function () {
+		$scope.uuid = $cordovaDevice.getUUID();
+		if (angular.isUndefined($scope.uuid) || $scope.uuid == null) {
+			$scope.uuid = 'b07b42e74b01efed'
+		};
+	}, false);
 
 
 	// Initial Call Home
 	$scope.home();
 	$scope.requisitionEstados();
 	$scope.requisitionMinisterios();
-
 
 });
