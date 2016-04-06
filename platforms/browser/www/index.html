@@ -64,8 +64,8 @@
 
 		            <div id="fiscalizadosRightSideBar" class="scrollable-content">
     					<div class="list-group">
-      						<a ng-repeat="fiscalizado in fiscalizados" href="#" class="list-group-item">
-        						{{ fiscalizado.convenio.NR_CONVENIO }} <i class="fa fa-chevron-right pull-right"></i>
+      						<a ng-repeat="fiscalizado in fiscalizados" ng-click="atualizaData(fiscalizado)" class="list-group-item" >
+        						{{ fiscalizado.convenio.NR_CONVENIO }} <i class="fa fa-exclamation pull-right" ng-show="fiscalizado.recente" ></i>
       						</a>
     					</div>
   					</div>

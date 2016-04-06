@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, convenios, $cordovaDevice)  {
+myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory,$cordovaDevice, myCache, Fiscalizados)  {
 
 	// Page Initial Value
 	page = 1;
@@ -102,6 +102,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			})
 	}
 
+
 	$scope.fiscalizar = function(convenio) {
 
 		convenio_fiscalizado = {};
@@ -114,7 +115,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 
 		// Create Post Object
 		$scope.fiscalizado = {};
-		$scope.fiscalizado.uuid = $scope.uuid;
+		$scope.fiscalizado.uuid = myCache.get('uuid');
 		$scope.fiscalizado.convenio = convenio_fiscalizado;
 		$scope.fiscalizado.situacao = 1;
 		$scope.fiscalizado.dt_updated = new Date();
@@ -124,6 +125,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 		//Post Requisition
 		requisicaoFactory.postRequest(ADDRESS+'/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
 			alert('UUID: '+ $scope.fiscalizado.uuid +' Fiscalizando Convenio: ' +  $scope.fiscalizado.convenio.NR_CONVENIO);
+
 		}, function(reason) {
 		    alert("Erro ver console!")
 		    console.log("reason:", reason);
@@ -132,17 +134,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 		    console.log("update:", update);
 		})
 	}
-
  	
-	// Capture Mobile UUID
-	document.addEventListener("deviceready", function () {
-		$scope.uuid = $cordovaDevice.getUUID();
-		if (angular.isUndefined($scope.uuid) || $scope.uuid == null) {
-			$scope.uuid = 'b07b42e74b01efed'
-		};
-	}, false);
-
-
 	// Initial Call Home
 	$scope.home();
 	$scope.requisitionEstados();
