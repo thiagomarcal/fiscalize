@@ -304,7 +304,7 @@ $scope.getRandomColor = function () {
       segmentStrokeWidth : 2,
 
       //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout : 50, // This is 0 for Pie charts
+      percentageInnerCutout : 0, // This is 0 for Pie charts
 
       //Number - Amount of animation steps
       animationSteps : 100,
@@ -322,7 +322,7 @@ $scope.getRandomColor = function () {
       animateScale : false,
 
       //String - A legend template
-      legendTemplate : '<ul class="tc-chart-js-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+      legendTemplate : '<ul class="tc-chart-js-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%console.log(segments[i]);if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
 
     };
 

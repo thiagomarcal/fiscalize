@@ -73,14 +73,14 @@
                         <div ui-if="myAccordion == 2">
                             <div class="panel-body">
                                 <ui-state id='activeSubTab' default='1'></ui-state>
-                                <div class="btn-group justified nav-tabs">
+                                <div class="btn-group nav-tabs">
                                     <a ng-click="requisitionPlano()" ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Plano Aplicação</a>
                                     <a ng-click="requisitionCronogramaFisico()" ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Cronograma Físico</a>
                                     <a ng-click="requisitionCronogramaDesembolso()" ui-set="{'activeSubTab': 3}" ui-class="{'active': activeSubTab == 3}" class="btn btn-default">Cronograma Desembolso</a>
                                 </div>
                                 <div ui-if="activeSubTab == 1">
                                     <div class="panel-body">
-                                        <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
+                                        <canvas tc-chartjs-pie chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
                                         <div tc-chartjs-legend chart-legend="legend"></div>
                                     </div>
                                     <div class="section" ng-repeat="row in planoAplicacao">
@@ -122,7 +122,7 @@
                         </div>
                         <div ui-if="activeSubTab == 2">
                             <div class="panel-body">
-                                <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
+                                <canvas tc-chartjs-pie chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                             <div class="section" ng-repeat="row in cronogramaFisico">
@@ -181,23 +181,23 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading" ui-set="{'myAccordion': 4}">
+                    <div class="panel-heading" ui-set="{'myAccordion': 3}">
                         <h4 class="panel-title">
                     Execução
                 </h4>
                     </div>
-                    <div ui-if="myAccordion == 4">
+                    <div ui-if="myAccordion == 3">
                         <div class="panel-body">
                             <ui-state id='activeSubTab' default='1'></ui-state>
-                            <div class="btn-group justified nav-tabs">
+                            <div class="btn-group nav-tabs">
                                 <a ng-click="requisitionExecucaoFinanceira()" ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Execução Financeira</a>
                                 <a ng-click="requisitionDocumentoLiquidacao()" ui-set="{'activeSubTab': 3}" ui-class="{'active': activeSubTab == 3}" class="btn btn-default">Documento Liquidação</a>
-                                <a ng-click="requisitionPagamentoOBTV()" ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Pagamento OBTV</a>      
-                                <a ng-click="requisitionDiscriminacaoOBTV()" ui-set="{'activeSubTab': 4}" ui-class="{'active': activeSubTab == 4}" class="btn btn-default">Discriminação OBTV</a>                                
+                                <a ng-click="requisitionPagamentoOBTV()" ui-set="{'activeSubTab': 2}" ui-class="{'active': activeSubTab == 2}" class="btn btn-default">Pagamento OBTV</a>
+                                <a ng-click="requisitionDiscriminacaoOBTV()" ui-set="{'activeSubTab': 4}" ui-class="{'active': activeSubTab == 4}" class="btn btn-default">Discriminação OBTV</a>
                             </div>
                             <div ui-if="activeSubTab == 1">
                                 <div class="panel-body">
-                                    <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
+                                    <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
                                     <div tc-chartjs-legend chart-legend="legend"></div>
                                 </div>
                                 <div class="section" ng-repeat="row in execucaoFinanceira">
@@ -227,7 +227,7 @@
                     </div>
                     <div ui-if="activeSubTab == 2">
                         <div class="panel-body">
-                            <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
+                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                         <div class="section" ng-repeat="row in pagamentoOBTV">
@@ -279,7 +279,7 @@
                     </div>
                     <div ui-if="activeSubTab == 3">
                         <div class="panel-body">
-                            <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
+                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                         <div class="section" ng-repeat="row in documentoLiquidacao">
@@ -315,7 +315,7 @@
                                         <tr>
                                             <td>Valor Líquido:</td>
                                             <td>{{ row.VL_BRUTO_DL }}</td>
-                                        </tr>                                        
+                                        </tr>
                                         <tr>
                                             <td>Doc. Liquidação:</td>
                                             <td>{{ row.ID_DOCLIQUIDACAO }}</td>
@@ -327,7 +327,7 @@
                     </div>
                     <div ui-if="activeSubTab == 4">
                         <div class="panel-body">
-                            <canvas tc-chartjs-doughnut chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
+                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                         <div class="section" ng-repeat="row in discriminacaoOBTV">
@@ -336,7 +336,6 @@
                                 </div>
                                 <div class="panel-body">
                                     <table>
-                                        
                                         <tr>
                                             <td>Movimentação Financeira:</td>
                                             <td>{{ row.NR_MOVIMENTACAO_FINANCEIRA }}</td>
@@ -377,12 +376,12 @@
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading" ui-set="{'myAccordion': 3}">
+                <div class="panel-heading" ui-set="{'myAccordion': 4}">
                     <h4 class="panel-title">
                     Valores
                 </h4>
                 </div>
-                <div ui-if="myAccordion == 3">
+                <div ui-if="myAccordion == 4">
                     <div class="panel-body">
                         <ui-state id='activeSubTab' default='1'></ui-state>
                         <div class="btn-group justified nav-tabs">
