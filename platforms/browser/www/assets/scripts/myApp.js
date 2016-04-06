@@ -2,11 +2,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-sv
 
 myApp.config(function($routeProvider) {
     $routeProvider
-	.when('/', {
-	    templateUrl: 'components/splash/splash.html',
-	    controller: 'SplashController'
-	    })
-    .when('/home', {
+    .when('/', {
         templateUrl: 'components/home/home.html',
         controller: 'HomeController'
         })
@@ -25,4 +21,39 @@ myApp.config(function($routeProvider) {
 // Set up the cache ‘myCache’
 myApp.factory('myCache', function($cacheFactory) {
     return $cacheFactory('myData');
+});
+
+
+
+myApp.factory("Fiscalizados", function () {
+
+    var listaFiscalizados = [];
+    
+     function getLista() {
+        return listaFiscalizados;
+    }
+    function setLista(newlistaFiscalizados) {
+        listaFiscalizados = newlistaFiscalizados;
+    }
+    return {
+        getLista: getLista,
+        setLista: setLista,
+    }
+});
+
+myApp.run(function(myCache, $cordovaDevice) {
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady () {
+
+        //Capture Mobile UUID
+        var uuid = $cordovaDevice.getUUID();
+        if (angular.isUndefined(uuid) || uuid == null) {
+            uuid = 'b07b42e74b01efed'
+        };
+        myCache.put('uuid', uuid);
+    }
+
+    console.log(myCache.get('uuid'));
 });
