@@ -56,7 +56,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			            color: $scope.getRandomColor(),
 			            value: x.Sum(function(y){ return y["VL_TOTAL_FLOAT"]|0; })
 			          };
-			        }).ToArray();
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
 
 
 				$scope.dataPlanoAplicacao = result;
@@ -209,6 +209,41 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			})
 	}
 
+	$scope.requisitionEmpenhos = function() {
+
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/Empenhos?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				$scope.empenhos = angular.fromJson(result._embedded["rh:doc"]);
+
+				angular.forEach($scope.empenhos, function(value, key) {
+					if (angular.isDefined(value.VL_NOTA_EMPENHO) || value.VL_NOTA_EMPENHO != null) {
+				    	value.VL_NOTA_EMPENHO_FLOAT = parseFloat(value.VL_NOTA_EMPENHO.replace(/[^0-9\,]+/g,""));
+				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
+					};
+				});	
+
+				var linq = Enumerable.From($scope.empenhos);
+				var result =
+			    linq.GroupBy(function(x){ return x["DT_EMISSAO_EMPENHO"]; })
+			        .Select(function(x){
+			          return {
+			            label: x.Key(),
+			            color: $scope.getRandomColor(),
+			            value: x.Sum(function(y){ return y["VL_NOTA_EMPENHO_FLOAT"]|0; })
+			          };
+			        }).ToArray();
+
+
+				$scope.dataEmpenhos = result;
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
 	$scope.requisitionDocumentoLiquidacao = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/DocumentoLiquidacao?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
@@ -322,7 +357,7 @@ $scope.getRandomColor = function () {
       animateScale : false,
 
       //String - A legend template
-      legendTemplate : '<ul class="tc-chart-js-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%console.log(segments[i]);if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+      legendTemplate : '<ul class="tc-chart-js-legend"><% var totalValue = 0; for (var j=0; j<segments.length; j++){ totalValue+= segments[j].value; } for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%console.log(segments[i]);if(segments[i].label){%><%=segments[i].label%> - R$ <%=segments[i].value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")%> - <%=((segments[i].value / totalValue).toFixed(4)*100).toFixed(2).toString().replace(".", ",")%>% <%}%></li><%}%></ul>'
 
     };
 
