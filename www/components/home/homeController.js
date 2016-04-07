@@ -127,7 +127,7 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 			alert('UUID: '+ $scope.fiscalizado.uuid +' Fiscalizando Convenio: ' +  $scope.fiscalizado.convenio.NR_CONVENIO);
 
 		}, function(reason) {
-		    alert("Erro ver console!")
+		    alert("Convenio já está sendo Fiscalizado!")
 		    console.log("reason:", reason);
 		    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
 		}, function(update) {
