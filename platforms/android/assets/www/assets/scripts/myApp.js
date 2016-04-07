@@ -25,21 +25,32 @@ myApp.factory('myCache', function($cacheFactory) {
 
 
 
-myApp.factory("Fiscalizados", function () {
-
-    var listaFiscalizados = [];
+myApp.service("Fiscalizados", function (myCache, $http) {
     
      function getLista() {
-        return listaFiscalizados;
-    }
-    function setLista(newlistaFiscalizados) {
-        listaFiscalizados = newlistaFiscalizados;
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Fiscalizados?filter={uuid:"'+ myCache.get('uuid') +'"},{situacao:1}&hal=f'
+        });
     }
     return {
         getLista: getLista,
-        setLista: setLista,
     }
 });
+
+myApp.service("Convenios", function (myCache, $http) {
+    
+     function getListaFilter(filter) {
+        return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS"+filter
+        });
+    }
+    return {
+        getListaFilter: getListaFilter,
+    }
+});
+
 
 myApp.run(function(myCache, $cordovaDevice) {
 
