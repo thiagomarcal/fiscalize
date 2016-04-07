@@ -62,7 +62,7 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 			var config = {headers: {'If-Match': fiscalizado._etag.$oid}};
 
 			Fiscalizados.updateDate(fiscalizado._id.$oid, fiscalizado._etag.$oid, $scope.data).then(function (result){
-				console.log('UUID: '+ myCache.get('uuid') +' Convenio: ' +  fiscalizado.convenio.NR_CONVENIO + 'Atualizado!');
+				console.log('Data - UUID: '+ myCache.get('uuid') +' Convenio: ' +  fiscalizado.convenio.NR_CONVENIO + ' foi atualizado!');
 			});   	  
 	}
 
@@ -80,6 +80,10 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 		$scope.atualizaFiscalizado(fiscalizado);
 		$scope.verificaRecentes();
 		$location.path('/detalhe/'+fiscalizado.convenio.NR_CONVENIO);
+	}
+
+	$scope.abrirChat = function(fiscalizado) {
+		$location.path('/chat/'+fiscalizado.convenio.NR_CONVENIO)
 	}
 
 	$scope.requisitionFiscalizados();

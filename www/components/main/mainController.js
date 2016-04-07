@@ -82,6 +82,10 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 		$location.path('/detalhe/'+fiscalizado.convenio.NR_CONVENIO);
 	}
 
+	$scope.abrirChat = function(fiscalizado) {
+		$location.path('/chat/'+fiscalizado.convenio.NR_CONVENIO)
+	}
+
 	$scope.requisitionFiscalizados();
 
 });

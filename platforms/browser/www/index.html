@@ -35,6 +35,12 @@
 <script type="text/javascript" src="components/denuncia/denunciaController.js"></script>
 <script type="text/javascript" src="components/detalhe/detalheController.js"></script>
 <script type="text/javascript" src="components/main/mainController.js"></script>
+<script type="text/javascript" src="components/chat/chatController.js"></script>
+
+<script src="bower_components/moment/moment.js"></script>
+<link rel="stylesheet" href="bower_components/angular-simple-chat/dist/angular-simple-chat.min.css">
+<script src="bower_components/angular-simple-chat/dist/angular-simple-chat.min.js"></script>
+
 
 </head>
 
@@ -64,9 +70,17 @@
 
 		            <div id="fiscalizadosRightSideBar" class="scrollable-content">
     					<div class="list-group">
-      						<a ng-repeat="fiscalizado in fiscalizados" ng-click="atualizaData(fiscalizado)" class="list-group-item" >
-        						{{ fiscalizado.convenio.NR_CONVENIO }} <i class="fa fa-exclamation pull-right" ng-show="fiscalizado.recente" ></i>
-      						</a>
+    						<div ng-repeat="fiscalizado in fiscalizados">
+	      						<span  class="list-group-item" >
+
+	      							<span class="pull-left" ng-show="fiscalizado.recente">
+  										<i class="fa fa-exclamation fa-lg text-danger"></i> 
+  									</span>
+  									&nbsp;
+  									<a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO }}</a>	
+        							<a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
+      							</span>
+      						</div>	
     					</div>
   					</div>
 

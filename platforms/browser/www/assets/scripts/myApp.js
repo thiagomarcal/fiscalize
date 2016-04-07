@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat']);
 
 myApp.config(function($routeProvider) {
     $routeProvider
@@ -13,6 +13,10 @@ myApp.config(function($routeProvider) {
     .when('/detalhe/:convenioId', {
         templateUrl: 'components/detalhe/detalhe.html',
         controller: 'DetalheController'
+        })
+    .when('/chat/:convenioId', {
+        templateUrl: 'components/chat/chat.html',
+        controller: 'ChatController'
         });
 });
 
