@@ -81,7 +81,12 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			            value.value = value.VL_META_FLOAT;
 				});	
 
-				$scope.dataCronogramaFisico = $scope.cronogramaFisico;
+
+				var linq = Enumerable.From($scope.cronogramaFisico);
+
+				var result = linq.OrderByDescending(function (x) { return x.value }).ToArray();
+
+				$scope.dataCronogramaFisico = result;
 
 			}, function(reason) {
 			     alert("Erro ver console!")
@@ -153,14 +158,14 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				var linq = Enumerable.From($scope.execucaoFinanceira);
 				var result =
-			    linq.GroupBy(function(x){ return x["DT_DESEMBOLSO"]; })
+			    linq.GroupBy(function(x){ return x["DT_DESEMBOLSO"].substring(3, 10); })
 			        .Select(function(x){
 			          return {
 			            label: x.Key(),
 			            color: $scope.getRandomColor(),
 			            value: x.Sum(function(y){ return y["VL_DESEMBOLSADO_FLOAT"]|0; })
 			          };
-			        }).ToArray();
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
 
 
 				$scope.dataExecucaoFinanceira = result;
@@ -188,14 +193,14 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				var linq = Enumerable.From($scope.pagamentoOBTV);
 				var result =
-			    linq.GroupBy(function(x){ return x["DT_INCLUSAO_MOV_FINANCEIRA"]; })
+			    linq.GroupBy(function(x){ return x["DT_INCLUSAO_MOV_FINANCEIRA"].substring(3, 10); })
 			        .Select(function(x){
 			          return {
 			            label: x.Key(),
 			            color: $scope.getRandomColor(),
 			            value: x.Sum(function(y){ return y["VL_PAGAMENTO_FLOAT"]|0; })
 			          };
-			        }).ToArray();
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
 
 
 				$scope.dataPagamentoOBTV = result;
@@ -230,7 +235,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			            color: $scope.getRandomColor(),
 			            value: x.Sum(function(y){ return y["VL_NOTA_EMPENHO_FLOAT"]|0; })
 			          };
-			        }).ToArray();
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
 
 
 				$scope.dataEmpenhos = result;
@@ -265,7 +270,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			            color: $scope.getRandomColor(),
 			            value: x.Sum(function(y){ return y["VL_LIQUIDO_DL_FLOAT"]|0; })
 			          };
-			        }).ToArray();
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
 
 
 				$scope.dataDocumentoLiquidacao = result;
@@ -300,7 +305,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			            color: $scope.getRandomColor(),
 			            value: x.Sum(function(y){ return y["VL_PAGAMENTO_FLOAT"]|0; })
 			          };
-			        }).ToArray();
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
 
 
 				$scope.dataDiscriminacaoOBTV = result;
