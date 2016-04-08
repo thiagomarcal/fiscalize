@@ -14,14 +14,26 @@
 
 				<div ng-show="advSearch">
 					<label> Estado: </label><br>
-					<select class="form-control" ng-model="estadoSelecionado" ng-options="estado.UF_PROPONENTE for estado in estados">
+					<select class="form-control" ng-model="estadoSelecionado" ng-change="estadoChange()" ng-options="estado.UF_PROPONENTE for estado in estados">
+						<option value="">
+							Selecionar
+						</option>
+					</select><br>
+					<label> Cidade: </label><br>
+					<select class="form-control" ng-model="cidadeSelecionado" ng-options="cidade.NM_MUNICIPIO_PROPONENTE for cidade in cidades">
 						<option value="">
 							Selecionar
 						</option>
 					</select><br>
 
-					<label> Ministério: </label><br>
+					<label> Categoria: </label><br>
 					<select class="form-control" ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
+						<option value="">
+							Selecionar
+						</option>
+					</select><br>
+					<label> Situação: </label><br>
+					<select class="form-control" ng-model="situacaoSelecionado" ng-options="situacao.TX_SITUACAO for situacao in situacoes">
 						<option value="">
 							Selecionar
 						</option>

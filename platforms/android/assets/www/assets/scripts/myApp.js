@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat']);
 
 myApp.config(function($routeProvider) {
     $routeProvider
@@ -13,6 +13,10 @@ myApp.config(function($routeProvider) {
     .when('/detalhe/:convenioId', {
         templateUrl: 'components/detalhe/detalhe.html',
         controller: 'DetalheController'
+        })
+    .when('/chat/:convenioId', {
+        templateUrl: 'components/chat/chat.html',
+        controller: 'ChatController'
         });
 });
 
@@ -27,14 +31,25 @@ myApp.factory('myCache', function($cacheFactory) {
 
 myApp.service("Fiscalizados", function (myCache, $http) {
     
-     function getLista() {
+    function getLista() {
         return $http({
             "method": "get",
             "url": 'http://74.124.24.115:8080/hackathon/Fiscalizados?filter={uuid:"'+ myCache.get('uuid') +'"},{situacao:1}&hal=f'
         });
     }
+
+    function updateDate(oid, etag, data) {
+        return $http({
+            "method": "patch",
+            "headers": {'If-Match': etag},
+            "data" : data,
+            "url": "http://74.124.24.115:8080/hackathon/Fiscalizados/"+oid
+        });
+    }
+
     return {
         getLista: getLista,
+        updateDate: updateDate
     }
 });
 

@@ -1,7 +1,6 @@
 myApp.controller('MainController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory,$cordovaDevice, myCache, Fiscalizados, Convenios)  {
 
-	ADDRESS= 'http://74.124.24.115:8080'
-
+	// Requisition Fiscalizado
 	$scope.requisitionFiscalizados = function() {
 		Fiscalizados.getLista().then(function (result){
 			$scope.fiscalizados = angular.fromJson(result.data._embedded["rh:doc"]);
@@ -45,8 +44,10 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 				if (angular.isDefined($scope.mapaConveniosFiscalizados)) {
 					
 					// Fiscalizados Recentes
+					$scope.qtdRecentes = 0;
 					if (new Date(value.dt_updated) < new Date($scope.mapaConveniosFiscalizados[value.convenio.NR_CONVENIO].lastUpdateDate.$date)) {
 						value.recente = 1;
+						$scope.qtdRecentes++;
 					}
 				}
 			});	
@@ -60,17 +61,9 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 			//Request Header Config apenas necessário para updates
 			var config = {headers: {'If-Match': fiscalizado._etag.$oid}};
 
-			requisicaoFactory.patchRequest(ADDRESS+'/hackathon/Fiscalizados/'+ fiscalizado._id.$oid, $scope.data, config).then(function(result) {
-			
-				alert('UUID: '+ myCache.get('uuid') +' Convenio: ' +  fiscalizado.convenio.NR_CONVENIO + 'Atualizado!');
-
-			}, function(reason) {
-			     alert("Erro ver console!")
-			    console.log("reason:", reason);
-			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
-			}, function(update) {
-			    console.log("update:", update);
-			})			  
+			Fiscalizados.updateDate(fiscalizado._id.$oid, fiscalizado._etag.$oid, $scope.data).then(function (result){
+				console.log('Data - UUID: '+ myCache.get('uuid') +' Convenio: ' +  fiscalizado.convenio.NR_CONVENIO + ' foi atualizado!');
+			});   	  
 	}
 
 	
@@ -85,7 +78,12 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 		fiscalizado.dt_updated = new Date();
 		console.log('data DEPOIS: ' + fiscalizado.dt_updated);
 		$scope.atualizaFiscalizado(fiscalizado);
+		$scope.verificaRecentes();
 		$location.path('/detalhe/'+fiscalizado.convenio.NR_CONVENIO);
+	}
+
+	$scope.abrirChat = function(fiscalizado) {
+		$location.path('/chat/'+fiscalizado.convenio.NR_CONVENIO)
 	}
 
 	$scope.requisitionFiscalizados();
