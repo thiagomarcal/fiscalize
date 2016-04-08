@@ -8,8 +8,8 @@
 		</div> -->
 		
 			<div class="searchbox">
-				<button id="advancedsearch" ng-click='flagSearch()' class='btn btn-primary pull-left'>&nbsp;</button>
-				<input ng-model="searchParam" type="search" placeholder="Search"/>
+				<button id="advancedsearch" ng-click='flagSearch(true)' class='btn btn-primary pull-left fa fa-align-justify'>&nbsp;</button>
+				<input ng-model="searchParam" type="search" placeholder="Pesquisar"/>
 				<button id="searchSubmit"type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
 
 				<div ng-show="advSearch">
@@ -19,7 +19,7 @@
 							Selecionar
 						</option>
 					</select><br>
-					<label> Cidade: </label><br>
+					<label> Município: </label><br>
 					<select class="form-control" ng-model="cidadeSelecionado" ng-options="cidade.NM_MUNICIPIO_PROPONENTE for cidade in cidades">
 						<option value="">
 							Selecionar
@@ -40,7 +40,8 @@
 					</select><br>
 				</div>
 			</div>
-			
+		<label ng-model="msgErro"></label>
+		<percent-display percent="value" size="60" colors=""></percent-display>
 		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 
 			<div class="section" ng-repeat="convenio in convenios">
@@ -67,12 +68,17 @@
 									<li><a ng-click="midiaShareFace(convenio)">Compartilhar</a></li>
 							</ul>
 						</div>
-						<h3 class="panel-title">Convenio: {{ convenio.NR_CONVENIO }}</h3>
+						<h3 class="panel-title">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
+						<h3 class="panel-title">{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</h3>
 					</div>
 					<div class="panel-body">
 						
 
                     <table>
+                        <tr>
+                            <td>Convênio:</td>
+                            <td><em>{{ convenio.NR_CONVENIO }} </em></td>
+                        </tr>
                         <tr>
                             <td>Situação:</td>
                             <td><em>{{ convenio.TX_SITUACAO }} </em></td>
@@ -86,25 +92,17 @@
                             <td>{{ convenio.NM_ORGAO_CONCEDENTE }}</td>
                         </tr>
                         <tr>
-                            <td>Esfera:</td>
-                            <td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
-                        </tr>
-                        <tr>
-                            <td>Município:</td>
-                            <td>{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</td>
-                        </tr>
-                        <tr>
                             <td>Programa:</td>
                             <td>{{ convenio.NM_PROGRAMA }}</td>
                         </tr>
-                        <tr>
-                            <td>Objeto:</td>
-                            <td>{{ convenio.TX_OBJETO_CONVENIO }}</td>
+                        <tr>                            
+                            <center><b>{{ convenio.TX_OBJETO_CONVENIO }}</b></center>
                         </tr>
                         <tr>
                             <td>Vigência:</td>
-                            <td>{{ convenio.DT_INICIO_VIGENCIA + " - " + convenio.DT_FIM_VIGENCIA }}</td>
+                            <td>{{ convenio.DT_INICIO_VIGENCIA + " - " + convenio.DT_FIM_VIGENCIA }}</td>                            
                         </tr>
+
                         <tr>
                             <td>Valor Total:</td>
                             <td>{{ convenio.VL_GLOBAL }}</td>

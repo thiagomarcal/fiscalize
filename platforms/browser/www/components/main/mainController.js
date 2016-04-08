@@ -86,6 +86,20 @@ myApp.controller('MainController', function($scope, $timeout , $http, $location,
 		$location.path('/chat/'+fiscalizado.convenio.NR_CONVENIO)
 	}
 
+	$scope.getMoney = function( str )
+	{
+	        return parseFloat(parseInt( str.replace(/[\D]+/g,'') ) / 100);
+	}
+	$scope.formatReal = function( int )
+	{
+	        var tmp = int+'';
+	        tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+	        if( tmp.length > 6 )
+	                tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+
+	        return tmp;
+	}
+
 	$scope.requisitionFiscalizados();
 
 });

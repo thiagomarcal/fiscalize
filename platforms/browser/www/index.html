@@ -5,6 +5,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta property="og:image" content="http://www.sinproesemmabdc.com.br/img/icon_convenios.png"/>
+<meta property="og:title" content="Detalhe Convênio" />
+<meta property="og:description" content="balbalbalblabgablabllalbla" />
     
 <title>index</title>
 
@@ -16,8 +18,10 @@
 <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 <link rel="stylesheet" href="assets/styles/styles.css" />
 <link rel="stylesheet" href="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.css">
+<link rel="stylesheet" href="assets/styles/ngPercentDisplay.css" />
 
 <script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="assets/scripts/jquery.js"></script>
 <script type="text/javascript" src="assets/scripts/index.js"></script>
 <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
 <script type="text/javascript" src="assets/scripts/angular-route.js"></script>
@@ -28,6 +32,7 @@
 <script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
 <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
 
+<script type="text/javascript" src="assets/scripts/ngPercentDisplay.js"></script>
 <script type="text/javascript" src="assets/scripts/myApp.js"></script>
 <script type="text/javascript" src="assets/scripts/linq.min.js"></script>
 <script type="text/javascript" src="assets/scripts/requisicao.js"></script>
@@ -56,6 +61,8 @@
 			<div class="scrollable-content">
 				<div class="list-group" ui-turn-off='uiSidebarLeft'>
 					<a class="list-group-item" href="#/">Pesquisa de Convênios 
+					<i class="fa fa-chevron-right pull-right"></i></a>
+					<a class="list-group-item" href ui-toggle='uiSidebarRight'>Convênios Fiscalizados
 					<i class="fa fa-chevron-right pull-right"></i></a>
 					<a class="list-group-item" href="#/minhasmanifestacoes">Minhas Manifestações
 					<i class="fa fa-chevron-right pull-right"></i></a>
@@ -102,7 +109,7 @@
 
 		<div class="btn-group pull-left">
 			<div class="btn btn-navbar">
-				<a href ui-toggle='uiSidebarLeft'><i class="fa fa-align-justify"></i></a>
+				<a href ui-toggle='uiSidebarLeft'><i class="fa fa-bars"></i></a>
 			</div>
 		</div>
 
@@ -113,7 +120,6 @@
 		</div>
 	</div>
 
-    <div class="navbar navbar-app navbar-absolute-bottom"><!-- Bottom Navbar --></div>
 
 
     <!-- App body -->
