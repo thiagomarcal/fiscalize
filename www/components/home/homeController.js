@@ -224,28 +224,6 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 		});
 	}
 
-<<<<<<< HEAD
-	$scope.dirty = {};
-
-
-	function suggest_state(term) {
-		var q = term.toLowerCase().trim();
-		var results = [];
-
-		// Find first 10 states that start with `term`.
-		for (var i = 0; i < $scope.estados.length && results.length < 10; i++) {
-			var state = $scope.estados[i].UF_PROPONENTE;
-			if (state.toLowerCase().indexOf(q) === 0)
-				results.push({ label: state, value: state });
-		}
-
-		return results;
-	}
-
-	$scope.autocomplete_options = {
-		suggest: suggest_state
-	};
-=======
     $scope.diffDays = function(date1, date2)
     {
         var timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -267,7 +245,6 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
     $scope.replaceAll = function (find, replace, str) {
         return str.replace(new RegExp(find, 'g'), replace);
     };
->>>>>>> 9ae3b08bfa7b710ce01fc64c16c9ba5185f6eeb8
 
     // Initial Call Home
     $scope.home();
