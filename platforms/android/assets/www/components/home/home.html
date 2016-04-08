@@ -8,8 +8,8 @@
 		</div> -->
 		
 			<div class="searchbox">
-				<button id="advancedsearch" ng-click='flagSearch()' class='btn btn-primary pull-left'>&nbsp;</button>
-				<input ng-model="searchParam" type="search" placeholder="Search"/>
+				<button id="advancedsearch" ng-click='flagSearch(true)' class='btn btn-primary pull-left fa fa-align-justify'>&nbsp;</button>
+				<input ng-model="searchParam" type="search" placeholder="Pesquisar"/>
 				<button id="searchSubmit"type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
 
 				<div ng-show="advSearch">
@@ -40,7 +40,7 @@
 					</select><br>
 				</div>
 			</div>
-			
+		<label ng-model="msgErro"></label>
 		<div class="scrollable-content section" ui-scroll-bottom="loadMore()">
 
 			<div class="section" ng-repeat="convenio in convenios">
@@ -64,7 +64,7 @@
 									<li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
 									<li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>
 									<li class="divider"></li>
-									<li><a ng-click="midiaShareFace(convenio)">Compartilhar</a></li>
+									<li><a ng-click="midiaShare(convenio)">Compartilhar</a></li>
 							</ul>
 						</div>
 						<h3 class="panel-title">Convenio: {{ convenio.NR_CONVENIO }}</h3>

@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing) {
+myApp.controller('HomeController', function($scope, $timeout, $http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, ngMeta) {
 
     // Page Initial Value
     page = 1;
@@ -198,7 +198,11 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
 	$scope.midiaShareFace = function(convenio) {
 
-		link = 'http://localhost:8000/#/detalhe/' + convenio.NR_CONVENIO
+		ngMeta.setTag('og:title', convenio.NR_CONVENIO)
+		ngMeta.setTag('og:description','balbalbalbabalbalba');
+		ngMeta.setTag('og:image','http://www.sinproesemmabdc.com.br/img/icon_convenios.png');
+		
+		link = 'http://74.124.24.115:8000/#/detalhe/' + convenio.NR_CONVENIO
 
 		$cordovaSocialSharing
 		    .shareViaFacebook(null, null, link)
