@@ -92,7 +92,13 @@
                 </div>
             </div>
             <div ui-if="activeTab == 2">
-                <h3 class="page-header">Empenho</h3>
+                <h3 class="page-header">
+                    Empenho 
+                    <span class="pull-right">
+                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Ato emanado de autoridade competente. É o primeiro estágio da despesa pública."></i> 
+                    </span>
+                </h3>
+                
                 <div class="panel-body">
                     <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
                     <div tc-chartjs-legend chart-legend="legend"></div>
@@ -149,7 +155,10 @@
                 </div>
             </div>
             <div ui-if="activeTab == 3">
-                <h3 class="page-header">Planejamento</h3>
+                <h3 class="page-header">Planejamento
+                <span class="pull-right">
+                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Metodologia de administração para determinar os objetivos a serem alcançados."></i> 
+                    </span></h3>
                 <ui-state id='activeSubTab' default='1'></ui-state>
                 <div class="btn-group nav-tabs">
                     <a ng-click="requisitionPlano()" ui-set="{'activeSubTab': 1}" ui-class="{'active': activeSubTab == 1}" class="btn btn-default">Plano de Aplicação</a>
@@ -256,7 +265,11 @@
                 </div>
             </div>
             <div ui-if="activeTab == 4">
-                <h3 class="page-header">Execução</h3>
+                <h3 class="page-header">Execução
+                 <span class="pull-right">
+                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Utilização dos recursos financeiros."></i> 
+                    </span>
+                </h3>
                 <div class="panel-body">
                     <ui-state id='activeSubTab' default='1'></ui-state>
                     <div class="btn-group nav-tabs">

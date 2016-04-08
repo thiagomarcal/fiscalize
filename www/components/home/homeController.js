@@ -214,6 +214,27 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 		});
 	}
 
+	$scope.dirty = {};
+
+
+	function suggest_state(term) {
+		var q = term.toLowerCase().trim();
+		var results = [];
+
+		// Find first 10 states that start with `term`.
+		for (var i = 0; i < $scope.estados.length && results.length < 10; i++) {
+			var state = $scope.estados[i].UF_PROPONENTE;
+			if (state.toLowerCase().indexOf(q) === 0)
+				results.push({ label: state, value: state });
+		}
+
+		return results;
+	}
+
+	$scope.autocomplete_options = {
+		suggest: suggest_state
+	};
+
     // Initial Call Home
     $scope.home();
     $scope.requisitionEstados();
