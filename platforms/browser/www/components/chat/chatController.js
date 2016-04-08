@@ -2,6 +2,7 @@ myApp.controller('ChatController', function($scope, $timeout , $http, $location,
 
 		$scope.messages = [{
                 id: '535d625f898df4e80e2a125e',
+<<<<<<< HEAD
                 text: 'Fotzu isoko vo adget ne uba in lup jedzow mi uvinifse epepo het ezezocic bahehufep lid pubuj.',
                 userId: 'hilsqdhfods5990K226DHS01NOHoh',
                 avatar: 'http://polyligne.be/wp-content/uploads/2014/06/Man_Avatar.gif',
@@ -38,13 +39,28 @@ myApp.controller('ChatController', function($scope, $timeout , $http, $location,
                 text: 'Dubehtak re bodeju em parobji leunvil fetpok iwipog gibzi teb navibahul girofip hikfib ge.',
                 userId: '4562KDJYE72930DST283DFY202Dd',
                 date: '1455112283886'
+=======
+                text: 'Quem é o responsável por esse convênio?',
+                userId: 'hilsqdhfods5990K226DHS01NOHoh',
+                avatar: 'http://polyligne.be/wp-content/uploads/2014/06/Man_Avatar.gif',
+                date: '1455110273886'
+>>>>>>> e0c02db7e701869a4e7c068aa5ae70fd0a6b2861
             }];
 
 
         $scope.you = {
+<<<<<<< HEAD
             userId: '4562KDJYE72930DST283DFY202Dd',
             avatar: 'http://www.orangecountyjailministryorlando.com/wp-content/uploads/2015/01/Woman_Avatar.gif',
             userName: 'Anna'
+=======
+            userId: myCache.get('uuid'),
+            avatar: 'http://polyligne.be/wp-content/uploads/2014/06/Man_Avatar.gif'
+        };
+
+        $scope.sendMessage = function(message) {
+            console.log('sendMessage');
+>>>>>>> e0c02db7e701869a4e7c068aa5ae70fd0a6b2861
         };
 
 });
