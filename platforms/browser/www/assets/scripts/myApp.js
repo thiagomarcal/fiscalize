@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngPercentDisplay']);
 
 myApp.config(function($routeProvider) {
     $routeProvider
@@ -67,7 +67,7 @@ myApp.service("Convenios", function (myCache, $http) {
 });
 
 
-myApp.run(function(myCache, ngMeta, $cordovaDevice) {
+myApp.run(function(myCache, $cordovaDevice) {
 
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -80,8 +80,6 @@ myApp.run(function(myCache, ngMeta, $cordovaDevice) {
         };
         myCache.put('uuid', uuid);
     }
-
-    ngMeta.init();
 
     console.log(myCache.get('uuid'));
 });

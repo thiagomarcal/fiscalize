@@ -66,6 +66,16 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
                     convenios_temp = angular.fromJson(result._embedded["rh:doc"]);
 
                     angular.forEach(convenios_temp, function(value, key) {
+
+                        var maxVigencia = $scope.diffDays($scope.formatarData(value.DT_FIM_VIGENCIA,'DD/MM/YYYY'), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
+                        var currentVigencia = $scope.diffDays(new Date(), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
+                        value.percentVigencia = ((100*currentVigencia)/maxVigencia).toFixed(0);
+
+                        var valorRepasse = $scope.getMoney(value.VL_REPASSE);
+                        var valorDesembolso = $scope.getMoney(value.VL_DESEMBOLSADO);
+
+                        value.percentDesembolso = ((100*valorDesembolso)/valorRepasse).toFixed(0);
+
                         $scope.convenios.push(value);
                     });
 
@@ -214,6 +224,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 		});
 	}
 
+<<<<<<< HEAD
 	$scope.dirty = {};
 
 
@@ -234,6 +245,29 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 	$scope.autocomplete_options = {
 		suggest: suggest_state
 	};
+=======
+    $scope.diffDays = function(date1, date2)
+    {
+        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        return diffDays;
+    }
+
+    $scope.formatarData = function (date) {
+        if (!date)
+            return date;
+        date = $scope.replaceAll("-", "", date);
+        date = $scope.replaceAll("/", "", date);
+        var yy = date.substring(4, 8),
+            mm = date.substring(2, 4),
+            dd = date.substring(0, 2);
+        return new Date(yy + "-" + mm + "-" + dd);
+    };
+
+    $scope.replaceAll = function (find, replace, str) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    };
+>>>>>>> 9ae3b08bfa7b710ce01fc64c16c9ba5185f6eeb8
 
     // Initial Call Home
     $scope.home();

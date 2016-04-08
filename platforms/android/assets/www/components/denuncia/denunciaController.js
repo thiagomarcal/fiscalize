@@ -1,4 +1,4 @@
-myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory)  {
+myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, ngPercentDisplay)  {
 
 	//Parametros
 	$scope.params = $routeParams;
