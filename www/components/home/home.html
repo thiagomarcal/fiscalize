@@ -99,12 +99,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Valor:</td>
                             <td>
-                                Total: {{ convenio.VL_GLOBAL }}
-                                <br> Repasse:{{ convenio.VL_REPASSE }}
-                                <br> Desembolsado:{{ convenio.VL_DESEMBOLSADO }}
-                                <br>
+                            	Total:<br>
+                            	Repasse:<br>
+                            	Desembolsado:
+                            </td>
+                            <td>
+                                {{ convenio.VL_GLOBAL }}<br>
+                                {{ convenio.VL_REPASSE }}<br>
+                                {{ convenio.VL_DESEMBOLSADO }}                                
                             </td>
                             <td>
                                 <percent-display percent="convenio.percentDesembolso" size="60" colors=""></percent-display>
