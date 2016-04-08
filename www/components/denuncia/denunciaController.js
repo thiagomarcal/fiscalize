@@ -23,7 +23,7 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 
 	$scope.denunciar = function() {
 		requisicaoFactory.postRequest(ADDRESS+'/hackathon/'+ COLLECTION, $scope.denuncia).then(function(result) {
-			alert('Denuncia Enviada!');
+			alert($scope.denuncia.tipo + ' enviado(a)!');
 			 $location.path("/");
 		}, function(reason) {
 		    alert("Erro ver console!")
@@ -32,6 +32,15 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 		}, function(update) {
 		    console.log("update:", update);
 		})
+	}
+
+	$scope.selecionarTipo = function(tipo) {
+		$scope.denuncia.tipo = tipo;
+	}
+
+
+	$scope.tipoDefinido = function() {
+		return $scope.denuncia.tipo != undefined;
 	}
 
 });
