@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory,$cordovaDevice, myCache, Fiscalizados)  {
+myApp.controller('HomeController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory,$cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing)  {
 
 	// Page Initial Value
 	page = 1;
@@ -133,6 +133,34 @@ myApp.controller('HomeController', function($scope, $timeout , $http, $location,
 		}, function(update) {
 		    console.log("update:", update);
 		})
+	}
+
+	$scope.midiaShare = function(convenio) {
+
+		link = 'http://74.124.24.115:8000/#/detalhe/' + convenio.NR_CONVENIO
+
+		$cordovaSocialSharing
+			.share(null, null, null, link) // Share via native share sheet
+				.then(function(result) {
+					// Success!
+					console.log("teste share!")
+				}, function(err) {
+					// An error occured. Show a message to the user
+				}
+		);
+	}
+
+	$scope.midiaShareFace = function(convenio) {
+
+		link = 'http://localhost:8000/#/detalhe/' + convenio.NR_CONVENIO
+
+		$cordovaSocialSharing
+		    .shareViaFacebook(null, null, link)
+		    .then(function(result) {
+		      // Success!
+		    }, function(err) {
+		      // An error occurred. Show a message to the user
+		});
 	}
  	
 	// Initial Call Home
