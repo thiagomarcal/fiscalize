@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngPercentDisplay']);
-=======
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta']);
->>>>>>> 863a931fd19d9e1812685761db0ebacc9b7ce63f
 
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta', 'ngPercentDisplay']);
 myApp.config(function($routeProvider) {
     $routeProvider
     .when('/', {
