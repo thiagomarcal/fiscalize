@@ -19,7 +19,7 @@
 							Selecionar
 						</option>
 					</select><br>
-					<label> Cidade: </label><br>
+					<label> Município: </label><br>
 					<select class="form-control" ng-model="cidadeSelecionado" ng-options="cidade.NM_MUNICIPIO_PROPONENTE for cidade in cidades">
 						<option value="">
 							Selecionar
@@ -64,7 +64,7 @@
 									<li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
 									<li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>
 									<li class="divider"></li>
-									<li><a ng-click="midiaShare(convenio)">Compartilhar</a></li>
+									<li><a ng-click="midiaShareFace(convenio)">Compartilhar</a></li>
 							</ul>
 						</div>
 						<h3 class="panel-title">Convenio: {{ convenio.NR_CONVENIO }}</h3>
