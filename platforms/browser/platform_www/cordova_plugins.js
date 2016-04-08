@@ -26,6 +26,14 @@ module.exports = [
         "id": "cordova-plugin-device.DeviceProxy",
         "pluginId": "cordova-plugin-device",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+        "id": "cordova-plugin-x-socialsharing.SocialSharing",
+        "pluginId": "cordova-plugin-x-socialsharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -33,7 +41,8 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.1",
     "cordova-plugin-x-toast": "2.5.0",
-    "cordova-plugin-device": "1.1.1"
+    "cordova-plugin-device": "1.1.1",
+    "cordova-plugin-x-socialsharing": "5.0.12"
 }
 // BOTTOM OF METADATA
 });

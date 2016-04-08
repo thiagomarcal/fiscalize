@@ -19,6 +19,20 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -33,6 +47,9 @@
             "PACKAGE_NAME": "com.example.hello"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.example.hello"
+        },
+        "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.example.hello"
         }
     },
@@ -60,11 +77,19 @@
             "clobbers": [
                 "device"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+            "id": "cordova-plugin-x-socialsharing.SocialSharing",
+            "clobbers": [
+                "window.plugins.socialsharing"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.1",
         "cordova-plugin-x-toast": "2.5.0",
-        "cordova-plugin-device": "1.1.1"
+        "cordova-plugin-device": "1.1.1",
+        "cordova-plugin-x-socialsharing": "5.0.12"
     }
 }

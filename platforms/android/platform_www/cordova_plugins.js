@@ -22,6 +22,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+        "id": "cordova-plugin-x-socialsharing.SocialSharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -29,7 +36,8 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.1",
     "cordova-plugin-x-toast": "2.5.0",
-    "cordova-plugin-device": "1.1.1"
+    "cordova-plugin-device": "1.1.1",
+    "cordova-plugin-x-socialsharing": "5.0.12"
 };
 // BOTTOM OF METADATA
 });
