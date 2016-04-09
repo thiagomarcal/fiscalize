@@ -1,4 +1,4 @@
-﻿myApp.controller('MinhasManifestacoesController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, ngPercentDisplay, myCache)  {
+﻿myApp.controller('MinhasManifestacoesController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache)  {
 
 	//Parametros
 	$scope.params = $routeParams;
@@ -14,8 +14,8 @@
 
 	$scope.carregarMinhasManifestacoes = function() {
 
-		//myCache.get('uuid')
-		requisicaoFactory.getRequest(ADDRESS+'/hackathon/'+ COLLECTION).then(function(result) {
+		var filter = '?filter={uuid:"' + myCache.get('uuid') + '"}';
+		requisicaoFactory.getRequest(ADDRESS+'/hackathon/'+ COLLECTION + filter).then(function(result) {
 			$scope.manifestacoes = angular.fromJson(result._embedded["rh:doc"]);
 		}, function(reason) {
 		    alert("Erro ver console!")

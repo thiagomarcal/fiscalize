@@ -1,4 +1,3 @@
-
 <div ui-content-for="title">
     <span>Detalhe</span>
 </div>
@@ -18,11 +17,14 @@
                 <li ui-class="{'active': activeTab == 3}">
                     <a ui-set="{'activeTab': 3}">Planejamento</a>
                 </li>
-                <li ui-class="{'active': activeTab == 4}">
-                    <a ui-set="{'activeTab': 4}">Execução</a>
+                <li ui-class="{'active': activeTab == 4}" ng-click="requisitionExecucaoFinanceira()">
+                    <a ui-set="{'activeTab': 4}">Repasses</a>
                 </li>
                 <li ui-class="{'active': activeTab == 5}">
-                    <a ui-set="{'activeTab': 5}">Análise</a>
+                    <a ui-set="{'activeTab': 5}">Pagamentos Realizados</a>
+                </li>
+                <li ui-class="{'active': activeTab == 6}">
+                    <a ui-set="{'activeTab': 6}">Análises</a>
                 </li>
             </ul>
             <div ui-if="activeTab == 1">
@@ -99,7 +101,6 @@
                         <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Ato emanado de autoridade competente. É o primeiro estágio da despesa pública."></i> 
                     </span>
                 </h3>
-                
                 <div class="panel-body">
                     <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
                     <div tc-chartjs-legend chart-legend="legend"></div>
@@ -266,46 +267,51 @@
                 </div>
             </div>
             <div ui-if="activeTab == 4">
-                <h3 class="page-header">Execução
+                <h3 class="page-header">
+                    Repasses 
+                    <span class="pull-right">
+                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Informações da execução financeira do CONCENDENTE (envio de ordens bancárias para o SIAFI). Ordens Bancárias do CONCEDENTE transferindo recurso para conta do convênio."></i> 
+                    </span>
+                </h3>
+                <div class="panel-body">
+                    <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
+                    <div tc-chartjs-legend chart-legend="legend"></div>
+                </div>
+                <div class="section" ng-repeat="row in execucaoFinanceira">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        </div>
+                        <div class="panel-body">
+                            <table>
+                                <tr>
+                                    <td>Data:</td>
+                                    <td>{{ row.DT_DESEMBOLSO }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Valor:</td>
+                                    <td><em>{{ row.VL_DESEMBOLSADO }} </em></td>
+                                </tr>
+                                <tr>
+                                    <td>Núm. SIAFI:</td>
+                                    <td>{{ row.NR_SIAFI }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ui-if="activeTab == 5">
+                <h3 class="page-header">Pagamentos Realizados
                  <span class="pull-right">
-                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Utilização dos recursos financeiros."></i> 
+                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Informações de OBTV - Ordem Bancária de Transferência Voluntária, pagamentos realizados pelo CONVENENTE (Executor)."></i> 
                     </span>
                 </h3>
                 <div class="panel-body">
                     <ui-state id='activeSubTab' default='1'></ui-state>
                     <div class="btn-group nav-tabs">
-                        <a ng-click="requisitionExecucaoFinanceira()" ui-set="{'activeSubTab': 10}" ui-class="{'active': activeSubTab == 10}" class="btn btn-default">Execução Financeira</a>
                         <a ng-click="requisitionPagamentoOBTV()" ui-set="{'activeSubTab': 12}" ui-class="{'active': activeSubTab == 12}" class="btn btn-default">Documento Liquidação</a>
                         <a ng-click="requisitionDocumentoLiquidacao()" ui-set="{'activeSubTab': 11}" ui-class="{'active': activeSubTab == 11}" class="btn btn-default">Pagamentos</a>
                         <a ng-click="requisitionDiscriminacaoOBTV()" ui-set="{'activeSubTab': 13}" ui-class="{'active': activeSubTab == 13}" class="btn btn-default">Discriminação Pagamentos</a>
-                    </div>
-                    <div ui-if="activeSubTab == 10">
-                        <div class="panel-body">
-                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
-                            <div tc-chartjs-legend chart-legend="legend"></div>
-                        </div>
-                        <div class="section" ng-repeat="row in execucaoFinanceira">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                </div>
-                                <div class="panel-body">
-                                    <table>
-                                        <tr>
-                                            <td>Data:</td>
-                                            <td>{{ row.DT_DESEMBOLSO }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Valor:</td>
-                                            <td><em>{{ row.VL_DESEMBOLSADO }} </em></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Núm. SIAFI:</td>
-                                            <td>{{ row.NR_SIAFI }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div ui-if="activeSubTab == 11">
                         <div class="panel-body">
@@ -461,5 +467,6 @@
                     </div>
                 </div>
             </div>
-            <div ui-if="activeTab == 5">
+            
+            <div ui-if="activeTab == 6">
             </div>
