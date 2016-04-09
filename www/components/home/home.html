@@ -45,7 +45,7 @@
             <br>
         </div>
     </div>
-    <label ng-model="msgErro"></label>
+    <label>A pesquisa retornou {{ totalConvenios }} resultado(s)</label>
     <div class="scrollable-content section" ui-scroll-bottom="loadMore()">
         <div class="section" ng-repeat="convenio in convenios">
             <div class="panel panel-default">
@@ -63,8 +63,8 @@
                             <li><a ng-click="midiaShareFace(convenio)">Compartilhar</a></li>
                         </ul>
                     </div>
-                    <h3 class="panel-title">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
                     <h3 class="panel-title">{{ convenio.NM_ORGAO_SUPERIOR }}</h3>
+                    <h3 class="panel-title">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
                 </div>
                 <div class="panel-body">
 		
@@ -86,8 +86,7 @@
                             <td>{{ convenio.NM_ORGAO_CONCEDENTE }}</td>
                         </tr>
                         <tr>
-                            <td>Programa:</td>
-                            <td>{{ convenio.NM_PROGRAMA }}</td>
+                            <td colspan="2"><center>{{ convenio.NM_PROGRAMA }}</center></td>
                         </tr>
                         <tr>
                             <td>Vigência:</td>
@@ -109,7 +108,7 @@
                                 {{ convenio.VL_REPASSE }}<br>
                                 {{ convenio.VL_DESEMBOLSADO }}                                
                             </td>
-                            <td>
+                            <td rowspan="3">
                                 <percent-display percent="convenio.percentDesembolso" size="60" colors=""></percent-display>
                             </td>
                         </tr>

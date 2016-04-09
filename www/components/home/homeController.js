@@ -70,7 +70,9 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
                         var maxVigencia = $scope.diffDays($scope.formatarData(value.DT_FIM_VIGENCIA,'DD/MM/YYYY'), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
                         var currentVigencia = $scope.diffDays(new Date(), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
                         value.percentVigencia = ((100*currentVigencia)/maxVigencia).toFixed(0);
-
+                        if(value.percentVigencia > 100)
+                            value.percentVigencia = 100;
+                                
                         var valorRepasse = $scope.getMoney(value.VL_REPASSE);
                         var valorDesembolso = $scope.getMoney(value.VL_DESEMBOLSADO);
 
@@ -82,7 +84,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
                 }
                 else 
                 {
-                	alert('Não há resultados para esta pesquisa');
+                    $scope.totalConvenios = result._size;
                 };
 
                 $scope.url = angular.isDefined(result._links.next.href) ? result._links.next.href : null;
