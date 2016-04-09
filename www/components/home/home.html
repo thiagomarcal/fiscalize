@@ -51,6 +51,19 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="btn-group pull-right">
+                    	
+                    	<a href="#/detalhe/{{convenio.NR_CONVENIO}}" tooltip="Detalhe" class='btn'>
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <a ng-click="fiscalizar(convenio)" class='btn'>
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a ng-click="midiaShareFace(convenio)" class='btn'>
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+                        <a href="#/denuncia/{{convenio.NR_CONVENIO}}" class='btn'>
+                            <i class="fa fa-bullhorn"></i>
+                        </a>
                         <a ui-turn-on='myDropdown{{convenio.NR_CONVENIO}}' class='btn'>
                             <i class="fa fa-ellipsis-v"></i>
                         </a>
