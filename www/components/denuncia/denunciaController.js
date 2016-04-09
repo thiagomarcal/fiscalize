@@ -1,4 +1,4 @@
-myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, ngPercentDisplay)  {
+myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, ngPercentDisplay, myCache)  {
 
 	//Parametros
 	$scope.params = $routeParams;
@@ -22,6 +22,9 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 
 
 	$scope.denunciar = function() {
+
+		$scope.denuncia.uuid = myCache.get('uuid');
+		
 		requisicaoFactory.postRequest(ADDRESS+'/hackathon/'+ COLLECTION, $scope.denuncia).then(function(result) {
 			alert($scope.denuncia.tipo + ' enviado(a)!');
 			 $location.path("/");

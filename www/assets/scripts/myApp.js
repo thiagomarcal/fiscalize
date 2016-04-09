@@ -16,6 +16,10 @@ myApp.config(function($routeProvider) {
     .when('/chat/:convenioId', {
         templateUrl: 'components/chat/chat.html',
         controller: 'ChatController'
+        })
+    .when('/minhasmanifestacoes', {
+        templateUrl: 'components/denuncia/minhasmanifestacoes.html',
+        controller: 'MinhasManifestacoesController'
         });
 });
 
