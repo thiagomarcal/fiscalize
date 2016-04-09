@@ -11,15 +11,15 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/ConveniosProgramasFTS?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
 				$scope.convenio = angular.fromJson(result._embedded["rh:doc"])[0];
 
-				$scope.valorPlano = parseFloat($scope.convenio.VL_GLOBAL.replace(/[^0-9\.]+/g,""));
-				$scope.valorDesembolso = parseFloat($scope.convenio.VL_DESEMBOLSADO.replace(/[^0-9\,]+/g,""));
+				$scope.valorPlano = $scope.getMoney($scope.convenio.VL_GLOBAL);
+				$scope.valorDesembolso = $scope.getMoney($scope.convenio.VL_DESEMBOLSADO);
 
 				$scope.remaining = ((100*$scope.valorDesembolso)/$scope.valorPlano);
 
 				$scope.totalCronogramaFisico = 0;
 				angular.forEach($scope.convenio.CronogramaFisicoPTs, function(value, key) {
 					if (angular.isDefined(value.VL_META) || value.VL_META != null) {
-				    	$scope.totalCronogramaFisico += parseFloat(value.VL_META.replace(/[^0-9\,]+/g,""));
+				    	$scope.totalCronogramaFisico += $scope.getMoney(value.VL_META);
 					};
 				});	
 
@@ -28,7 +28,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 			    console.log("reason:", reason);
 			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
 			}, function(update) {
-			    console.log("update:", update);s
+			    console.log("update:", update);
 			})
 	}
 
@@ -42,7 +42,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 				$scope.totalPlano = 0;
 				angular.forEach($scope.planoAplicacao, function(value, key) {
 					if (angular.isDefined(value.VL_TOTAL) || value.VL_TOTAL != null) {
-				    	value.VL_TOTAL_FLOAT = parseFloat(value.VL_TOTAL.replace(/[^0-9\,]+/g,""));
+				    	value.VL_TOTAL_FLOAT = $scope.getMoney(value.VL_TOTAL);
 				    	value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
 					};
 				});	
@@ -151,7 +151,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				angular.forEach($scope.execucaoFinanceira, function(value, key) {
 					if (angular.isDefined(value.VL_DESEMBOLSADO) || value.VL_DESEMBOLSADO != null) {
-				    	value.VL_DESEMBOLSADO_FLOAT = parseFloat(value.VL_DESEMBOLSADO.replace(/[^0-9\,]+/g,""));
+				    	value.VL_DESEMBOLSADO_FLOAT = $scope.getMoney(value.VL_DESEMBOLSADO);
 				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
 					};
 				});	
@@ -221,7 +221,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				angular.forEach($scope.empenhos, function(value, key) {
 					if (angular.isDefined(value.VL_NOTA_EMPENHO) || value.VL_NOTA_EMPENHO != null) {
-				    	value.VL_NOTA_EMPENHO_FLOAT = parseFloat(value.VL_NOTA_EMPENHO.replace(/[^0-9\,]+/g,""));
+				    	value.VL_NOTA_EMPENHO_FLOAT = $scope.getMoney(value.VL_NOTA_EMPENHO);
 				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
 					};
 				});	
@@ -256,7 +256,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				angular.forEach($scope.documentoLiquidacao, function(value, key) {
 					if (angular.isDefined(value.VL_LIQUIDO_DL) || value.VL_LIQUIDO_DL != null) {
-				    	value.VL_LIQUIDO_DL_FLOAT = parseFloat(value.VL_LIQUIDO_DL.replace(/[^0-9\,]+/g,""));
+				    	value.VL_LIQUIDO_DL_FLOAT = $scope.getMoney(value.VL_LIQUIDO_DL);
 				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
 					};
 				});	
@@ -291,7 +291,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				angular.forEach($scope.discriminacaoOBTV, function(value, key) {
 					if (angular.isDefined(value.VL_PAGAMENTO) || value.VL_PAGAMENTO != null) {
-				    	value.VL_PAGAMENTO_FLOAT = parseFloat(value.VL_PAGAMENTO.replace(/[^0-9\,]+/g,""));
+				    	value.VL_PAGAMENTO_FLOAT = $scope.getMoney(value.VL_PAGAMENTO);
 				    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
 					};
 				});	
@@ -309,6 +309,58 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 
 				$scope.dataDiscriminacaoOBTV = result;
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
+	$scope.requisitionPrograma = function() {
+				var filter = '{\\"CD_PROGRAMA\\":"\\"' + $scope.convenio.CD_PROGRAMA + '\\""}';
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/Programas?filter=' + filter).then(function(result) {
+				$scope.programa = angular.fromJson(result._embedded["rh:doc"])[0];
+
+			}, function(reason) {
+			     alert("Erro ver console!")
+			    console.log("reason:", reason);
+			    // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
+			}, function(update) {
+			    console.log("update:", update);s
+			})
+	}
+
+	$scope.requisitionProgramaConvenios = function() {
+
+				requisicaoFactory.getRequest(ADDRESS+'/hackathon/ConveniosProgramasFTS?filter={CD_PROGRAMA:"'+ $scope.convenio.CD_PROGRAMA +'"}').then(function(result) {
+				$scope.programaConvenios = angular.fromJson(result._embedded["rh:doc"]);
+
+				angular.forEach($scope.programaConvenios, function(value, key) {
+					if (angular.isDefined(value.VL_GLOBAL) || value.VL_GLOBAL != null) {
+				    	value.VL_GLOBAL_FLOAT = $scope.getMoney(value.VL_GLOBAL);
+					};
+
+					value.DESCRICAO = value.UF_PROPONENTE;
+
+                     value = $scope.prepareConvenioDetail(value);
+				});	
+
+				var linq = Enumerable.From($scope.programaConvenios);
+				var result =
+			    linq.GroupBy(function(x){ return x["DESCRICAO"]; })
+			        .Select(function(x){
+			          return {
+			            label: x.Key(),
+			            color: $scope.getRandomColor(),
+			            value: x.Sum(function(y){ return y["VL_GLOBAL_FLOAT"]|0; })
+			          };
+			        }).OrderByDescending(function (x) { return x.value }).ToArray();
+
+
+				$scope.dataProgramaConvenios = result;
 
 			}, function(reason) {
 			     alert("Erro ver console!")

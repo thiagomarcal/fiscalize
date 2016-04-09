@@ -72,16 +72,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
                     angular.forEach(convenios_temp, function(value, key) {
 
-                        var maxVigencia = $scope.diffDays($scope.formatarData(value.DT_FIM_VIGENCIA,'DD/MM/YYYY'), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
-                        var currentVigencia = $scope.diffDays(new Date(), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
-                        value.percentVigencia = ((100*currentVigencia)/maxVigencia).toFixed(0);
-                        if(value.percentVigencia > 100)
-                            value.percentVigencia = 100;
-                                
-                        var valorRepasse = $scope.getMoney(value.VL_REPASSE);
-                        var valorDesembolso = $scope.getMoney(value.VL_DESEMBOLSADO);
-
-                        value.percentDesembolso = ((100*valorDesembolso)/valorRepasse).toFixed(0);
+                        value = $scope.prepareConvenioDetail(value);
 
                         $scope.convenios.push(value);
 
@@ -229,28 +220,6 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 		      // An error occurred. Show a message to the user
 		});
 	}
-
-    $scope.diffDays = function(date1, date2)
-    {
-        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-        return diffDays;
-    }
-
-    $scope.formatarData = function (date) {
-        if (!date)
-            return date;
-        date = $scope.replaceAll("-", "", date);
-        date = $scope.replaceAll("/", "", date);
-        var yy = date.substring(4, 8),
-            mm = date.substring(2, 4),
-            dd = date.substring(0, 2);
-        return new Date(yy + "-" + mm + "-" + dd);
-    };
-
-    $scope.replaceAll = function (find, replace, str) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    };
 
     // Initial Call Home
     $scope.home();
