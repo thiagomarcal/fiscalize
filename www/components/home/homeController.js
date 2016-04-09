@@ -19,6 +19,9 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
     // Requisition Search 
     $scope.search = function() {
+
+        $scope.flagQtdRetornados = true;
+
         var textSearchArg = '';
         if (!(angular.isUndefined($scope.searchParam) || $scope.searchParam == null)) {
         	

@@ -7,7 +7,7 @@
     		<a class='form-control btn btn-primary' ng-click='search()'>search</a>
 		</div> -->
     <div class="searchbox">
-        <button id="advancedsearch" ng-click='flagSearch(true)' class='btn btn-primary pull-left fa fa-align-justify'>&nbsp;</button>
+        <button id="advancedsearch" ng-click='flagSearch(true)' class='btn btn-primary pull-left'>&nbsp;</button>
         <input ng-model="searchParam" type="search" placeholder="Pesquisar" />
         <button id="searchSubmit" type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
         <div ng-show="advSearch">
@@ -45,7 +45,7 @@
             <br>
         </div>
     </div>
-    <label>A pesquisa retornou {{ totalConvenios }} resultado(s)</label>
+    <label ng-show="flagQtdRetornados">A pesquisa retornou {{ totalConvenios }} resultado(s)</label>
     <div class="scrollable-content section" ui-scroll-bottom="loadMore()">
         <div class="section" ng-repeat="convenio in convenios">
             <div class="panel panel-default">
