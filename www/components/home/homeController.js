@@ -60,6 +60,8 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
         if (angular.isDefined($scope.url) || $scope.url != null) {
 
+            $scope.totalConvenios = 0;
+
             requisicaoFactory.getRequest(ADDRESS + $scope.url).then(function(result) {
 
                 if (result._size > 0) {
@@ -79,13 +81,12 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
                         value.percentDesembolso = ((100*valorDesembolso)/valorRepasse).toFixed(0);
 
                         $scope.convenios.push(value);
+
+                        $scope.totalConvenios = result._size;
+
                     });
 
                 }
-                else 
-                {
-                    $scope.totalConvenios = result._size;
-                };
 
                 $scope.url = angular.isDefined(result._links.next.href) ? result._links.next.href : null;
 
