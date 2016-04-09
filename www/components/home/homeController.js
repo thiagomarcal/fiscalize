@@ -61,7 +61,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
     	$scope.flagSearch(false);
         convenios_temp = [];
 
-        if (angular.isDefined($scope.url) || $scope.url != null) {
+        if ($scope.url != null) {
 
             $scope.totalConvenios = 0;
 
@@ -82,7 +82,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
                 }
 
-                $scope.url = angular.isDefined(result._links.next.href) ? result._links.next.href : null;
+                $scope.url = angular.isDefined(result._links.next) ? result._links.next.href : null;
 
             }, function(reason) {
                 alert("Pesquisa muito abrangente, favor restringir através dos filtros avançados!");
