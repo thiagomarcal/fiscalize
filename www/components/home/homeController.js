@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, ngMeta) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, ngMeta, Convenios, Search, Page) {
 
     // Page Initial Value
     page = 1;
@@ -10,6 +10,9 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
     // Requisition Home 
     $scope.home = function() {
+
+        $scope.restorePreviousHome();
+
         if (angular.isUndefined($scope.convenios)) {
             $scope.convenios = [];
             $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&hal=f';
@@ -19,6 +22,12 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
     // Requisition Search 
     $scope.search = function() {
+
+        Search.setSearch($scope.searchParam);
+        Search.setEstado($scope.estadoSelecionado);
+        Search.setCidade($scope.cidadeSelecionado);
+        Search.setMinisterio($scope.ministerioSelecionado);
+        Search.setSituacao($scope.situacaoSelecionado);
 
         $scope.flagQtdRetornados = true;
 
@@ -77,8 +86,11 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
                         $scope.convenios.push(value);
 
                         $scope.totalConvenios = result._size;
+                        Convenios.setTotal($scope.totalConvenios);
 
                     });
+
+                    Convenios.setLista($scope.convenios);
 
                 }
 
@@ -221,10 +233,62 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 		});
 	}
 
+
+
+    $scope.restorePreviousHome = function() {
+        //Restore Previous Convenios List
+        Convenios.getLista();
+
+        // Verifica se Lista Convenios é nula
+        if (Convenios.getLista().length != 0) {
+            $scope.convenios = Convenios.getLista();
+        }
+
+        // Restore Total
+        $scope.totalConvenios = Convenios.getTotal();
+
+        if (Convenios.getTotal()>=0) {
+            $scope.flagQtdRetornados = true;
+        } 
+
+        // Restore Search Param
+        $scope.searchParam = Search.getSearch();
+
+        // Restore AdvSearch
+        $scope.estadoSelecionado = Search.getEstado();
+        $scope.cidadeSelecionado = Search.getCidade();
+        $scope.ministerioSelecionado = Search.getMinisterio();
+        $scope.situacaoSelecionado = Search.getSituacao();
+        
+    }
+
+    //Reposição do Scroll ao Voltar - Futura Build
+
+    // $scope.setPageProperties = function() {
+    //     var ScrollPos = retrieveScrollableContent().scrollableContent.scrollTop;
+    //     Page.setScrollPos(ScrollPos);
+    // }
+
+    // function retrieveScrollableContent() {
+    //     var elem = angular.element("#homeScroll");
+    //     var sc = elem.controller('scrollableContent');
+    //     return sc;
+    // }
+
+    // $scope.$watch("convenios", function () {
+    //         if (angular.isDefined(Page.getScrollPos())) {
+    //           retrieveScrollableContent().scrollTo(Page.getScrollPos());
+    //       }
+    // });
+
     // Initial Call Home
     $scope.home();
     $scope.requisitionEstados();
     $scope.requisitionMinisterios();
     $scope.requisitionSituacoes();
+
+  
+    
+
 
 });

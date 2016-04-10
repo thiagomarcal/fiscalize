@@ -46,13 +46,13 @@
         </div>
     </div>
     <label ng-show="flagQtdRetornados">A pesquisa retornou {{ totalConvenios }} resultado(s)</label>
-    <div class="scrollable-content section" ui-scroll-bottom="loadMore()">
+    <div id="homeScroll" class="scrollable-content section" ui-scroll-bottom="loadMore()">
         <div class="section" ng-repeat="convenio in convenios">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="btn-group pull-right">
                     	
-                    	<a href="#/detalhe/{{convenio.NR_CONVENIO}}" tooltip="Detalhe" class='btn'>
+                    	<a ng-click="setPageProperties()" href="#/detalhe/{{convenio.NR_CONVENIO}}" tooltip="Detalhe" class='btn'>
                             <i class="fa fa-plus"></i>
                         </a>
                         <a ng-click="fiscalizar(convenio)" class='btn'>
@@ -61,7 +61,7 @@
                         <a ng-click="midiaShareFace(convenio)" class='btn'>
                             <i class="fa fa-share-alt"></i>
                         </a>
-                        <a href="#/denuncia/{{convenio.NR_CONVENIO}}" class='btn'>
+                        <a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}" class='btn'>
                             <i class="fa fa-bullhorn"></i>
                         </a>
                         <a ui-turn-on='myDropdown{{convenio.NR_CONVENIO}}' class='btn'>
@@ -69,8 +69,8 @@
                         </a>
                         <ul ui-state="myDropdown{{convenio.NR_CONVENIO}}" class="dropdown-menu" ui-outer-click="Ui.turnOff('myDropdown' + convenio.NR_CONVENIO)" ui-outer-click-if="Ui.active('myDropdown' + convenio.NR_CONVENIO)" role="menu" ui-show="myDropdown{{convenio.NR_CONVENIO}}" ui-turn-off="myDropdown{{convenio.NR_CONVENIO}}">
                             <!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
-                            <li><a href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
-                            <li><a href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
+                            <li><a ng-click="setPageProperties()" href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
+                            <li><a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
                             <li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>
                             <li class="divider"></li>
                             <li><a ng-click="midiaShareFace(convenio)">Compartilhar</a></li>
