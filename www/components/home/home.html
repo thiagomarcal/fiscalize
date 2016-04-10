@@ -13,7 +13,7 @@
         <div ng-show="advSearch">
             <label> Estado: </label>
             <br>
-            <select class="form-control" ng-model="estadoSelecionado" ng-change="estadoChange()" ng-options="estado.UF_PROPONENTE for estado in estados">
+            <select class="form-control" ng-model="estadoSelecionado" ng-change="estadoChange()" ng-options="estado.UF_PROPONENTE for estado in estados track by estado.UF_PROPONENTE">
                 <option value="">
                     Selecionar
                 </option>
@@ -21,7 +21,7 @@
             <br>
             <label> Município: </label>
             <br>
-            <select class="form-control" ng-model="cidadeSelecionado" ng-options="cidade.NM_MUNICIPIO_PROPONENTE for cidade in cidades">
+            <select class="form-control" ng-model="cidadeSelecionado" ng-options="cidade.NM_MUNICIPIO_PROPONENTE for cidade in cidades track by cidade.NM_MUNICIPIO_PROPONENTE">
                 <option value="">
                     Selecionar
                 </option>
@@ -29,7 +29,7 @@
             <br>
             <label> Categoria: </label>
             <br>
-            <select class="form-control" ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios">
+            <select class="form-control" ng-model="ministerioSelecionado" ng-options="ministerio.NM_ORGAO_SUPERIOR for ministerio in ministerios track by ministerio.NM_ORGAO_SUPERIOR">
                 <option value="">
                     Selecionar
                 </option>
@@ -37,7 +37,7 @@
             <br>
             <label> Situação: </label>
             <br>
-            <select class="form-control" ng-model="situacaoSelecionado" ng-options="situacao.TX_SITUACAO for situacao in situacoes">
+            <select class="form-control" ng-model="situacaoSelecionado" ng-options="situacao.TX_SITUACAO for situacao in situacoes track by situacao.TX_SITUACAO">
                 <option value="">
                     Selecionar
                 </option>
