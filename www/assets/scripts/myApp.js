@@ -23,7 +23,23 @@ myApp.config(function($routeProvider) {
         });
 });
 
+myApp.config(function($httpProvider) {
 
+    $httpProvider.interceptors.push(function($q) {
+        return {
+         'request': function(config) {
+             $('#processing').show();
+             return config;
+          },
+
+          'response': function(response) {
+             $('#processing').hide();
+             return response;
+          }
+        };
+    });
+    
+});
 
 // Set up the cache ‘myCache’
 myApp.factory('myCache', function($cacheFactory) {
