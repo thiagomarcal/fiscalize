@@ -94,8 +94,10 @@
                     </span>
                 </h3>
                 <div class="panel-body">
-                    <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
-                    <div tc-chartjs-legend chart-legend="legend"></div>
+                    <div class="panel panel-default">
+                        <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
+                        <div tc-chartjs-legend chart-legend="legend"></div>
+                    </div>    
                 </div>
                 <div class="section" ng-repeat="row in empenhos">
                     <div class="panel panel-default">
@@ -161,8 +163,10 @@
                 </div>
                 <div ui-if="activeSubTab == 1">
                     <div class="panel-body">
-                        <canvas tc-chartjs-pie chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
-                        <div tc-chartjs-legend chart-legend="legend"></div>
+                        <div class="panel panel-default">
+                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>    
                     </div>
                     <div class="section" ng-repeat="row in planoAplicacao">
                         <div class="panel panel-default">
@@ -201,8 +205,10 @@
                 </div>
                 <div ui-if="activeSubTab == 2">
                     <div class="panel-body">
-                        <canvas tc-chartjs-pie chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
-                        <div tc-chartjs-legend chart-legend="legend"></div>
+                        <div class="panel panel-default">
+                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>    
                     </div>
                     <div class="section" ng-repeat="row in cronogramaFisico">
                         <div class="panel panel-default">
@@ -233,8 +239,10 @@
                 </div>
                 <div ui-if="activeSubTab == 3">
                     <div class="panel-body">
-                        <canvas tc-chartjs-line chart-options="optionsLine" chart-data="dataCronogramaDesembolso" chart-legend="legend"></canvas>
-                        <div tc-chartjs-legend chart-legend="legend"></div>
+                        <div class="panel panel-default">
+                            <canvas tc-chartjs-line chart-options="optionsLine" chart-data="dataCronogramaDesembolso" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>    
                     </div>
                     <div class="section" ng-repeat="row in cronogramaDesembolso">
                         <div class="panel panel-default">
@@ -266,8 +274,10 @@
                     </span>
                 </h3>
                 <div class="panel-body">
-                    <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
-                    <div tc-chartjs-legend chart-legend="legend"></div>
+                    <div class="panel panel-default">
+                        <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
+                        <div tc-chartjs-legend chart-legend="legend"></div>
+                    </div>    
                 </div>
                 <div class="section" ng-repeat="row in execucaoFinanceira">
                     <div class="panel panel-default">
@@ -307,8 +317,10 @@
                     </div>
                     <div ui-if="activeSubTab == 11">
                         <div class="panel-body">
-                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
-                            <div tc-chartjs-legend chart-legend="legend"></div>
+                            <div class="panel panel-default">
+                                <canvas tc-chartjs-pie chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
+                                <div tc-chartjs-legend chart-legend="legend"></div>
+                            </div>    
                         </div>
                         <div class="section" ng-repeat="row in pagamentoOBTV">
                             <div class="panel panel-default">
@@ -359,8 +371,10 @@
                     </div>
                     <div ui-if="activeSubTab == 12">
                         <div class="panel-body">
-                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
-                            <div tc-chartjs-legend chart-legend="legend"></div>
+                            <div class="panel panel-default">
+                                <canvas tc-chartjs-pie chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
+                                <div tc-chartjs-legend chart-legend="legend"></div>
+                            </div>    
                         </div>
                         <div class="section" ng-repeat="row in documentoLiquidacao">
                             <div class="panel panel-default">
@@ -411,8 +425,10 @@
                     </div>
                     <div ui-if="activeSubTab == 13">
                         <div class="panel-body">
-                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
-                            <div tc-chartjs-legend chart-legend="legend"></div>
+                            <div class="panel panel-default">
+                                <canvas tc-chartjs-pie chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
+                                <div tc-chartjs-legend chart-legend="legend"></div>
+                            </div>    
                         </div>
                         <div class="section" ng-repeat="row in discriminacaoOBTV">
                             <div class="panel panel-default">
@@ -511,8 +527,10 @@
                 </div>
                 <div ui-if="activeSubTab == 21">
                     <div class="panel-body">
-                        <canvas tc-chartjs-pie chart-options="options" chart-data="dataProgramaConvenios" chart-legend="legend"></canvas>
-                        <div tc-chartjs-legend chart-legend="legend"></div>
+                        <div class="panel panel-default">
+                            <canvas tc-chartjs-pie chart-options="options" chart-data="dataProgramaConvenios" chart-legend="legend"></canvas>
+                            <div tc-chartjs-legend chart-legend="legend"></div>
+                        </div>    
                     </div>
                     <div class="section" ng-repeat="row in programaConvenios">
                         <div class="panel panel-default">
