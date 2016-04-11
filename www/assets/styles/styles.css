@@ -24,17 +24,33 @@
   right: 0;
 }
 
-.progress-wrapper{
-position: relative;
-margin:20px auto;
-font-size: 40px;
+#progress{
+  position: absolute;
+  color: #bbb;
+  font-weight: 100;
+  line-height: 1;
 }
 
+/*.progress-wrapper{
+position: relative;
+margin:20px auto;
+}
+*/
 .progressBar{
-position: absolute;
-color: #bbb;
+top: 37px;
+right: -18px;
+position: relative;
 font-weight: 100;
 line-height: 1;
+}
+/*
+.round-progress {
+  top: 0px; 
+  left: 0px;
+  position: relative; 
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;
 }
 
 .container{
@@ -60,10 +76,7 @@ right:5px;
 .container{
     margin-top: 25px;
 }
-}
-
-
-
+}*/
 
 .searchbox{
  background-color:#fffbf8;

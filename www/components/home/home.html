@@ -82,33 +82,51 @@
                 </div>
                 <div class="panel-body">
 		
-
-                    <table>
+                    <table class="table-responsive">
                         <tr>
                             <center><b>{{ convenio.TX_OBJETO_CONVENIO }}</b></center>
                         </tr>
                         <tr>
                             <td>Convênio:</td>
-                            <td><em>{{ convenio.NR_CONVENIO }} </em></td>
+                            <td colspan="2"><em>{{ convenio.NR_CONVENIO }} </em></td>
                         </tr>
                         <tr>
                             <td>Situação:</td>
-                            <td><em>{{ convenio.TX_SITUACAO }} </em></td>
+                            <td colspan="2"><em>{{ convenio.TX_SITUACAO }} </em><br></td>
                         </tr>
                         <tr>
                             <td>Concedente:</td>
-                            <td>{{ convenio.NM_ORGAO_CONCEDENTE }}</td>
+                            <td colspan="2">{{ convenio.NM_ORGAO_CONCEDENTE }}<br></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><center>{{ convenio.NM_PROGRAMA }}</center></td>
+                            <td>Nome Programa:</td>
+                            <td colspan="2">{{convenio.NM_PROGRAMA}}<br></td>
                         </tr>
                         <tr>
                             <td>Vigência:</td>
                             <td>
-                                {{ convenio.DT_INICIO_VIGENCIA + " - " + convenio.DT_FIM_VIGENCIA }}                                
-                            </td>
-                            <td>
-                            	<percent-display percent="convenio.percentVigencia" size="60" colors=""></percent-display>
+                                {{convenio.DT_INICIO_VIGENCIA}}<br>
+                                {{convenio.DT_FIM_VIGENCIA}}
+                             </td>
+                             <td>
+                                    <div class="progressBar ng-cloak">{{convenio.percentVigencia| number:0}}%</div>
+                                    <div 
+                                          round-progress
+                                          max="100"
+                                          current="convenio.percentVigencia"
+                                          color="#45ccce"
+                                          bgcolor="#eaeaea"
+                                          radius="30"
+                                          stroke="10"
+                                          semi="false"
+                                          rounded="false"
+                                          clockwise="true"
+                                          responsive="false"
+                                          duration="800"
+                                          animation="easeOutCubic"
+                                          animation-delay="0"
+                                          >
+                                    </div>
                             </td>
                         </tr>
                         <tr>
@@ -117,13 +135,30 @@
                             	Repasse:<br>
                             	Desembolsado:
                             </td>
+
                             <td>
                                 {{ convenio.VL_GLOBAL }}<br>
                                 {{ convenio.VL_REPASSE }}<br>
-                                {{ convenio.VL_DESEMBOLSADO }}                                
+                                {{ convenio.VL_DESEMBOLSADO }}
                             </td>
-                            <td rowspan="3">
-                                <percent-display percent="convenio.percentDesembolso" size="60" colors=""></percent-display>
+                            <td>
+                                <div class="progressBar ng-cloak" class="progress">{{convenio.percentDesembolso| number:0}}%</div>
+                                <div
+                                      round-progress
+                                      max="100"
+                                      current="convenio.percentDesembolso"
+                                      color="#45ccce"
+                                      bgcolor="#eaeaea"
+                                      radius="30"
+                                      stroke="10"
+                                      semi="false"
+                                      rounded="false"
+                                      clockwise="true"
+                                      responsive="false"
+                                      duration="800"
+                                      animation="easeOutCubic"
+                                      animation-delay="0">
+                                </div>
                             </td>
                         </tr>
                     </table>
