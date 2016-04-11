@@ -58,7 +58,7 @@ Lista de Convênios
 http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS
 
 Detalhe Convênio
-http://74.124.24.115:8080/hackathon/detalhe/#idConvenio
+http://74.124.24.115:8080/hackathon/detalhe/<NR_CONVENIO>
 
 Lista de Fiscalizados
 http://74.124.24.115:8080/hackathon/Fiscalizados
