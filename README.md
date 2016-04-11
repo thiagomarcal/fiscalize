@@ -53,7 +53,7 @@ Após esse comando o aplicativo começará a execução no device conectado.
 
 ### Lista dos Serviços disponibilizados por nossa Api Rest (RestHeart) 
 
-Caso queira se aprofundar nos parâmetros de pesquisa visite a página http://restheart.org/
+Caso queira aprofundar-se nos parâmetros de pesquisa visite a página http://restheart.org/
 
 Lista de Convênios
 http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS
