@@ -6,6 +6,10 @@ Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
 ## Instalação PhoneGap
 
+### Requerimentos
+node.js - a JavaScript runtime to build your JavaScript code
+
+
 Use o npm para instalar o Phonegap.
 
     $ npm install -g phonegap
