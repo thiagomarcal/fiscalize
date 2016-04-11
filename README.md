@@ -16,7 +16,7 @@ Use o npm para instalar o Phonegap.
 
 ## Projeto
 
-### Faça o Clone do projeto do repositório
+### Faça o Clone do repositório
 
     $ cd ~/<diretorio>
     $ git clone https://crunkbr@bitbucket.org/crunkbr/hackathon.git
