@@ -35,6 +35,10 @@ myApp.config(function($httpProvider) {
           'response': function(response) {
              $('#processing').hide();
              return response;
+          },
+          'responseError': function(response) {
+             $('#processing').hide();
+             return response;
           }
         };
     });

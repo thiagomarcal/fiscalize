@@ -262,6 +262,14 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         
     }
 
+    $scope.limparBusca = function () {
+        delete $scope.searchParam;
+        delete $scope.estadoSelecionado;
+        delete $scope.cidadeSelecionado;
+        delete $scope.ministerioSelecionado;
+        delete $scope.situacaoSelecionado;
+    }
+
     //Reposição do Scroll ao Voltar - Futura Build
 
     // $scope.setPageProperties = function() {
