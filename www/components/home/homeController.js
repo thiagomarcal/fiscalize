@@ -191,6 +191,8 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         requisicaoFactory.postRequest(ADDRESS + '/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
             alert('UUID: ' + $scope.fiscalizado.uuid + ' Fiscalizando Convenio: ' + $scope.fiscalizado.convenio.NR_CONVENIO);
 
+            $scope.refreshFiscalizados();
+
         }, function(reason) {
             alert("Convenio já está sendo Fiscalizado!")
             console.log("reason:", reason);
@@ -198,8 +200,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         }, function(update) {
             console.log("update:", update);
         })
-
-        $scope.refreshFiscalizados();
     }
 
 
