@@ -1,8 +1,8 @@
-# Fiscalize! [![bitHound Score][bithound-img]][bithound-url]
+# Fiscalize!
 
 
 > O Fiscalize! foi criado a partir das seguintes tecnologias:
-Phonegap, Cordova, AngularJS, MongoDB, RestHeart
+Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
 ## Instalação PhoneGap
 
@@ -20,7 +20,7 @@ Use o npm para instalar o Phonegap.
 
 ### Build do Projeto
 
-Dentro da pasta do projeto faça um build para a plataforma desejada (Android/IOS/Browser)
+Dentro da pasta do projeto faça um build para a plataforma desejada (iOS, Android, WindowsPhone, Browser, entre outras)
 
     Android:
     $ phonegap build android
@@ -31,7 +31,7 @@ Dentro da pasta do projeto faça um build para a plataforma desejada (Android/IO
     Browser:
     $ phonegap build browser
 
-## Executar Projeto
+### Executar Projeto
 
 Certifique-se que o device esteja devidamente conectado no computador via USB
 
@@ -45,11 +45,4 @@ Certifique-se que o device esteja devidamente conectado no computador via USB
     $ phonegap run browser
 
 
-Após esse comando o aplicativo começará a execução no device 
-
-
-[phonegap-cli-url]: http://github.com/phonegap/phonegap-cli
-[cordova-app]: http://github.com/apache/cordova-app-hello-world
-[nitrous-url]: https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e(https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=phonegap%2Fphonegap-start&file_to_open=README.md
-[bithound-img]: https://www.bithound.io/github/phonegap/phonegap-app-hello-world/badges/score.svg
-[bithound-url]: https://www.bithound.io/github/phonegap/phonegap-app-hello-world
+Após esse comando o aplicativo começará a execução no device conectado.
