@@ -1,71 +1,73 @@
-# Hello World PhoneGap Application [![bitHound Score][bithound-img]][bithound-url]
+# Fiscalize!
 
-> A Hello World application built with PhoneGap
 
-## Usage
+> O Fiscalize! foi criado a partir das seguintes tecnologias:
+Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
-### Desktop
+## Instalação PhoneGap
 
-In your browser, open the file:
+### Requerimentos
+node.js - JavaScript runtime para rodar código JavaScript
 
-    /www/index.html
 
-### PhoneGap CLI
+Use o npm para instalar o Phonegap.
 
-This repository is automatically downloaded by [phonegap-cli][phonegap-cli-url]
-when you create a new application.
-
-### PhoneGap Build
-
-Create a new app with the following repository:
-
-    https://github.com/phonegap/phonegap-start.git
-
-### Nitrous.io
-
-First [setup nitrous.io][nitrous-url] to use this project.
-
-Then run the following commands in the nitrous.io terminal:
-
-    $ cd ~/workspace/phonegap-start
     $ npm install -g phonegap
-    $ phonegap remote build android
 
-The last command requires an Adobe ID and will build your app on PhoneGap Build.
+## Projeto
 
-## Contributors
+### Faça o Clone do repositório
 
-### Updating the Application
+    $ cd ~/<diretorio>
+    $ git clone https://crunkbr@bitbucket.org/crunkbr/hackathon.git
+    $ cd ~/<diretorio>/hackathon
 
-The application is based on the [Apache Cordova Hello World][cordova-app] app.
+### Build do Projeto
 
-#### 1. Update the Source
+Dentro da pasta do projeto faça um build para a plataforma desejada (iOS, Android, WindowsPhone, Browser, entre outras)
 
-    cp cordova-app-hello-world/www www/
+    Android:
+    $ phonegap build android
 
-__Do not replace `www/config.xml`.__
+    IOS:
+    $ phonegap build ios
 
-__Do not replace `www/img/logo.png`.__
+    Browser:
+    $ phonegap build browser
 
-#### 2. Update index.html
+### Executar Projeto
 
-Replace `<h1>Apache Cordova</h1>` with `<h1>PhoneGap</h1>`.
+Certifique-se que o device esteja devidamente conectado no computador via USB
 
-#### 3. Update PhoneGap Version
+    Android:
+    $ phonegap run android
 
-    <preference name="phonegap-version" value="x.x.x" />
+    IOS:
+    $ phonegap run ios
 
-#### 4. Commit
+    Browser:
+    $ phonegap run browser
 
-    $ git commit -am "Version x.x.x"
 
-#### 5. Tag
+Após esse comando o aplicativo começará a execução no device conectado.
 
-    $ git tag x.x.x
 
-[phonegap-cli-url]: http://github.com/phonegap/phonegap-cli
-[cordova-app]: http://github.com/apache/cordova-app-hello-world
-[nitrous-url]: https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e(https://www.nitrous.io/hack_button?source=embed&runtime=nodejs&repo=phonegap%2Fphonegap-start&file_to_open=README.md
-[bithound-img]: https://www.bithound.io/github/phonegap/phonegap-app-hello-world/badges/score.svg
-[bithound-url]: https://www.bithound.io/github/phonegap/phonegap-app-hello-world
+### Lista dos Serviços disponibilizados por nossa Api Rest
 
+Lista de Convênios
+http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS
+
+Detalhe Convênio
+http://74.124.24.115:8080/hackathon/detalhe/<NR_CONVENIO>
+
+Lista de Fiscalizados
+http://74.124.24.115:8080/hackathon/Fiscalizados
+
+Lista de Estados
+http://74.124.24.115:8080/hackathon/Estados
+
+Lista de Municípios
+http://74.124.24.115:8080/hackathon/Municipios
+
+Lista de Situação Convênio
+http://74.124.24.115:8080/hackathon/SituacaoConvenio
