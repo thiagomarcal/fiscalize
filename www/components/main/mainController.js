@@ -80,6 +80,8 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
         $scope.atualizaFiscalizado(fiscalizado);
         $scope.verificaRecentes();
         $location.path('/detalhe/' + fiscalizado.convenio.NR_CONVENIO);
+
+        $scope.refreshFiscalizados();
     }
 
     $scope.abrirChat = function(fiscalizado) {

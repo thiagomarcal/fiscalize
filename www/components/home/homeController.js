@@ -171,6 +171,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
     $scope.fiscalizar = function(convenio) {
 
+
         convenio_fiscalizado = {};
         convenio_fiscalizado.NR_CONVENIO = convenio.NR_CONVENIO;
         convenio_fiscalizado.NM_ORGAO_SUPERIOR = convenio.NM_ORGAO_SUPERIOR;
@@ -197,6 +198,8 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         }, function(update) {
             console.log("update:", update);
         })
+
+        $scope.refreshFiscalizados();
     }
 
 
@@ -294,9 +297,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.requisitionEstados();
     $scope.requisitionMinisterios();
     $scope.requisitionSituacoes();
-
+    $scope.refreshFiscalizados();
   
-    
-
 
 });
