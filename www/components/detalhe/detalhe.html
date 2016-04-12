@@ -539,8 +539,7 @@
                         <a ng-click="requisitionCronogramaFinanceiroXRepasses()" ui-set="{'activeSubTab': 30}" ui-class="{'active': activeSubTab == 30}" class="btn btn-default">Evolução Financeira</a>
                     </div>
                     <div ui-if="activeSubTab == 30">
-                        <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
-                        <div class="panel-body" ng-show="!emptyResultSet">
+                        <div class="panel-body">
                             <div class="panel panel-default">
                                 <canvas tc-chartjs-bar chart-options="optionsLine" chart-data="dataCronogramaFinanceiroXRepasses" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
