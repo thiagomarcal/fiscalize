@@ -53,7 +53,7 @@
                         <a ui-set="{'activeTab': 4}" role="tab" data-toggle="tab">Repasses</a>
                     </li>
                     <li ng-class="{ 'active': activeTab == 5, 'disabled': false }" ng-click="requisitionPagamentoOBTV()">
-                        <a ui-set="{'activeTab': 5}" role="tab" data-toggle="tab">Pagamentos Realizados</a>
+                        <a ui-set="{'activeTab': 5}" role="tab" data-toggle="tab">Prestação de Contas</a>
                     </li>
                     <li ng-class="{ 'active': activeTab == 6, 'disabled': false }" ng-click="requisitionCronogramaFinanceiroXRepasses()">
                         <a ui-set="{'activeTab': 6}" role="tab" data-toggle="tab">Análises</a>
@@ -350,7 +350,7 @@
            </div>
            <div class="tab-content">  
             <div ui-if="activeTab == 5" >
-                <h3 class="page-header">Pagamentos Realizados
+                <h3 class="page-header">Prestação de Contas
                  <span class="pull-right">
                         <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Informações de OBTV - Ordem Bancária de Transferência Voluntária, pagamentos realizados pelo CONVENENTE (Executor)."></i> 
                     </span>
@@ -536,7 +536,7 @@
                 <div class="panel-body">
                     <ui-state id='activeSubTab' default='30'></ui-state>
                     <div class="btn-group nav-tabs">
-                        <a ng-click="requisitionCronogramaFinanceiroXRepasses()" ui-set="{'activeSubTab': 30}" ui-class="{'active': activeSubTab == 30}" class="btn btn-default">Empenho x Planejamento x Repasses</a>
+                        <a ng-click="requisitionCronogramaFinanceiroXRepasses()" ui-set="{'activeSubTab': 30}" ui-class="{'active': activeSubTab == 30}" class="btn btn-default">Evolução Financeira</a>
                     </div>
                     <div ui-if="activeSubTab == 30">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>

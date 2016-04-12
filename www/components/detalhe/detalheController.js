@@ -470,10 +470,13 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         $scope.requisitionEmpenhos();
         $scope.requisitionCronogramaDesembolso();
         $scope.requisitionExecucaoFinanceira();
+        $scope.requisitionPagamentoOBTV();
+
 
         $scope.dataEmpenhos = $scope.dataEmpenhos;
         $scope.cronogramaDesembolso = $scope.cronogramaDesembolso;
         $scope.dataExecucaoFinanceira = $scope.dataExecucaoFinanceira;
+        $scope.dataPagamentoOBTV = $scope.dataPagamentoOBTV;
 
         var labelsEmpenho = Enumerable.From($scope.dataEmpenhos).Select(function(x) {
             return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value }; }).ToArray();
@@ -481,18 +484,22 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
             return { date: $scope.formatarData('01/' + x.Data), label: x.Data, value: x.VL_PARCELA_FLOAT }; }).ToArray();
         var labelsExecucaoFinanceira = Enumerable.From($scope.dataExecucaoFinanceira).Select(function(x) {            
             return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value }; }).ToArray();
+        var labelsPagamento = Enumerable.From($scope.dataPagamentoOBTV).Select(function(x) {            
+            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value }; }).ToArray();
 
-        var labels = Enumerable.From(labelsEmpenho).Union(labelscronogramaDesembolso).Union(labelsExecucaoFinanceira).Distinct("$.label").OrderBy("$.date").Select("$.label").ToArray();
+        var labels = Enumerable.From(labelsEmpenho).Union(labelscronogramaDesembolso).Union(labelsExecucaoFinanceira).Union(labelsPagamento).Distinct("$.label").OrderBy("$.date").Select("$.label").ToArray();
 
         var dadosEmpenho = [];
         var dadosDesembolso = [];
         var dadosExecucaoFinanceira = [];
+        var dadosPagamento = [];
         for(var i = 0; i < labels.length; i++)
         {
         	var currentLabel = labels[i];
         	dadosEmpenho[i] = Enumerable.From(labelsEmpenho).Where("$.label == '" + currentLabel + "'").Sum("$.value");
         	dadosDesembolso[i] = Enumerable.From(labelscronogramaDesembolso).Where("$.label == '" + currentLabel + "'").Sum("$.value");
         	dadosExecucaoFinanceira[i] = Enumerable.From(labelsExecucaoFinanceira).Where("$.label == '" + currentLabel + "'").Sum("$.value");
+        	dadosPagamento[i] = Enumerable.From(labelsPagamento).Where("$.label == '" + currentLabel + "'").Sum("$.value");
         }
 
         $scope.emptyResultSet = false;
@@ -500,31 +507,40 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
             labels: labels,
             datasets: [{
                 label: 'Empenho',
-                fillColor: 'rgba(220,220,220,0.2)',
-                strokeColor: 'rgba(220,220,220,1)',
-                pointColor: 'rgba(220,220,220,1)',
+                fillColor: 'rgba(51,153,51,0.2)',
+                strokeColor: 'rgba(51,153,51,1)',
+                pointColor: 'rgba(51,153,51,1)',
                 pointStrokeColor: '#fff',
                 pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(220,220,220,1)',
+                pointHighlightStroke: 'rgba(51,153,51,1)',
                 data: dadosEmpenho
             }, {
                 label: 'Planejamento',
-                fillColor: 'rgba(170,187,210,0.2)',
-                strokeColor: 'rgba(170,187,210,1)',
-                pointColor: 'rgba(170,187,210,1)',
+                fillColor: 'rgba(27,161,226,0.2)',
+                strokeColor: 'rgba(27,161,226,1)',
+                pointColor: 'rgba(27,161,226,1)',
                 pointStrokeColor: '#fff',
                 pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(170,187,210,1)',
+                pointHighlightStroke: 'rgba(27,161,226,1)',
                 data: dadosDesembolso
             }, {
                 label: 'Repasse',
-                fillColor: 'rgba(151,187,205,0.2)',
-                strokeColor: 'rgba(151,187,205,1)',
-                pointColor: 'rgba(151,187,205,1)',
+                fillColor: 'rgba(240,150,9,0.2)',
+                strokeColor: 'rgba(240,150,9,1)',
+                pointColor: 'rgba(240,150,9,1)',
                 pointStrokeColor: '#fff',
                 pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(151,187,205,1)',
+                pointHighlightStroke: 'rgba(240,150,9,1)',
                 data: dadosExecucaoFinanceira
+            }, {
+                label: 'Prestação de Contas',
+                fillColor: 'rgba(229,20,0,0.2)',
+                strokeColor: 'rgba(229,20,0,1)',
+                pointColor: 'rgba(229,20,0,1)',
+                pointStrokeColor: '#fff',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(229,20,0,1)',
+                data: dadosPagamento
             }]
         };
     }
