@@ -11,6 +11,10 @@ node.js - JavaScript runtime para rodar código JavaScript
 
 Download em: https://nodejs.org/en/
 
+git - Repositório
+
+Download em: https://git-scm.com/
+
 Use o npm para instalar o Phonegap.
 
     $ npm install -g phonegap
