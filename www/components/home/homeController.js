@@ -31,23 +31,25 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         $scope.flagQtdRetornados = true;
 
-        var textSearchArg = '';
-        if (!(angular.isUndefined($scope.searchParam) || $scope.searchParam == null)) {
-        	
-        	if($scope.searchParam.split(" ").lenght > 1)
-        	{
-        		$scope.searchParam = '\"' + $scope.searchParam.replace(' ', '+') + '\"';
-        	}
-
-            textSearchArg = ',$text:{$search:"' + $scope.searchParam + '"}';
-        }
-
         $scope.convenios = [];
         estado = angular.isUndefined($scope.estadoSelecionado) ? "" : $scope.estadoSelecionado.UF_PROPONENTE;
         cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
         ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
         situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
-        $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
+        search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
+
+        filtros = [
+            {campo: 'UF_PROPONENTE', objeto: estado, result: 'UF_PROPONENTE:{$regex:"' + estado + '"}'},
+            {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
+            {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
+            {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
+            {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
+        ]
+
+        filtro = montaFiltro(filtros, '&sort_by=DT_INICIO_VIGENCIA');
+
+        // $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';$scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
+        $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + ''+ filtro +'&hal=f';
         $scope.requisition();
     }
 
@@ -291,6 +293,47 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     //           retrieveScrollableContent().scrollTo(Page.getScrollPos());
     //       }
     // });
+    
+    function parseSearchString (searchValue) {
+
+        if(searchValue.split(" ").lenght > 1)
+            {
+                searchValue = '\"' + searchValue.replace(' ', '+') + '\"';
+            }
+
+        return '$text:{$search:"' + searchValue + '"}';
+    }
+
+    function montaFiltro (lista, sort) {
+        var filter = '&filter={'
+        var i = 0;
+        angular.forEach(filtros, function(value, key){
+
+            if (value.objeto != "") {
+                filter += value.result;
+
+                var nextObject = filtros[key+1 % filtros.length];
+
+                filter += (angular.isDefined(nextObject)) ? ',' : '';
+            };
+
+            if (filtros.length - 1 == i) {
+                if (filter == '&filter={') {
+                    filter = '';
+                } 
+                else {
+                    filter += '}'
+                    filter += sort
+                };
+            };
+
+            i++;
+
+        });
+
+        return filter;
+    }
+
 
     // Initial Call Home
     $scope.home();
