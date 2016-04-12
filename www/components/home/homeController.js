@@ -129,7 +129,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         // Requisition Cidades
     $scope.requisitionCidades = function(estado) {
 
-        requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
+        requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
 
         }, function(reason) {
