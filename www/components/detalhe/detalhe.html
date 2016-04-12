@@ -17,7 +17,7 @@
                 <li ui-class="{'active': activeTab == 2}" ng-click="requisitionEmpenhos()">
                     <a ui-set="{'activeTab': 2}">Empenho</a>
                 </li>
-                <li ui-class="{'active': activeTab == 3}">
+                <li ui-class="{'active': activeTab == 3}" ng-click="requisitionPlano()">
                     <a ui-set="{'activeTab': 3}">Planejamento</a>
                 </li>
                 <li ui-class="{'active': activeTab == 4}" ng-click="requisitionExecucaoFinanceira()">
@@ -93,13 +93,14 @@
                         <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Ato emanado de autoridade competente. É o primeiro estágio da despesa pública."></i> 
                     </span>
                 </h3>
-                <div class="panel-body">
+                <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                <div class="panel-body" ng-show="!emptyResultSet">
                     <div class="panel panel-default">
                         <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
                         <div tc-chartjs-legend chart-legend="legend"></div>
-                    </div>    
+                    </div>
                 </div>
-                <div class="section" ng-repeat="row in empenhos">
+                <div class="section" ng-repeat="row in empenhos" ng-show="!emptyResultSet">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                         </div>
@@ -162,13 +163,14 @@
                     <a ng-click="requisitionCronogramaDesembolso()" ui-set="{'activeSubTab': 3}" ui-class="{'active': activeSubTab == 3}" class="btn btn-default">Cronograma Financeiro</a>
                 </div>
                 <div ui-if="activeSubTab == 1">
-                    <div class="panel-body">
+                    <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                    <div class="panel-body" ng-show="!emptyResultSet">
                         <div class="panel panel-default">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
-                        </div>    
+                        </div>
                     </div>
-                    <div class="section" ng-repeat="row in planoAplicacao">
+                    <div class="section" ng-repeat="row in planoAplicacao" ng-show="!emptyResultSet">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
@@ -204,13 +206,14 @@
                     </div>
                 </div>
                 <div ui-if="activeSubTab == 2">
-                    <div class="panel-body">
+                    <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                    <div class="panel-body" ng-show="!emptyResultSet">
                         <div class="panel panel-default">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
-                        </div>    
+                        </div>
                     </div>
-                    <div class="section" ng-repeat="row in cronogramaFisico">
+                    <div class="section" ng-repeat="row in cronogramaFisico" ng-show="!emptyResultSet">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
@@ -238,13 +241,14 @@
                     </div>
                 </div>
                 <div ui-if="activeSubTab == 3">
-                    <div class="panel-body">
+                    <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                    <div class="panel-body" ng-show="!emptyResultSet">
                         <div class="panel panel-default">
                             <canvas tc-chartjs-line chart-options="optionsLine" chart-data="dataCronogramaDesembolso" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
-                        </div>    
+                        </div>
                     </div>
-                    <div class="section" ng-repeat="row in cronogramaDesembolso">
+                    <div class="section" ng-repeat="row in cronogramaDesembolso" ng-show="!emptyResultSet">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
@@ -273,13 +277,14 @@
                         <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Informações da execução financeira do CONCENDENTE (envio de ordens bancárias para o SIAFI). Ordens Bancárias do CONCEDENTE transferindo recurso para conta do convênio."></i> 
                     </span>
                 </h3>
-                <div class="panel-body">
+                <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                <div class="panel-body" ng-show="!emptyResultSet">
                     <div class="panel panel-default">
                         <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
                         <div tc-chartjs-legend chart-legend="legend"></div>
-                    </div>    
+                    </div>
                 </div>
-                <div class="section" ng-repeat="row in execucaoFinanceira">
+                <div class="section" ng-repeat="row in execucaoFinanceira" ng-show="!emptyResultSet">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                         </div>
@@ -316,13 +321,14 @@
                         <a ng-click="requisitionDiscriminacaoOBTV()" ui-set="{'activeSubTab': 13}" ui-class="{'active': activeSubTab == 13}" class="btn btn-default">Discriminação Pagamentos</a>
                     </div>
                     <div ui-if="activeSubTab == 11">
-                        <div class="panel-body">
+                        <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                        <div class="panel-body" ng-show="!emptyResultSet">
                             <div class="panel panel-default">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
-                            </div>    
+                            </div>
                         </div>
-                        <div class="section" ng-repeat="row in pagamentoOBTV">
+                        <div class="section" ng-repeat="row in pagamentoOBTV" ng-show="!emptyResultSet">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
@@ -370,13 +376,14 @@
                         </div>
                     </div>
                     <div ui-if="activeSubTab == 12">
-                        <div class="panel-body">
+                        <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                        <div class="panel-body" ng-show="!emptyResultSet">
                             <div class="panel panel-default">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
-                            </div>    
+                            </div>
                         </div>
-                        <div class="section" ng-repeat="row in documentoLiquidacao">
+                        <div class="section" ng-repeat="row in documentoLiquidacao" ng-show="!emptyResultSet">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
@@ -424,13 +431,14 @@
                         </div>
                     </div>
                     <div ui-if="activeSubTab == 13">
-                        <div class="panel-body">
+                        <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                        <div class="panel-body" ng-show="!emptyResultSet">
                             <div class="panel panel-default">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
-                            </div>    
+                            </div>
                         </div>
-                        <div class="section" ng-repeat="row in discriminacaoOBTV">
+                        <div class="section" ng-repeat="row in discriminacaoOBTV" ng-show="!emptyResultSet">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
@@ -530,7 +538,7 @@
                         <div class="panel panel-default">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataProgramaConvenios" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
-                        </div>    
+                        </div>
                     </div>
                     <div class="section" ng-repeat="row in programaConvenios">
                         <div class="panel panel-default">
@@ -566,22 +574,7 @@
                                         <td>
                                             <!-- <percent-display percent="row.percentVigencia" size="60" colors=""></percent-display> -->
                                             <div class="progressBar ng-cloak">{{row.percentVigencia| number:0}}%</div>
-                                            <div 
-                                                  round-progress
-                                                  max="100"
-                                                  current="row.percentVigencia"
-                                                  color="#45ccce"
-                                                  bgcolor="#eaeaea"
-                                                  radius="30"
-                                                  stroke="10"
-                                                  semi="false"
-                                                  rounded="false"
-                                                  clockwise="true"
-                                                  responsive="false"
-                                                  duration="800"
-                                                  animation="easeOutCubic"
-                                                  animation-delay="0"
-                                                  >
+                                            <div round-progress max="100" current="row.percentVigencia" color="#45ccce" bgcolor="#eaeaea" radius="30" stroke="10" semi="false" rounded="false" clockwise="true" responsive="false" duration="800" animation="easeOutCubic" animation-delay="0">
                                             </div>
                                         </td>
                                     </tr>
@@ -599,22 +592,7 @@
                                         <td rowspan="3">
                                             <!-- <percent-display percent="row.percentDesembolso" size="60" colors=""></percent-display> -->
                                             <div class="progressBar ng-cloak">{{row.percentDesembolso| number:0}}%</div>
-                                            <div 
-                                                  round-progress
-                                                  max="100"
-                                                  current="row.percentDesembolso"
-                                                  color="#45ccce"
-                                                  bgcolor="#eaeaea"
-                                                  radius="30"
-                                                  stroke="10"
-                                                  semi="false"
-                                                  rounded="false"
-                                                  clockwise="true"
-                                                  responsive="false"
-                                                  duration="800"
-                                                  animation="easeOutCubic"
-                                                  animation-delay="0"
-                                                  >
+                                            <div round-progress max="100" current="row.percentDesembolso" color="#45ccce" bgcolor="#eaeaea" radius="30" stroke="10" semi="false" rounded="false" clockwise="true" responsive="false" duration="800" animation="easeOutCubic" animation-delay="0">
                                             </div>
                                         </td>
                                     </tr>

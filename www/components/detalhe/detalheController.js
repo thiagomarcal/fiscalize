@@ -37,6 +37,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionPlano = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/PlanoAplicacaoPT?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.planoAplicacao = angular.fromJson(result._embedded["rh:doc"]);
 
 				$scope.totalPlano = 0;
@@ -73,6 +78,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionCronogramaFisico = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/CronogramaFisicoPT?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.cronogramaFisico = angular.fromJson(result._embedded["rh:doc"]);
 
 				angular.forEach($scope.cronogramaFisico, function(value, key) {
@@ -100,6 +110,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionCronogramaDesembolso = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/CronogramaDesembolsoPT?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.cronogramaDesembolso = angular.fromJson(result._embedded["rh:doc"]);
 
 				if($scope.cronogramaDesembolso == undefined)
@@ -147,6 +162,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionExecucaoFinanceira = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/ExecucaoFinanceira?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.execucaoFinanceira = angular.fromJson(result._embedded["rh:doc"]);
 
 				angular.forEach($scope.execucaoFinanceira, function(value, key) {
@@ -182,6 +202,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionPagamentoOBTV = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/PagamentoOBTV?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.pagamentoOBTV = angular.fromJson(result._embedded["rh:doc"]);
 
 				//angular.forEach($scope.pagamentoOBTV, function(value, key) {
@@ -217,6 +242,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionEmpenhos = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/Empenhos?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.empenhos = angular.fromJson(result._embedded["rh:doc"]);
 
 				angular.forEach($scope.empenhos, function(value, key) {
@@ -228,7 +258,7 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 
 				var linq = Enumerable.From($scope.empenhos);
 				var result =
-			    linq.GroupBy(function(x){ return x["DT_EMISSAO_EMPENHO"]; })
+			    linq.GroupBy(function(x){ return x["DT_EMISSAO_EMPENHO"].substring(3, 10); })
 			        .Select(function(x){
 			          return {
 			            label: x.Key(),
@@ -252,6 +282,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionDocumentoLiquidacao = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/DocumentoLiquidacao?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.documentoLiquidacao = angular.fromJson(result._embedded["rh:doc"]);
 
 				angular.forEach($scope.documentoLiquidacao, function(value, key) {
@@ -287,6 +322,11 @@ myApp.controller('DetalheController', function($scope, $timeout , $http, $locati
 	$scope.requisitionDiscriminacaoOBTV = function() {
 
 				requisicaoFactory.getRequest(ADDRESS+'/hackathon/DiscriminacaoOBTV?filter={NR_CONVENIO:'+parseInt($scope.params.convenioId)+'}').then(function(result) {
+				if(result._embedded == undefined)
+				{
+					$scope.emptyResultSet = true;
+					return;
+				}
 				$scope.discriminacaoOBTV = angular.fromJson(result._embedded["rh:doc"]);
 
 				angular.forEach($scope.discriminacaoOBTV, function(value, key) {
