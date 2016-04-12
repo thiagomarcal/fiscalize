@@ -55,7 +55,7 @@
                     <li ng-class="{ 'active': activeTab == 5, 'disabled': false }" ng-click="requisitionPagamentoOBTV()">
                         <a ui-set="{'activeTab': 5}" role="tab" data-toggle="tab">Pagamentos Realizados</a>
                     </li>
-                    <li ng-class="{ 'active': activeTab == 6, 'disabled': false }">
+                    <li ng-class="{ 'active': activeTab == 6, 'disabled': false }" ng-click="requisitionCronogramaFinanceiroXRepasses()">
                         <a ui-set="{'activeTab': 6}" role="tab" data-toggle="tab">Análises</a>
                     </li>
                 </ul>
@@ -525,9 +525,29 @@
                     </div>
                 </div>
             </div>
-           </div>
-           <div class="tab-content">  
-            <div ui-if="activeTab == 6" >
+
+            <div class="tab-content">  
+            <div ui-if="activeTab == 6">
+                <h3 class="page-header">Análises
+                 <span class="pull-right">
+                        <i class="fa fa-question-circle" tooltip-size="small" tooltip-side="left" tooltips tooltip-template="Análise através de cruzamento de informações relacionadas ao convênio em questão."></i> 
+                    </span>
+                </h3>
+                <div class="panel-body">
+                    <ui-state id='activeSubTab' default='30'></ui-state>
+                    <div class="btn-group nav-tabs">
+                        <a ng-click="requisitionCronogramaFinanceiroXRepasses()" ui-set="{'activeSubTab': 30}" ui-class="{'active': activeSubTab == 30}" class="btn btn-default">Empenho x Planejamento x Repasses</a>
+                    </div>
+                    <div ui-if="activeSubTab == 30">
+                        <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
+                        <div class="panel-body" ng-show="!emptyResultSet">
+                            <div class="panel panel-default">
+                                <canvas tc-chartjs-bar chart-options="optionsLine" chart-data="dataCronogramaFinanceiroXRepasses" chart-legend="legend"></canvas>
+                                <div tc-chartjs-legend chart-legend="legend"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
            </div>
            <div class="tab-content">  
