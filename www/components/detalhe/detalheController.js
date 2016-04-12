@@ -34,12 +34,13 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
 
 
     // Requisition
-    $scope.requisitionPlano = function() {
+    $scope.requisitionPlano = function(nextRequests) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/PlanoAplicacaoPT?filter={NR_CONVENIO:' + parseInt($scope.params.convenioId) + '}').then(function(result) {
             $scope.emptyResultSet = false;
             if (result._embedded == undefined) {
                 $scope.emptyResultSet = true;
+                $scope.executeNextRequest(nextRequests);
                 return;
             }
             $scope.planoAplicacao = angular.fromJson(result._embedded["rh:doc"]);
@@ -69,8 +70,9 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
                     return x.value
                 }).ToArray();
 
-
             $scope.dataPlanoAplicacao = result;
+
+            $scope.executeNextRequest(nextRequests);
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -78,7 +80,6 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
             // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
         }, function(update) {
             console.log("update:", update);
-            s
         })
     }
 
@@ -116,12 +117,13 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         })
     }
 
-    $scope.requisitionCronogramaDesembolso = function() {
+    $scope.requisitionCronogramaDesembolso = function(nextRequests) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/CronogramaDesembolsoPT?filter={NR_CONVENIO:' + parseInt($scope.params.convenioId) + '}').then(function(result) {
             $scope.emptyResultSet = false;
             if (result._embedded == undefined) {
                 $scope.emptyResultSet = true;
+                $scope.executeNextRequest(nextRequests);
                 return;
             }
             $scope.cronogramaDesembolso = angular.fromJson(result._embedded["rh:doc"]);
@@ -159,6 +161,9 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
                 }]
             };
 
+
+            $scope.executeNextRequest(nextRequests);
+
         }, function(reason) {
             alert("Erro ver console!")
             console.log("reason:", reason);
@@ -169,12 +174,13 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         })
     }
 
-    $scope.requisitionExecucaoFinanceira = function() {
+    $scope.requisitionExecucaoFinanceira = function(nextRequests) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/ExecucaoFinanceira?filter={NR_CONVENIO:' + parseInt($scope.params.convenioId) + '}').then(function(result) {
             $scope.emptyResultSet = false;
             if (result._embedded == undefined) {
                 $scope.emptyResultSet = true;
+                $scope.executeNextRequest(nextRequests);
                 return;
             }
             $scope.execucaoFinanceira = angular.fromJson(result._embedded["rh:doc"]);
@@ -205,6 +211,7 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
 
 
             $scope.dataExecucaoFinanceira = result;
+            $scope.executeNextRequest(nextRequests);
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -216,22 +223,23 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         })
     }
 
-    $scope.requisitionPagamentoOBTV = function() {
+    $scope.requisitionPagamentoOBTV = function(nextRequests) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/PagamentoOBTV?filter={NR_CONVENIO:' + parseInt($scope.params.convenioId) + '}').then(function(result) {
             $scope.emptyResultSet = false;
             if (result._embedded == undefined) {
                 $scope.emptyResultSet = true;
+                $scope.executeNextRequest(nextRequests);
                 return;
             }
             $scope.pagamentoOBTV = angular.fromJson(result._embedded["rh:doc"]);
 
             //angular.forEach($scope.pagamentoOBTV, function(value, key) {
-            //	if (angular.isDefined(value.VL_PAGAMENTO) || value.VL_PAGAMENTO != null) {
-            //    	value.VL_PAGAMENTO_FLOAT = parseFloat(value.VL_PAGAMENTO.replace(/[^0-9\,]+/g,""));
-            //    	//value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
-            //	};
-            //});	
+            //  if (angular.isDefined(value.VL_PAGAMENTO) || value.VL_PAGAMENTO != null) {
+            //      value.VL_PAGAMENTO_FLOAT = parseFloat(value.VL_PAGAMENTO.replace(/[^0-9\,]+/g,""));
+            //      //value.DESPESA = value.TP_DESPESA + " - " + value.NM_NATUREZADESPESA;
+            //  };
+            //});   
 
             var linq = Enumerable.From($scope.pagamentoOBTV);
             var result =
@@ -253,6 +261,8 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
 
             $scope.dataPagamentoOBTV = result;
 
+            $scope.executeNextRequest(nextRequests);
+
         }, function(reason) {
             alert("Erro ver console!")
             console.log("reason:", reason);
@@ -263,12 +273,13 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         })
     }
 
-    $scope.requisitionEmpenhos = function() {
+    $scope.requisitionEmpenhos = function(nextRequests) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Empenhos?filter={NR_CONVENIO:' + parseInt($scope.params.convenioId) + '}').then(function(result) {
             $scope.emptyResultSet = false;
             if (result._embedded == undefined) {
                 $scope.emptyResultSet = true;
+                $scope.executeNextRequest(nextRequests);
                 return;
             }
             $scope.empenhos = angular.fromJson(result._embedded["rh:doc"]);
@@ -300,6 +311,8 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
 
             $scope.dataEmpenhos = result;
 
+            $scope.executeNextRequest(nextRequests);
+
         }, function(reason) {
             alert("Erro ver console!")
             console.log("reason:", reason);
@@ -308,6 +321,15 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
             console.log("update:", update);
             s
         })
+    }
+
+    $scope.executeNextRequest = function(nextRequests) {
+
+        if (nextRequests != undefined) {
+            var lastRequest = nextRequests.pop();
+            if (lastRequest != undefined)
+                lastRequest(nextRequests);
+        }
     }
 
     $scope.requisitionDocumentoLiquidacao = function() {
@@ -467,25 +489,34 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
 
     $scope.requisitionCronogramaFinanceiroXRepasses = function() {
 
-        $scope.requisitionEmpenhos();
-        $scope.requisitionCronogramaDesembolso();
-        $scope.requisitionExecucaoFinanceira();
-        $scope.requisitionPagamentoOBTV();
+        //$scope.requisitionEmpenhos();
+        //$scope.requisitionCronogramaDesembolso();
+        //$scope.requisitionExecucaoFinanceira();
+        //$scope.requisitionPagamentoOBTV();
+        var nextRequests = [$scope.requisitionEvolucaoFinanceira, $scope.requisitionEmpenhos, $scope.requisitionCronogramaDesembolso, $scope.requisitionExecucaoFinanceira, $scope.requisitionPagamentoOBTV];
 
+        $scope.executeNextRequest(nextRequests);
 
+    }
+
+    $scope.requisitionEvolucaoFinanceira = function() {
         $scope.dataEmpenhos = $scope.dataEmpenhos;
         $scope.cronogramaDesembolso = $scope.cronogramaDesembolso;
         $scope.dataExecucaoFinanceira = $scope.dataExecucaoFinanceira;
         $scope.dataPagamentoOBTV = $scope.dataPagamentoOBTV;
 
         var labelsEmpenho = Enumerable.From($scope.dataEmpenhos).Select(function(x) {
-            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value }; }).ToArray();
+            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value };
+        }).ToArray();
         var labelscronogramaDesembolso = Enumerable.From($scope.cronogramaDesembolso).Select(function(x) {
-            return { date: $scope.formatarData('01/' + x.Data), label: x.Data, value: x.VL_PARCELA_FLOAT }; }).ToArray();
-        var labelsExecucaoFinanceira = Enumerable.From($scope.dataExecucaoFinanceira).Select(function(x) {            
-            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value }; }).ToArray();
-        var labelsPagamento = Enumerable.From($scope.dataPagamentoOBTV).Select(function(x) {            
-            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value }; }).ToArray();
+            return { date: $scope.formatarData('01/' + x.Data), label: x.Data, value: x.VL_PARCELA_FLOAT };
+        }).ToArray();
+        var labelsExecucaoFinanceira = Enumerable.From($scope.dataExecucaoFinanceira).Select(function(x) {
+            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value };
+        }).ToArray();
+        var labelsPagamento = Enumerable.From($scope.dataPagamentoOBTV).Select(function(x) {
+            return { date: $scope.formatarData('01/' + x.label), label: x.label, value: x.value };
+        }).ToArray();
 
         var labels = Enumerable.From(labelsEmpenho).Union(labelscronogramaDesembolso).Union(labelsExecucaoFinanceira).Union(labelsPagamento).Distinct("$.label").OrderBy("$.date").Select("$.label").ToArray();
 
@@ -493,13 +524,12 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         var dadosDesembolso = [];
         var dadosExecucaoFinanceira = [];
         var dadosPagamento = [];
-        for(var i = 0; i < labels.length; i++)
-        {
-        	var currentLabel = labels[i];
-        	dadosEmpenho[i] = Enumerable.From(labelsEmpenho).Where("$.label == '" + currentLabel + "'").Sum("$.value");
-        	dadosDesembolso[i] = Enumerable.From(labelscronogramaDesembolso).Where("$.label == '" + currentLabel + "'").Sum("$.value");
-        	dadosExecucaoFinanceira[i] = Enumerable.From(labelsExecucaoFinanceira).Where("$.label == '" + currentLabel + "'").Sum("$.value");
-        	dadosPagamento[i] = Enumerable.From(labelsPagamento).Where("$.label == '" + currentLabel + "'").Sum("$.value");
+        for (var i = 0; i < labels.length; i++) {
+            var currentLabel = labels[i];
+            dadosEmpenho[i] = Enumerable.From(labelsEmpenho).Where("$.label == '" + currentLabel + "'").Sum("$.value");
+            dadosDesembolso[i] = Enumerable.From(labelscronogramaDesembolso).Where("$.label == '" + currentLabel + "'").Sum("$.value");
+            dadosExecucaoFinanceira[i] = Enumerable.From(labelsExecucaoFinanceira).Where("$.label == '" + currentLabel + "'").Sum("$.value");
+            dadosPagamento[i] = Enumerable.From(labelsPagamento).Where("$.label == '" + currentLabel + "'").Sum("$.value");
         }
 
         $scope.emptyResultSet = false;
