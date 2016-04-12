@@ -1,0 +1,46 @@
+{
+  "name": "angular-bootstrap-scrolling-tabs",
+  "version": "0.0.22",
+  "main": [
+    "scrolling-tabs.js",
+    "scrolling-tabs.css"
+  ],
+  "description": "Angular directive for scrollable Bootstrap Tabs",
+  "homepage": "https://github.com/mikejacobson/angular-bootstrap-scrolling-tabs",
+  "author": "Mike Jacobson <michaeljjacobson1@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikejacobson/angular-bootstrap-scrolling-tabs.git"
+  },
+  "license": "MIT",
+  "ignore": [
+    ".gitignore",
+    "bower.json",
+    "README.md",
+    "*.scss",
+    "config.rb"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "angular": "~1.2.25"
+  },
+  "keywords": [
+    "angularjs",
+    "angular",
+    "directive",
+    "bootstrap",
+    "tabs",
+    "scrolling",
+    "scrollable"
+  ],
+  "_release": "0.0.22",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.22",
+    "commit": "911c419e1711278f481d4a01358fa8f4abff6eef"
+  },
+  "_source": "https://github.com/mikejacobson/angular-bootstrap-scrolling-tabs.git",
+  "_target": "^0.0.22",
+  "_originalSource": "angular-bootstrap-scrolling-tabs",
+  "_direct": true
+}
