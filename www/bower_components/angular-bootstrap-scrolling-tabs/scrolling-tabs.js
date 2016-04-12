@@ -25,7 +25,7 @@
   // plunk: http://plnkr.co/edit/YhKiIhuAPkpAyacu6tuk
   scrollingTabsTemplate = [
     '<div class="scrtabs-tab-container">',
-    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-left"><span class="glyphicon glyphicon-chevron-left"></span></div>',
+    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-left"><i class="fa fa-angle-left fa-3x" aria-hidden="true"></i></div>',
     '   <div class="scrtabs-tabs-fixed-container">',
     '     <div class="scrtabs-tabs-movable-container">',
     '       <ul class="nav nav-tabs" role="tablist">',
@@ -40,7 +40,7 @@
     '       </ul>',
     '     </div>',
     ' </div>',
-    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-right"><span class="glyphicon glyphicon-chevron-right"></span></div>',
+    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-right"><i class="fa fa-angle-right fa-3x" aria-hidden="true"></i></div>',
     '</div>'
   ].join(''),
 
@@ -51,11 +51,11 @@
   // plunk: http://plnkr.co/edit/lWeQxxecKPudK7xlQxS3
   scrollingTabsWrapperTemplate = [
     '<div class="scrtabs-tab-container">',
-    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-left"><span class="glyphicon glyphicon-chevron-left"></span></div>',
+    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-left"><i class="fa fa-angle-left fa-3x" aria-hidden="true"></i></div>',
     '   <div class="scrtabs-tabs-fixed-container">',
     '     <div class="scrtabs-tabs-movable-container" ng-transclude></div>',
     '   </div>',
-    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-right"><span class="glyphicon glyphicon-chevron-right"></span></div>',
+    ' <div class="scrtabs-tab-scroll-arrow scrtabs-js-tab-scroll-arrow-right"><i class="fa fa-angle-right fa-3x" aria-hidden="true"></i></div>',
     ' <div class="scrtabs-tab-content-outside-movable-container" ng-transclude></div>',
     '</div>'
   ].join('');
