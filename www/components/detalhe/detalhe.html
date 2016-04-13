@@ -80,8 +80,12 @@
                             <td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
                         </tr>
                         <tr>
-                            <td>UF:</td>
-                            <td>{{ convenio.UF_PROPONENTE }}</td>
+                            <td>Esfera:</td>
+                            <td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
+                        </tr>
+                        <tr>
+                            <td>Munícipio:</td>
+                            <td>{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</td>
                         </tr>
                         <tr>
                             <td>Situação:</td>
@@ -99,8 +103,10 @@
                             <td>Justificativa:</td>
                             <td> {{ convenio.TX_JUSTIFICATIVA }}</td>
                         </tr>
-                    </table>
-                    <table class="table  table-responsive">
+                        <tr>
+                            <td>Programa:</td>
+                            <td>{{ convenio.NM_PROGRAMA }}</td>
+                        </tr>
                         <tr>
                             <td>Valor Total do Convênio:</td>
                             <td>{{ convenio.VL_GLOBAL }}</td>
@@ -116,6 +122,39 @@
                         <tr>
                             <td>Valor Desembolsado:</td>
                             <td>{{ convenio.VL_DESEMBOLSADO }}</td>
+                        </tr>
+                        <tr>
+                            <td>Valor Empenhado:</td>
+                            <td>{{ convenio.VL_EMPENHADO }}</td>
+                        </tr>
+                        <tr>
+                            <td>Responsável Execução:</td>
+                            <td>{{ convenio.NM_RESPONS_PROPONENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Ident. Responsável Execução:</td>
+                            <td>{{ convenio.CD_RESPONS_PROPONENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cargo Responsável Execução:</td>
+                            <td>{{ convenio.TX_CARGO_RESPONS_PROPONENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Responsável Concedente:</td>
+                            <td>{{ convenio.NM_RESPONS_CONCEDENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Ident. Responsável Concedente:</td>
+                            <td>{{ convenio.CD_RESPONS_CONCEDENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cargo Responsável Concedente:</td>
+                            <td>{{ convenio.TX_CARGO_RESPONS_CONCEDENTE }}</td>
                         </tr>
                     </table>
                 </div>
