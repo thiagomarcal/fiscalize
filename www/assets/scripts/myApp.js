@@ -201,7 +201,64 @@ myApp.service("Page", function (myCache, $http) {
 });
 
 
-myApp.run(function(myCache, ngMeta, $cordovaDevice) {
+myApp.service("GeoLocation", function (myCache, $http) {
+
+        var lat;
+        var long;
+
+        function getLat() {
+            return lat;
+        }
+
+        function setLat(newLat) {
+            lat = newLat;
+        }
+
+        function getLong() {
+            return long;
+        }
+
+        function setLong(newLong) {
+            long = newLong;
+        }
+
+        return {
+            getLat: getLat,
+            setLat: setLat,
+            getLong: getLong,
+            setLong: setLong,
+        }
+});
+
+myApp.service("GoogleMaps", function ($http) {
+
+        var estadoGoogleMaps;
+
+        function getEstadoGoogleMaps() {
+            return estadoGoogleMaps;
+        }
+
+        function setEstadoGoogleMaps(newEstadoGoogleMaps) {
+            estadoGoogleMaps = newEstadoGoogleMaps;
+        }
+
+        function getService(lat, long) {
+            return $http({
+            "method": "get",
+            "url": 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+long+'&result_type=administrative_area_level_1&key=AIzaSyA9RYw22yX7oYezsESEWnmcAIZ5Jvq2Q7A'
+            });
+        }
+
+        return {
+
+            getEstadoGoogleMaps: getEstadoGoogleMaps,
+            setEstadoGoogleMaps: setEstadoGoogleMaps,
+            getService: getService,
+        }
+});
+
+
+myApp.run(function(myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
 
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -214,6 +271,7 @@ myApp.run(function(myCache, ngMeta, $cordovaDevice) {
         };
         myCache.put('uuid', uuid);
     }
+
 
     ngMeta.init();
 

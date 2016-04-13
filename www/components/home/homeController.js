@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, ngMeta, Convenios, Search, Page) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page, GeoLocation, GoogleMaps) {
 
     // Page Initial Value
     page = 1;
@@ -7,6 +7,8 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     PAGESIZE = 10;
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'ConveniosProgramasFTS'
+
+    
 
     // Requisition Home 
     $scope.home = function() {
@@ -23,34 +25,42 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     // Requisition Search 
     $scope.search = function() {
 
-        Search.setSearch($scope.searchParam);
-        Search.setEstado($scope.estadoSelecionado);
-        Search.setCidade($scope.cidadeSelecionado);
-        Search.setMinisterio($scope.ministerioSelecionado);
-        Search.setSituacao($scope.situacaoSelecionado);
+        if ($scope.estadoSelecionado!=null || angular.isDefined($scope.estadoSelecionado)) {
 
-        $scope.flagQtdRetornados = true;
+            Search.setSearch($scope.searchParam);
+            Search.setEstado($scope.estadoSelecionado);
+            Search.setCidade($scope.cidadeSelecionado);
+            Search.setMinisterio($scope.ministerioSelecionado);
+            Search.setSituacao($scope.situacaoSelecionado);
 
-        $scope.convenios = [];
-        estado = angular.isUndefined($scope.estadoSelecionado) ? "" : $scope.estadoSelecionado.UF_PROPONENTE;
-        cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
-        ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
-        situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
-        search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
+            $scope.flagQtdRetornados = true;
 
-        filtros = [
-            {campo: 'UF_PROPONENTE', objeto: estado, result: 'UF_PROPONENTE:{$regex:"' + estado + '"}'},
-            {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
-            {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
-            {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
-            {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
-        ]
+            $scope.convenios = [];
+            estado = angular.isUndefined($scope.estadoSelecionado) ? "" : $scope.estadoSelecionado.UF_PROPONENTE;
+            cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
+            ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
+            situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
+            search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
 
-        filtro = montaFiltro(filtros, '&sort_by=DT_INICIO_VIGENCIA');
+            filtros = [
+                {campo: 'UF_PROPONENTE', objeto: estado, result: 'UF_PROPONENTE:{$regex:"' + estado + '"}'},
+                {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
+                {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
+                {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
+                {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
+            ]
 
-        // $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';$scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
-        $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + ''+ filtro +'&hal=f';
-        $scope.requisition();
+            filtro = montaFiltro(filtros, '&sort_by=DT_INICIO_VIGENCIA');
+
+            // $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';$scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
+            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + ''+ filtro +'&hal=f';
+
+            $scope.requisition();    
+        }
+        else {
+            alert("É necessário selecionar um Estado");
+        }
+
     }
 
     // Requisition Scroll 
@@ -113,6 +123,8 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Estados?sort_by=UF_PROPONENTE').then(function(result) {
             $scope.estados = angular.fromJson(result._embedded["rh:doc"]);
+            $('#processing').show();
+            $scope.requisitionGoogleMaps();
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -121,6 +133,48 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         }, function(update) {
             console.log("update:", update);
         })
+    }
+
+    // Requisition GoogleMaps
+    $scope.requisitionGoogleMaps = function() {
+        //GeoLocation
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
+        $('#processing').show();
+        $cordovaGeolocation 
+            .getCurrentPosition(posOptions)
+                .then(function (position) {
+                    $('#processing').show();
+                    GeoLocation.setLat(position.coords.latitude);
+                    GeoLocation.setLong(position.coords.longitude);
+
+                    GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+
+                        
+                        var geoLocEstado = result.data.results[0].address_components[0].short_name;
+
+                        GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
+
+                        angular.forEach($scope.estados, function(value, key) {
+
+                            if (value.UF_PROPONENTE == GoogleMaps.getEstadoGoogleMaps()) {
+                                $scope.estadoSelecionado = value;
+                            }
+
+                        });
+
+
+                    });
+
+                    $scope.home();
+                    $scope.requisitionMinisterios();
+                    $scope.requisitionSituacoes();
+                    $scope.refreshFiscalizados();
+                    
+
+                }, function(err) {
+                     // error
+                });
     }
 
     $scope.estadoChange = function() {
@@ -191,7 +245,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         //Post Requisition
         requisicaoFactory.postRequest(ADDRESS + '/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
-            alert('UUID: ' + $scope.fiscalizado.uuid + ' Fiscalizando Convenio: ' + $scope.fiscalizado.convenio.NR_CONVENIO);
+            alert('Fiscalizando Convenio: ' + $scope.fiscalizado.convenio.NR_CONVENIO);
 
             $scope.refreshFiscalizados();
 
@@ -336,11 +390,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
 
     // Initial Call Home
-    $scope.home();
     $scope.requisitionEstados();
-    $scope.requisitionMinisterios();
-    $scope.requisitionSituacoes();
-    $scope.refreshFiscalizados();
-  
-
+    
+    
 });
