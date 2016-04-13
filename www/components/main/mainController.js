@@ -39,12 +39,15 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
 
     // Compara Datas Para ver Recentes
     $scope.verificaRecentes = function() {
+
+        $scope.qtdRecentes = 0;
+        
         angular.forEach($scope.fiscalizados, function(value, key) {
 
             if (angular.isDefined($scope.mapaConveniosFiscalizados)) {
 
                 // Fiscalizados Recentes
-                $scope.qtdRecentes = 0;
+                
                 if (new Date(value.dt_updated) < new Date($scope.mapaConveniosFiscalizados[value.convenio.NR_CONVENIO].lastUpdateDate.$date)) {
                     value.recente = 1;
                     $scope.qtdRecentes++;
