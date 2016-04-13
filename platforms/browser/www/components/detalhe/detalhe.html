@@ -131,13 +131,13 @@
                 </h3>
                 <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                 <div class="panel-body" ng-show="!emptyResultSet">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-card">
                         <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
                         <div tc-chartjs-legend chart-legend="legend"></div>
                     </div>
                 </div>
                 <div class="section" ng-repeat="row in empenhos" ng-show="!emptyResultSet">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-card">
                         <div class="panel-heading">
                         </div>
                         <div class="panel-body">
@@ -203,13 +203,13 @@
                 <div ui-if="activeSubTab == 1">
                     <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                     <div class="panel-body" ng-show="!emptyResultSet">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in planoAplicacao" ng-show="!emptyResultSet">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
@@ -246,13 +246,13 @@
                 <div ui-if="activeSubTab == 2">
                     <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                     <div class="panel-body" ng-show="!emptyResultSet">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in cronogramaFisico" ng-show="!emptyResultSet">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
@@ -281,13 +281,13 @@
                 <div ui-if="activeSubTab == 3">
                     <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                     <div class="panel-body" ng-show="!emptyResultSet">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <canvas tc-chartjs-line chart-options="optionsLine" chart-data="dataCronogramaDesembolso" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in cronogramaDesembolso" ng-show="!emptyResultSet">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
@@ -319,13 +319,13 @@
                 </h3>
                 <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                 <div class="panel-body" ng-show="!emptyResultSet">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-card">
                         <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
                         <div tc-chartjs-legend chart-legend="legend"></div>
                     </div>
                 </div>
                 <div class="section" ng-repeat="row in execucaoFinanceira" ng-show="!emptyResultSet">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-card">
                         <div class="panel-heading">
                         </div>
                         <div class="panel-body">
@@ -365,13 +365,13 @@
                     <div ui-if="activeSubTab == 11">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                         <div class="panel-body" ng-show="!emptyResultSet">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                         </div>
                         <div class="section" ng-repeat="row in pagamentoOBTV" ng-show="!emptyResultSet">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -420,13 +420,13 @@
                     <div ui-if="activeSubTab == 12">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                         <div class="panel-body" ng-show="!emptyResultSet">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                         </div>
                         <div class="section" ng-repeat="row in documentoLiquidacao" ng-show="!emptyResultSet">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -475,13 +475,13 @@
                     <div ui-if="activeSubTab == 13">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                         <div class="panel-body" ng-show="!emptyResultSet">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                         </div>
                         <div class="section" ng-repeat="row in discriminacaoOBTV" ng-show="!emptyResultSet">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -540,7 +540,7 @@
                     </div>
                     <div ui-if="activeSubTab == 30">
                         <div class="panel-body">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-card">
                                 <canvas tc-chartjs-bar chart-options="optionsLine" chart-data="dataCronogramaFinanceiroXRepasses" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
@@ -600,13 +600,13 @@
                 </div>
                 <div ui-if="activeSubTab == 21">
                     <div class="panel-body">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataProgramaConvenios" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in programaConvenios">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default panel-card">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
