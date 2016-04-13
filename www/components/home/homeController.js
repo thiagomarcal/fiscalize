@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page, GeoLocation, GoogleMaps) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps) {
 
     // Page Initial Value
     page = 1;
@@ -8,7 +8,11 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'ConveniosProgramasFTS'
 
-    
+    // $scope.$watch(function(GoogleMaps) { return GoogleMaps.getEstadoGoogleMaps },
+    //           function(newValue, oldValue) {
+    //               $scope.estadoSelecionado = newValue;
+    //           }
+    //          );
 
     // Requisition Home 
     $scope.home = function() {
@@ -123,8 +127,13 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Estados?sort_by=UF_PROPONENTE').then(function(result) {
             $scope.estados = angular.fromJson(result._embedded["rh:doc"]);
-            $('#processing').show();
-            $scope.requisitionGoogleMaps();
+    
+                angular.forEach($scope.estados, function(value, key) {
+
+                        if (value.UF_PROPONENTE == GoogleMaps.getEstadoGoogleMaps()) {
+                            $scope.estadoSelecionado = value;
+                        }
+                 });
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -133,48 +142,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         }, function(update) {
             console.log("update:", update);
         })
-    }
-
-    // Requisition GoogleMaps
-    $scope.requisitionGoogleMaps = function() {
-        //GeoLocation
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-
-        $('#processing').show();
-        $cordovaGeolocation 
-            .getCurrentPosition(posOptions)
-                .then(function (position) {
-                    $('#processing').show();
-                    GeoLocation.setLat(position.coords.latitude);
-                    GeoLocation.setLong(position.coords.longitude);
-
-                    GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
-
-                        
-                        var geoLocEstado = result.data.results[0].address_components[0].short_name;
-
-                        GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
-
-                        angular.forEach($scope.estados, function(value, key) {
-
-                            if (value.UF_PROPONENTE == GoogleMaps.getEstadoGoogleMaps()) {
-                                $scope.estadoSelecionado = value;
-                            }
-
-                        });
-
-
-                    });
-
-                    $scope.home();
-                    $scope.requisitionMinisterios();
-                    $scope.requisitionSituacoes();
-                    $scope.refreshFiscalizados();
-                    
-
-                }, function(err) {
-                     // error
-                });
     }
 
     $scope.estadoChange = function() {
@@ -390,7 +357,13 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
 
     // Initial Call Home
+    $scope.home();
     $scope.requisitionEstados();
+    $scope.requisitionMinisterios();
+    $scope.requisitionSituacoes();
+    $scope.refreshFiscalizados();
     
     
+  
+
 });

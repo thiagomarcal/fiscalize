@@ -258,7 +258,7 @@ myApp.service("GoogleMaps", function ($http) {
 });
 
 
-myApp.run(function(myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
+myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
 
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -271,6 +271,31 @@ myApp.run(function(myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLoca
         };
         myCache.put('uuid', uuid);
     }
+
+    //GeoLocation
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+       
+        $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+                .then(function (position) {
+                    GeoLocation.setLat(position.coords.latitude);
+                    GeoLocation.setLong(position.coords.longitude);
+
+                    GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+
+                        
+                        var geoLocEstado = result.data.results[0].address_components[0].short_name;
+                        alert("Estado preenchido com : " + geoLocEstado);
+                        GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
+                        $rootScope.estadoSelecionado =  geoLocEstado;
+
+
+                    });
+
+
+                }, function(err) {
+                // error
+        });
 
 
     ngMeta.init();
