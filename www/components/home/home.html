@@ -35,6 +35,15 @@
                 </option>
             </select>
             <br>
+            <label> Esfera: </label>
+            <br>
+            <select class="form-control" ng-model="esferaSelecionado">
+                <option value="">Selecionar</option>
+                <option value="ESTADUAL">ESTADUAL</option>
+                <option value="MUNICIPAL">MUNICIPAL</option>
+                <option value="PRIVADA">PRIVADA</option>
+            </select>
+            <br>
             <label> Situação: </label>
             <br>
             <select class="form-control" ng-model="situacaoSelecionado" ng-options="situacao.TX_SITUACAO for situacao in situacoes track by situacao.TX_SITUACAO">
@@ -101,6 +110,12 @@
                         <tr>
                             <td class="conv-lbl">Concedente:</td>
                             <td colspan="2" class="conv-data">{{ convenio.NM_ORGAO_CONCEDENTE }}
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="conv-lbl">Executor:</td>
+                            <td colspan="2" class="conv-data">{{ convenio.NM_PROPONENTE }}
                                 <br>
                             </td>
                         </tr>

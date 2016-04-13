@@ -36,6 +36,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
             Search.setCidade($scope.cidadeSelecionado);
             Search.setMinisterio($scope.ministerioSelecionado);
             Search.setSituacao($scope.situacaoSelecionado);
+            Search.setEsfera($scope.esferaSelecionado);
 
             $scope.flagQtdRetornados = true;
 
@@ -44,6 +45,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
             cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
             ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
             situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
+            esfera = angular.isUndefined($scope.esferaSelecionado) ? "" : $scope.esferaSelecionado;
             search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
 
             filtros = [
@@ -51,6 +53,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
                 {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
                 {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
                 {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
+                {campo:'TX_ESFERA_ADM_PROPONENTE', objeto: esfera,result: 'TX_ESFERA_ADM_PROPONENTE:{$regex:"' + esfera + '"}'},
                 {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
             ]
 
@@ -285,6 +288,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         $scope.cidadeSelecionado = Search.getCidade();
         $scope.ministerioSelecionado = Search.getMinisterio();
         $scope.situacaoSelecionado = Search.getSituacao();
+        $scope.esferaSelecionado = Search.getEsfera();
         
     }
 
@@ -294,6 +298,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         delete $scope.cidadeSelecionado;
         delete $scope.ministerioSelecionado;
         delete $scope.situacaoSelecionado;
+        delete $scope.esferaSelecionado;
     }
 
     //Reposição do Scroll ao Voltar - Futura Build

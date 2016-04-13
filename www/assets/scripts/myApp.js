@@ -122,6 +122,7 @@ myApp.service("Search", function (myCache, $http) {
         var cidade;
         var ministerio;
         var situacao;
+        var esfera;
 
 
         function getSearch() {
@@ -148,6 +149,10 @@ myApp.service("Search", function (myCache, $http) {
             cidade = newCidade;
         }
 
+        function setEsfera(newEsfera) {
+            esfera = newEsfera;
+        }
+
         function getMinisterio() {
             return ministerio;
         }
@@ -162,6 +167,10 @@ myApp.service("Search", function (myCache, $http) {
 
         function setSituacao(newSituacao) {
             situacao = newSituacao;
+        }
+
+        function getEsfera() {
+            return esfera;
         }
 
         return {
@@ -179,6 +188,9 @@ myApp.service("Search", function (myCache, $http) {
 
             getSituacao: getSituacao,
             setSituacao: setSituacao,
+
+            getEsfera: getEsfera,
+            setEsfera: setEsfera,
         }
 });
 
@@ -256,6 +268,17 @@ myApp.service("GoogleMaps", function ($http) {
             getService: getService,
         }
 });
+
+Number.prototype.formatMoney = function(c, d, t){
+var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "." : d, 
+    t = t == undefined ? "," : t, 
+    s = n < 0 ? "-" : "", 
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
 
 
 myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
