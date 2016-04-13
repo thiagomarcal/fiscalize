@@ -633,7 +633,7 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
         animateScale: false,
 
         //String - A legend template
-        legendTemplate: '<ul class="tc-chart-js-legend"><% var totalValue = 0; for (var j=0; j<segments.length; j++){ totalValue+= segments[j].value; } for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%console.log(segments[i]);if(segments[i].label){%><%=segments[i].label%> - R$ <%=segments[i].value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")%> - <%=((segments[i].value / totalValue).toFixed(4)*100).toFixed(2).toString().replace(".", ",")%>% <%}%></li><%}%></ul>'
+        legendTemplate: '<ul class="tc-chart-js-legend"><% var totalValue = 0; for (var j=0; j<segments.length; j++){ totalValue+= segments[j].value; } for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%> - R$ <%=segments[i].value.formatMoney(2, ",", ".") %> - <%=((segments[i].value / totalValue).toFixed(4)*100).toFixed(2).toString().replace(".", ",")%>% <%}%></li><%}%></ul>'
 
     };
 

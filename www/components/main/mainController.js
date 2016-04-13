@@ -41,7 +41,6 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
     $scope.verificaRecentes = function() {
 
         $scope.qtdRecentes = 0;
-        
         angular.forEach($scope.fiscalizados, function(value, key) {
 
             if (angular.isDefined($scope.mapaConveniosFiscalizados)) {

@@ -29,7 +29,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     // Requisition Search 
     $scope.search = function() {
 
-        if ($scope.estadoSelecionado!=null || angular.isDefined($scope.estadoSelecionado)) {
+        if ($scope.estadoSelecionado!=null) {
 
             Search.setSearch($scope.searchParam);
             Search.setEstado($scope.estadoSelecionado);
@@ -148,7 +148,9 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     }
 
     $scope.estadoChange = function() {
-            $scope.requisitionCidades($scope.estadoSelecionado);
+            if ($scope.estadoSelecionado != null) {
+                $scope.requisitionCidades($scope.estadoSelecionado);
+            };
         }
         // Requisition Cidades
     $scope.requisitionCidades = function(estado) {
@@ -215,7 +217,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         //Post Requisition
         requisicaoFactory.postRequest(ADDRESS + '/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
-            alert('Fiscalizando Convenio: ' + $scope.fiscalizado.convenio.NR_CONVENIO);
+            alert('A partir de agora você se tornou fiscalizador do convênio ' + $scope.fiscalizado.convenio.NR_CONVENIO + '  e passará a receber notificações toda vez que houverem mudanças no mesmo.');
 
             $scope.refreshFiscalizados();
 
