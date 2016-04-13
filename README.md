@@ -15,6 +15,10 @@ git - Repositório
 
 Download em: https://git-scm.com/
 
+android sdk
+
+Download em: http://dl.google.com/android/installer_r24.4.1-windows.exe
+
 Use o npm para instalar o Phonegap.
 
     $ npm install -g phonegap
