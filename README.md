@@ -31,6 +31,14 @@ Use o npm para instalar o Phonegap.
 
 ### Build do Projeto
 
+    Requerimento Android: Android SDK
+    Download em: 
+
+    Windows: http://dl.google.com/android/installer_r24.4.1-windows.exe
+    MAC OS X: http://dl.google.com/android/android-sdk_r24.4.1-macosx.zip
+    LINUX: http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+
+
 Dentro da pasta do projeto faça um build para a plataforma desejada (iOS, Android, WindowsPhone, Browser, entre outras)
 
     Android:
