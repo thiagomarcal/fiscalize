@@ -7,6 +7,7 @@ Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 ## Instalação PhoneGap
 
 ### Requerimentos
+
 Node.js - JavaScript runtime para rodar código JavaScript
 
 Download em: https://nodejs.org/en/
@@ -15,13 +16,16 @@ Git - Repositório
 
 Download em: https://git-scm.com/
 
-JAVA SE
+Java SE Development Kit 8
 
 Download em: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 Android SDK
 
-Download em: http://dl.google.com/android/installer_r24.4.1-windows.exe
+Download em: 
+Windows: http://dl.google.com/android/installer_r24.4.1-windows.exe
+MAC OS X: http://dl.google.com/android/android-sdk_r24.4.1-macosx.zip
+LINUX: http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
 
 Use o npm para instalar o Phonegap.
 
