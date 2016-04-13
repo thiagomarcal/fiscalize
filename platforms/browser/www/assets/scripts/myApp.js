@@ -1,5 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngPercentDisplay']);
-
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs']);
 myApp.config(function($routeProvider) {
     $routeProvider
     .when('/', {
@@ -17,10 +16,34 @@ myApp.config(function($routeProvider) {
     .when('/chat/:convenioId', {
         templateUrl: 'components/chat/chat.html',
         controller: 'ChatController'
+        })
+    .when('/minhasmanifestacoes', {
+        templateUrl: 'components/denuncia/minhasmanifestacoes.html',
+        controller: 'MinhasManifestacoesController'
         });
 });
 
+myApp.config(function($httpProvider) {
 
+    $httpProvider.interceptors.push(function($q) {
+        return {
+         'request': function(config) {
+             $('#processing').show();
+             return config;
+          },
+
+          'response': function(response) {
+             $('#processing').hide();
+             return response;
+          },
+          'responseError': function(response) {
+             $('#processing').hide();
+             return response;
+          }
+        };
+    });
+    
+});
 
 // Set up the cache ‘myCache’
 myApp.factory('myCache', function($cacheFactory) {
@@ -54,20 +77,131 @@ myApp.service("Fiscalizados", function (myCache, $http) {
 });
 
 myApp.service("Convenios", function (myCache, $http) {
-    
-     function getListaFilter(filter) {
-        return $http({
+
+        var listaConvenios = [];
+        var totalConvenios;
+
+        function getLista() {
+            return listaConvenios;
+        }
+
+        function setLista(novaLista) {
+            listaConvenios = novaLista;
+        }
+
+        function getListaFilter(filter) {
+            return $http({
             "method": "get",
             "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS"+filter
-        });
-    }
-    return {
-        getListaFilter: getListaFilter,
-    }
+            });
+        }
+
+        function getTotal() {
+            return totalConvenios;
+        }
+
+        function setTotal(novoTotal) {
+            totalConvenios = novoTotal;
+        }
+
+        return {
+            getLista: getLista,
+            setLista: setLista,
+            getTotal: getTotal,
+            setTotal: setTotal,
+            getListaFilter: getListaFilter,
+
+        }
 });
 
 
-myApp.run(function(myCache, $cordovaDevice) {
+myApp.service("Search", function (myCache, $http) {
+
+        var search;
+        var estado;
+        var cidade;
+        var ministerio;
+        var situacao;
+
+
+        function getSearch() {
+            return search;
+        }
+
+        function setSearch(newSearch) {
+            search = newSearch;
+        }
+
+        function getEstado() {
+            return estado;
+        }
+
+        function setEstado(newEstado) {
+            estado = newEstado;
+        }
+
+        function getCidade() {
+            return cidade;
+        }
+
+        function setCidade(newCidade) {
+            cidade = newCidade;
+        }
+
+        function getMinisterio() {
+            return ministerio;
+        }
+
+        function setMinisterio(newMinisterio) {
+            ministerio = newMinisterio;
+        }
+
+        function getSituacao() {
+            return situacao;
+        }
+
+        function setSituacao(newSituacao) {
+            situacao = newSituacao;
+        }
+
+        return {
+            getSearch: getSearch,
+            setSearch: setSearch,
+
+            getEstado: getEstado,
+            setEstado: setEstado,
+
+            getCidade: getCidade,
+            setCidade: setCidade,
+
+            getMinisterio: getMinisterio,
+            setMinisterio: setMinisterio,
+
+            getSituacao: getSituacao,
+            setSituacao: setSituacao,
+        }
+});
+
+myApp.service("Page", function (myCache, $http) {
+
+        var scrollPos;
+
+        function getScrollPos() {
+            return scrollPos;
+        }
+
+        function setScrollPos(newScrollPos) {
+            scrollPos = newScrollPos;
+        }
+
+        return {
+            getScrollPos: getScrollPos,
+            setScrollPos: setScrollPos,
+        }
+});
+
+
+myApp.run(function(myCache, ngMeta, $cordovaDevice) {
 
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -80,6 +214,8 @@ myApp.run(function(myCache, $cordovaDevice) {
         };
         myCache.put('uuid', uuid);
     }
+
+    ngMeta.init();
 
     console.log(myCache.get('uuid'));
 });
