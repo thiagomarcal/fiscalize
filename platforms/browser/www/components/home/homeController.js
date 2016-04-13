@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, ngMeta, Convenios, Search, Page) {
 
     // Page Initial Value
     page = 1;
@@ -10,6 +10,9 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
     // Requisition Home 
     $scope.home = function() {
+
+        $scope.restorePreviousHome();
+
         if (angular.isUndefined($scope.convenios)) {
             $scope.convenios = [];
             $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&hal=f';
@@ -19,23 +22,34 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
     // Requisition Search 
     $scope.search = function() {
-        var textSearchArg = '';
-        if (!(angular.isUndefined($scope.searchParam) || $scope.searchParam == null)) {
-        	
-        	if($scope.searchParam.split(" ").lenght > 1)
-        	{
-        		$scope.searchParam = '\"' + $scope.searchParam.replace(' ', '+') + '\"';
-        	}
 
-            textSearchArg = ',$text:{$search:"' + $scope.searchParam + '"}';
-        }
+        Search.setSearch($scope.searchParam);
+        Search.setEstado($scope.estadoSelecionado);
+        Search.setCidade($scope.cidadeSelecionado);
+        Search.setMinisterio($scope.ministerioSelecionado);
+        Search.setSituacao($scope.situacaoSelecionado);
+
+        $scope.flagQtdRetornados = true;
 
         $scope.convenios = [];
         estado = angular.isUndefined($scope.estadoSelecionado) ? "" : $scope.estadoSelecionado.UF_PROPONENTE;
         cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
         ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
         situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
-        $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
+        search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
+
+        filtros = [
+            {campo: 'UF_PROPONENTE', objeto: estado, result: 'UF_PROPONENTE:{$regex:"' + estado + '"}'},
+            {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
+            {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
+            {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
+            {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
+        ]
+
+        filtro = montaFiltro(filtros, '&sort_by=DT_INICIO_VIGENCIA');
+
+        // $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';$scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
+        $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + ''+ filtro +'&hal=f';
         $scope.requisition();
     }
 
@@ -58,7 +72,9 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
     	$scope.flagSearch(false);
         convenios_temp = [];
 
-        if (angular.isDefined($scope.url) || $scope.url != null) {
+        if ($scope.url != null) {
+
+            $scope.totalConvenios = 0;
 
             requisicaoFactory.getRequest(ADDRESS + $scope.url).then(function(result) {
 
@@ -67,25 +83,20 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
                     angular.forEach(convenios_temp, function(value, key) {
 
-                        var maxVigencia = $scope.diffDays($scope.formatarData(value.DT_FIM_VIGENCIA,'DD/MM/YYYY'), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
-                        var currentVigencia = $scope.diffDays(new Date(), $scope.formatarData(value.DT_INICIO_VIGENCIA,'DD/MM/YYYY'));
-                        value.percentVigencia = ((100*currentVigencia)/maxVigencia).toFixed(0);
-
-                        var valorRepasse = $scope.getMoney(value.VL_REPASSE);
-                        var valorDesembolso = $scope.getMoney(value.VL_DESEMBOLSADO);
-
-                        value.percentDesembolso = ((100*valorDesembolso)/valorRepasse).toFixed(0);
+                        value = $scope.prepareConvenioDetail(value);
 
                         $scope.convenios.push(value);
+
+                        $scope.totalConvenios = result._size;
+                        Convenios.setTotal($scope.totalConvenios);
+
                     });
 
-                }
-                else 
-                {
-                	alert('Não há resultados para esta pesquisa');
-                };
+                    Convenios.setLista($scope.convenios);
 
-                $scope.url = angular.isDefined(result._links.next.href) ? result._links.next.href : null;
+                }
+
+                $scope.url = angular.isDefined(result._links.next) ? result._links.next.href : null;
 
             }, function(reason) {
                 alert("Pesquisa muito abrangente, favor restringir através dos filtros avançados!");
@@ -118,7 +129,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
         // Requisition Cidades
     $scope.requisitionCidades = function(estado) {
 
-        requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
+        requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
 
         }, function(reason) {
@@ -162,6 +173,7 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
     $scope.fiscalizar = function(convenio) {
 
+
         convenio_fiscalizado = {};
         convenio_fiscalizado.NR_CONVENIO = convenio.NR_CONVENIO;
         convenio_fiscalizado.NM_ORGAO_SUPERIOR = convenio.NM_ORGAO_SUPERIOR;
@@ -180,6 +192,8 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
         //Post Requisition
         requisicaoFactory.postRequest(ADDRESS + '/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
             alert('UUID: ' + $scope.fiscalizado.uuid + ' Fiscalizando Convenio: ' + $scope.fiscalizado.convenio.NR_CONVENIO);
+
+            $scope.refreshFiscalizados();
 
         }, function(reason) {
             alert("Convenio já está sendo Fiscalizado!")
@@ -208,7 +222,12 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 
 	$scope.midiaShareFace = function(convenio) {
 
-		link = 'http://localhost:8000/#/detalhe/' + convenio.NR_CONVENIO
+		// Meta Dinamico Futura Build
+		// ngMeta.setTag('og:title', convenio.NR_CONVENIO)
+		// ngMeta.setTag('og:description','balbalbalbabalbalba');
+		// ngMeta.setTag('og:image','http://www.sinproesemmabdc.com.br/img/icon_convenios.png');
+		
+		link = 'http://74.124.24.115:8000/#/detalhe/' + convenio.NR_CONVENIO
 
 		$cordovaSocialSharing
 		    .shareViaFacebook(null, null, link)
@@ -219,32 +238,109 @@ myApp.controller('HomeController', function($scope, $timeout, $http, $location, 
 		});
 	}
 
-    $scope.diffDays = function(date1, date2)
-    {
-        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-        return diffDays;
+
+
+    $scope.restorePreviousHome = function() {
+        //Restore Previous Convenios List
+        Convenios.getLista();
+
+        // Verifica se Lista Convenios é nula
+        if (Convenios.getLista().length != 0) {
+            $scope.convenios = Convenios.getLista();
+        }
+
+        // Restore Total
+        $scope.totalConvenios = Convenios.getTotal();
+
+        if (Convenios.getTotal()>=0) {
+            $scope.flagQtdRetornados = true;
+        } 
+
+        // Restore Search Param
+        $scope.searchParam = Search.getSearch();
+
+        // Restore AdvSearch
+        $scope.estadoSelecionado = Search.getEstado();
+        $scope.cidadeSelecionado = Search.getCidade();
+        $scope.ministerioSelecionado = Search.getMinisterio();
+        $scope.situacaoSelecionado = Search.getSituacao();
+        
     }
 
-    $scope.formatarData = function (date) {
-        if (!date)
-            return date;
-        date = $scope.replaceAll("-", "", date);
-        date = $scope.replaceAll("/", "", date);
-        var yy = date.substring(4, 8),
-            mm = date.substring(2, 4),
-            dd = date.substring(0, 2);
-        return new Date(yy + "-" + mm + "-" + dd);
-    };
+    $scope.limparBusca = function () {
+        delete $scope.searchParam;
+        delete $scope.estadoSelecionado;
+        delete $scope.cidadeSelecionado;
+        delete $scope.ministerioSelecionado;
+        delete $scope.situacaoSelecionado;
+    }
 
-    $scope.replaceAll = function (find, replace, str) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    };
+    //Reposição do Scroll ao Voltar - Futura Build
+
+    // $scope.setPageProperties = function() {
+    //     var ScrollPos = retrieveScrollableContent().scrollableContent.scrollTop;
+    //     Page.setScrollPos(ScrollPos);
+    // }
+
+    // function retrieveScrollableContent() {
+    //     var elem = angular.element("#homeScroll");
+    //     var sc = elem.controller('scrollableContent');
+    //     return sc;
+    // }
+
+    // $scope.$watch("convenios", function () {
+    //         if (angular.isDefined(Page.getScrollPos())) {
+    //           retrieveScrollableContent().scrollTo(Page.getScrollPos());
+    //       }
+    // });
+    
+    function parseSearchString (searchValue) {
+
+        if(searchValue.split(" ").lenght > 1)
+            {
+                searchValue = '\"' + searchValue.replace(' ', '+') + '\"';
+            }
+
+        return '$text:{$search:"' + searchValue + '"}';
+    }
+
+    function montaFiltro (lista, sort) {
+        var filter = '&filter={'
+        var i = 0;
+        angular.forEach(filtros, function(value, key){
+
+            if (value.objeto != "") {
+                filter += value.result;
+
+                var nextObject = filtros[key+1 % filtros.length];
+
+                filter += (angular.isDefined(nextObject)) ? ',' : '';
+            };
+
+            if (filtros.length - 1 == i) {
+                if (filter == '&filter={') {
+                    filter = '';
+                } 
+                else {
+                    filter += '}'
+                    filter += sort
+                };
+            };
+
+            i++;
+
+        });
+
+        return filter;
+    }
+
 
     // Initial Call Home
     $scope.home();
     $scope.requisitionEstados();
     $scope.requisitionMinisterios();
     $scope.requisitionSituacoes();
+    $scope.refreshFiscalizados();
+  
 
 });

@@ -1,16 +1,63 @@
-
-
-.progress-wrapper{
-position: relative;
-margin:20px auto;
-font-size: 40px;
+body {
+    font-family: 'Roboto';
+    font-weight: 400;
 }
 
-.progressBar{
-position: absolute;
-color: #bbb;
-font-weight: 100;
-line-height: 1;
+#processing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: grey;
+    opacity: .6;
+}
+
+.loader {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#progress {
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+}
+
+
+/*.progress-wrapper{
+position: relative;
+margin:20px auto;
+}
+*/
+
+.progressBar {
+    top: 37px;
+    right: -14px;
+    position: relative;
+    font-weight: 100;
+    line-height: 1;
+}
+
+
+/*
+.round-progress {
+  top: 0px; 
+  left: 0px;
+  position: relative; 
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;
 }
 
 .container{
@@ -36,53 +83,154 @@ right:5px;
 .container{
     margin-top: 25px;
 }
+}*/
+
+.searchbox {
+    background-color: #eee;
+    padding: 6px;
+    /*margin:5px auto;*/
+    box-shadow:
 }
 
-
-
-
-.searchbox{
- background-color:#fffbf8;
- padding:6px;
- margin:5px auto;
- box-shadow: 
+.searchbox input[type="search"] {
+    background: transparent;
 }
 
-input[type="search"]{
- padding:5px;
- border-radius:6px;
- border:none;
- color:#080808;
- font-weight:500;
- background-color:#fffbf8;
+.flagQtdRetornados {
+    color: #999;
+    padding: 5px 0 15px;
+    text-align: center;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.9em;
+    background: #FFFFFF;
+    display: block;
+    margin-bottom: 0;
 }
 
-#searchSubmit{
- width:35px;
- height:30px;
- background-image:url(../images/search-btn.png);
- background-repeat: no-repeat;
- background-position: 10px 5px;
- background-color:transparent;
- -webkit-background-size:20px 20px;
- background-size:20px 20px;
- border:none;
- cursor:pointer;
+input[type="search"] {
+    padding: 5px;
+    border-radius: 6px;
+    border: none;
+    color: #080808;
+    font-weight: 500;
+    background-color: #fffbf8;
 }
 
-#advancedsearch{
- width:35px;
- height:30px;
- background-image:url(../images/advsearch-btn.png);
- background-repeat: no-repeat;
- background-position: 0px -2px;
- background-color:transparent;
- -webkit-background-size:20px 20px;
- background-size:35px 35px;
- border:none;
- cursor:pointer;
+#searchSubmit {
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/search-btn.png);
+    background-repeat: no-repeat;
+    background-position: 10px 5px;
+    background-color: transparent;
+    -webkit-background-size: 20px 20px;
+    background-size: 20px 20px;
+    border: none;
+    cursor: pointer;
 }
 
-input[type="search"]:focus{
- outline:0;
+#advancedsearch {
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/advsearch-btn.png);
+    background-repeat: no-repeat;
+    background-position: 0px -2px;
+    background-color: transparent;
+    -webkit-background-size: 20px 20px;
+    background-size: 35px 35px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="search"]:focus {
+    outline: 0;
+}
+
+.sidebar {
+    background: #416790;
+}
+
+.sidebar .list-group-item,
+.sidebar a.list-group-item {
+    margin-bottom: 0;
+    border: 0 none;
+    border-bottom: 0;
+    background: transparent;
+    color: #fff;
+    padding: 15px;
+    opacity: 0.85;
+}
+
+.sidebar .list-group-item a {
+    color: #fff;
+}
+
+.sidebar .list-group-item.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.navbar.navbar-app {
+    background: #007BFF;
+    color: white;
+}
+
+.navbar.navbar-app a {
+    color: white;
+}
+
+.panel-card {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
+    border: 0;
+    border-radius: 1px;
+}
+
+.panel-card table.table-responsive {
+    border: 0;
+}
+
+.panel-card .panel-heading {
+    color: #A2A2A2;
+    background-color: #F5F5F5;
+    border-color: #dddddd;
+    border-bottom: 1px solid #ccc;
+    border-radius: 1px 1px 0 0;
+}
+
+.panel-card .panel-title.orgaoSuperior {
+    color: #666;
+    font-weight: 600;
+}
+
+.panel-card .panel-title.municipio {
+    font-weight: 100;
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.convenio {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.convenio .conv-txt {
+    font-style: italic;
+    font-weight: 600;
+    color: #666;
+}
+
+.convenio .conv-lbl {
+  font-size: 0.9em;
+    font-weight: 500;
+    color: #666;
+    padding: 5px;
+}
+
+.convenio .conv-data {
+  font-size: 0.9em;
+    font-weight: 300;
+    color: #888;
+    padding: 5px;
 }

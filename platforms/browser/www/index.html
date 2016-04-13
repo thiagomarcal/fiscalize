@@ -4,21 +4,23 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta property="og:image" content="http://www.sinproesemmabdc.com.br/img/icon_convenios.png"/>
-<meta property="og:title" content="Detalhe Convênio" />
-<meta property="og:description" content="balbalbalblabgablabllalbla" />
-    
-<title>index</title>
 
+<meta property="og:title" content="Fiscalize!" />
+<meta property="og:description" content="Detalhe do Convênio" />
+<meta property="og:image" content="http://www.sinproesemmabdc.com.br/img/icon_convenios.png"/>
+    
+<title>Fiscalize!</title>
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <link rel="shortcut icon" href="assets/images/splash/favicon.ico" type="image/x-icon" /> 
 
 <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.css" />
 <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.css" />
 <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.css" />
 <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
-<link rel="stylesheet" href="assets/styles/styles.css" />
 <link rel="stylesheet" href="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.css">
 <link rel="stylesheet" href="assets/styles/ngPercentDisplay.css" />
+
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="assets/scripts/jquery.js"></script>
@@ -26,7 +28,7 @@
 <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
 <script type="text/javascript" src="assets/scripts/angular-route.js"></script>
 <script src="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
-<script src="bower_components/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+<script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
 <script src="bower_components/Chart.js/Chart.js"></script>
 <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
 <script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
@@ -42,12 +44,22 @@
 <script type="text/javascript" src="components/detalhe/detalheController.js"></script>
 <script type="text/javascript" src="components/main/mainController.js"></script>
 <script type="text/javascript" src="components/chat/chatController.js"></script>
+<script type="text/javascript" src="components/denuncia/minhasmanifestacoes.js"></script>
 
 <script src="bower_components/moment/moment.js"></script>
 <link rel="stylesheet" href="bower_components/angular-simple-chat/dist/angular-simple-chat.min.css">
 <script src="bower_components/angular-simple-chat/dist/angular-simple-chat.min.js"></script>
 
+<link rel="stylesheet" href="bower_components/angular-tooltips/dist/angular-tooltips.min.css">
+<script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
 
+<script src="bower_components/ngMeta/dist/ngMeta.js"></script>
+
+<link rel="stylesheet" href="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.css">
+<script src="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.js"></script>
+
+
+<link rel="stylesheet" href="assets/styles/styles.css" />
 </head>
 
 <body id="app" ng-controller="MainController">
@@ -57,7 +69,7 @@
 	<!-- Sidebars -->
 	<div class="sidebar sidebar-left" >
 		<div class="scrollable">
-			<h1 class="scrollable-header app-name">Fiscalize Já!</h1>
+			<h1 class="scrollable-header app-name">Fiscalize!</h1>
 			<div class="scrollable-content">
 				<div class="list-group" ui-turn-off='uiSidebarLeft'>
 					<a class="list-group-item" href="#/">Pesquisa de Convênios 
@@ -99,12 +111,18 @@
 		</div>
 	</div>
 
+	
+
 
   <div class="app">
 
+  	<div id="processing" >
+		<div class="loader"><i class="fa fa-cog fa-spin fa-3x"></i></div>
+	</div>
+
     <div class="navbar navbar-app navbar-absolute-top">
 		<div class="navbar-brand navbar-brand-center">
-			Fiscalize Já!
+			Fiscalize!
 		</div>
 
 		<div class="btn-group pull-left">
@@ -115,18 +133,17 @@
 
 		<div class="btn-group pull-right">
 			<div class="btn btn-navbar">
-				<a href ui-toggle='uiSidebarRight' ng-click="refreshFiscalizados()"><i class="fa fa-bell"></i> {{qtdRecentes}} </a>
+				<a href ui-toggle='uiSidebarRight'><i class="fa fa-bell"></i> {{qtdRecentes}} </a>
 			</div>
 		</div>
 	</div>
-
-
 
     <!-- App body -->
 
     <div class='app-body'>
       <div class='app-content'>
        	<!-- <div ui-view></div>  -->
+
        	<ng-view></ng-view>
       </div>
     </div>
