@@ -97,7 +97,7 @@
   										<i class="fa fa-exclamation fa-lg text-danger"></i> 
   									</span>
   									&nbsp;
-  									<a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO }}</a>	
+  									<a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO + ' - ' + mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
         							<a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
       							</span>
       						</div>	
