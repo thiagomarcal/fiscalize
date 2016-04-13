@@ -43,6 +43,9 @@
                 </option>
             </select>
             <br>
+            <button ng-click='search()' class='btn btn-primary form-control'>Buscar <i class="fa fa-search"></i></button>
+            <br>
+            <br>
             <button ng-click='limparBusca()' class='btn btn-primary form-control'>Limpar <i class="fa fa-trash-o"></i></button>
         </div>
     </div>
@@ -102,7 +105,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="conv-lbl">Nome Programa:</td>
+                            <td class="conv-lbl">Programa:</td>
                             <td colspan="2" class="conv-data">{{convenio.NM_PROGRAMA}}
                                 <br>
                             </td>

@@ -89,7 +89,7 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
     }
 
     $scope.getMoney = function(str) {
-        return parseFloat(parseInt(str.replace(/[\D]+/g, '')) / 100);
+        return parseFloat(parseInt(str.toString().replace(/[\D]+/g, '')) / 100);
     }
     $scope.formatReal = function(int) {
         var tmp = int + '';

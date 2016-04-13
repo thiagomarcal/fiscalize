@@ -52,7 +52,7 @@
                     <li ng-class="{ 'active': activeTab == 4, 'disabled': false }" ng-click="requisitionExecucaoFinanceira()">
                         <a ui-set="{'activeTab': 4}" role="tab" data-toggle="tab">Repasses</a>
                     </li>
-                    <li ng-class="{ 'active': activeTab == 5, 'disabled': false }" ng-click="requisitionPagamentoOBTV()">
+                    <li ng-class="{ 'active': activeTab == 5, 'disabled': false }" ng-click="requisitionDocumentoLiquidacao()">
                         <a ui-set="{'activeTab': 5}" role="tab" data-toggle="tab">Prestação de Contas</a>
                     </li>
                     <li ng-class="{ 'active': activeTab == 6, 'disabled': false }" ng-click="requisitionCronogramaFinanceiroXRepasses()">
@@ -356,7 +356,7 @@
                     </span>
                 </h3>
                 <div class="panel-body">
-                    <ui-state id='activeSubTab' default='11'></ui-state>
+                    <ui-state id='activeSubTab' default='12'></ui-state>
                     <div class="btn-group nav-tabs">
                         <a ng-click="requisitionDocumentoLiquidacao()" ui-set="{'activeSubTab': 12}" ui-class="{'active': activeSubTab == 12}" class="btn btn-default">Documento Liquidação</a>
                         <a ng-click="requisitionPagamentoOBTV()" ui-set="{'activeSubTab': 11}" ui-class="{'active': activeSubTab == 11}" class="btn btn-default">Pagamentos</a>

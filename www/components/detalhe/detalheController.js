@@ -93,18 +93,30 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
             }
             $scope.cronogramaFisico = angular.fromJson(result._embedded["rh:doc"]);
 
-            angular.forEach($scope.cronogramaFisico, function(value, key) {
-                value.label = value.TX_ESPECIFICACAO;
-                value.color = $scope.getRandomColor();
-                value.value = value.VL_META_FLOAT;
-            });
+            //angular.forEach($scope.cronogramaFisico, function(value, key) {
+            //    value.label = value.TX_ESPECIFICACAO;
+            //    value.color = $scope.getRandomColor();
+            //    value.value = value.VL_META_FLOAT;
+            //});
 
 
             var linq = Enumerable.From($scope.cronogramaFisico);
 
-            var result = linq.OrderByDescending(function(x) {
-                return x.value
-            }).ToArray();
+            var result =
+                linq.GroupBy(function(x) {
+                    return x["TX_ESPECIFICACAO"];
+                })
+                .Select(function(x) {
+                    return {
+                        label: x.Key(),
+                        color: $scope.getRandomColor(),
+                        value: x.Sum(function(y) {
+                            return y["VL_META_FLOAT"] | 0;
+                        })
+                    };
+                }).OrderByDescending(function(x) {
+                    return x.value
+                }).ToArray();
 
             $scope.dataCronogramaFisico = result;
 
@@ -135,6 +147,9 @@ myApp.controller('DetalheController', function($scope, $timeout, $http, $locatio
                 if (mes.length == 1)
                     mes = '0' + mes;
                 value.Data = mes + "/" + value.TX_ANO;
+                if (angular.isDefined(value.VL_PARCELA) || value.VL_PARCELA != null) {
+                    value.VL_PARCELA_FLOAT = $scope.getMoney(value.VL_PARCELA);
+                }
             });
 
 
