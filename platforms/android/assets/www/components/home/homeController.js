@@ -29,8 +29,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
                             Municipios.getLista(value.UF_PROPONENTE).then(function(result) {
                                 $scope.cidades = angular.fromJson(result.data._embedded["rh:doc"]);
-                                console.log('inicio requi watch conve' + $scope.url);
-                                $scope.search();
                             });
  
                     }
