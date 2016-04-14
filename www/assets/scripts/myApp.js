@@ -293,9 +293,8 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
             uuid = 'b07b42e74b01efed'
         };
         myCache.put('uuid', uuid);
-    }
 
-    //GeoLocation
+        //GeoLocation
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
        
         $cordovaGeolocation
@@ -308,9 +307,9 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
 
                         
                         var geoLocEstado = result.data.results[0].address_components[0].short_name;
-                        alert("Estado preenchido com : " + geoLocEstado);
+                        // alert("Estado preenchido com : " + geoLocEstado);
                         GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
-                        $rootScope.estadoSelecionado =  geoLocEstado;
+                        // $rootScope.estadoSelecionado =  geoLocEstado;
 
 
                     });
@@ -319,6 +318,7 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
                 }, function(err) {
                 // error
         });
+    }
 
 
     ngMeta.init();

@@ -8,11 +8,19 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'ConveniosProgramasFTS'
 
-    // $scope.$watch(function(GoogleMaps) { return GoogleMaps.getEstadoGoogleMaps },
-    //           function(newValue, oldValue) {
-    //               $scope.estadoSelecionado = newValue;
-    //           }
-    //          );
+    // Watcher para retorno da Geolocalizacao
+    $scope.$watch(function(){return GoogleMaps.getEstadoGoogleMaps()}, function(NewValue, OldValue){
+        console.log(NewValue + ' ' + OldValue);
+
+        angular.forEach($scope.estados, function(value, key) {
+
+                        if (value.UF_PROPONENTE == NewValue) {
+                            $scope.estadoSelecionado = value;
+                        }
+                 });
+
+
+    }, true);
 
     // Requisition Home 
     $scope.home = function() {
