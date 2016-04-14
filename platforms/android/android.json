@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -32,6 +36,14 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
                             "count": 1
                         }
                     ]
@@ -50,6 +62,9 @@
             "PACKAGE_NAME": "com.example.hello"
         },
         "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.example.hello"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.example.hello"
         }
     },
@@ -84,12 +99,25 @@
             "clobbers": [
                 "window.plugins.socialsharing"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+            "id": "cordova-plugin-geolocation.geolocation",
+            "clobbers": [
+                "navigator.geolocation"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+            "id": "cordova-plugin-geolocation.PositionError",
+            "runs": true
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.1",
         "cordova-plugin-x-toast": "2.5.0",
         "cordova-plugin-device": "1.1.1",
-        "cordova-plugin-x-socialsharing": "5.0.12"
+        "cordova-plugin-x-socialsharing": "5.0.12",
+        "cordova-plugin-geolocation": "2.1.0"
     }
 }

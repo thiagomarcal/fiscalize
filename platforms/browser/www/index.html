@@ -31,7 +31,7 @@
 <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
 <script src="bower_components/Chart.js/Chart.js"></script>
 <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
-<script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
+<script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.js"></script>
 <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
 
 <script type="text/javascript" src="assets/scripts/ngPercentDisplay.js"></script>
@@ -78,8 +78,6 @@
 					<i class="fa fa-chevron-right pull-right"></i></a>
 					<a class="list-group-item" href="#/minhasmanifestacoes">Minhas Manifestações
 					<i class="fa fa-chevron-right pull-right"></i></a>
-					<a class="list-group-item" href="#/faq">FAQ
-					<i class="fa fa-chevron-right pull-right"></i></a>
 				</div>
 			</div>
 		</div>
@@ -99,7 +97,7 @@
   										<i class="fa fa-exclamation fa-lg text-danger"></i> 
   									</span>
   									&nbsp;
-  									<a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO }}</a>	
+  									<a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO + ' - ' + mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
         							<a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
       							</span>
       						</div>	

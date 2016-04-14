@@ -115,6 +115,37 @@ myApp.service("Convenios", function (myCache, $http) {
 });
 
 
+myApp.service("Estados", function (myCache, $http) {
+
+        function getLista() {
+            return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/Estados?sort_by=UF_PROPONENTE"
+            });
+        }
+
+        return {
+            getLista: getLista,
+
+        }
+});
+
+myApp.service("Municipios", function (myCache, $http) {
+
+        function getLista(estado) {
+            return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado + '"}&sort_by=NM_MUNICIPIO_PROPONENTE'
+            });
+        }
+
+        return {
+            getLista: getLista,
+
+        }
+});
+
+
 myApp.service("Search", function (myCache, $http) {
 
         var search;
@@ -296,7 +327,8 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
 
         //GeoLocation
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
-       
+        
+
         $cordovaGeolocation
             .getCurrentPosition(posOptions)
                 .then(function (position) {

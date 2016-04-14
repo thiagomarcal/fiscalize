@@ -1,21 +1,54 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, ngMeta, Convenios, Search, Page) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios) {
 
     // Page Initial Value
     page = 1;
 
     // Const Values
-    PAGESIZE = 10;
+    PAGESIZE = 20;
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'ConveniosProgramasFTS'
+
+    // Watcher para retorno da Geolocalizacao
+    $scope.$watch(function(){return GoogleMaps.getEstadoGoogleMaps()}, function(NewValue, OldValue){
+
+        console.log(NewValue + ' ' + OldValue);
+
+        if (NewValue != OldValue) {
+
+            Estados.getLista().then(function(result) {
+
+               $scope.estados = angular.fromJson(result.data._embedded["rh:doc"]);
+
+               console.log('tamanho: ' + $scope.estados);
+            
+                angular.forEach($scope.estados, function(value, key) {
+                    if (value.UF_PROPONENTE == NewValue) {
+                            console.log('teste requisition')
+                            $scope.estadoSelecionado = value;
+
+
+                            Municipios.getLista(value.UF_PROPONENTE).then(function(result) {
+                                $scope.cidades = angular.fromJson(result.data._embedded["rh:doc"]);
+                            });
+ 
+                    }
+                });
+            });
+        };
+
+
+    }, true);
 
     // Requisition Home 
     $scope.home = function() {
 
+        console.log('inicio home');
+
         $scope.restorePreviousHome();
 
-        if (angular.isUndefined($scope.convenios)) {
+        if (angular.isUndefined($scope.convenios) && angular.isUndefined($scope.estadoSelecionado)) {
             $scope.convenios = [];
-            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&hal=f';
+            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE +'&filter={UF_PROPONENTE:"DF"}'+'&hal=f';
             $scope.requisition();
         };
     }
@@ -23,34 +56,45 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     // Requisition Search 
     $scope.search = function() {
 
-        Search.setSearch($scope.searchParam);
-        Search.setEstado($scope.estadoSelecionado);
-        Search.setCidade($scope.cidadeSelecionado);
-        Search.setMinisterio($scope.ministerioSelecionado);
-        Search.setSituacao($scope.situacaoSelecionado);
+        if ($scope.estadoSelecionado!=null) {
 
-        $scope.flagQtdRetornados = true;
+            Search.setSearch($scope.searchParam);
+            Search.setEstado($scope.estadoSelecionado);
+            Search.setCidade($scope.cidadeSelecionado);
+            Search.setMinisterio($scope.ministerioSelecionado);
+            Search.setSituacao($scope.situacaoSelecionado);
+            Search.setEsfera($scope.esferaSelecionado);
 
-        $scope.convenios = [];
-        estado = angular.isUndefined($scope.estadoSelecionado) ? "" : $scope.estadoSelecionado.UF_PROPONENTE;
-        cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
-        ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
-        situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
-        search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
+            $scope.flagQtdRetornados = true;
 
-        filtros = [
-            {campo: 'UF_PROPONENTE', objeto: estado, result: 'UF_PROPONENTE:{$regex:"' + estado + '"}'},
-            {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
-            {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
-            {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
-            {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
-        ]
+            $scope.convenios = [];
+            estado = angular.isUndefined($scope.estadoSelecionado) ? "" : $scope.estadoSelecionado.UF_PROPONENTE;
+            cidade = angular.isUndefined($scope.cidadeSelecionado) ? "" : $scope.cidadeSelecionado.NM_MUNICIPIO_PROPONENTE;
+            ministerio = angular.isUndefined($scope.ministerioSelecionado) ? "" : $scope.ministerioSelecionado.NM_ORGAO_SUPERIOR;
+            situacao = angular.isUndefined($scope.situacaoSelecionado) ? "" : $scope.situacaoSelecionado.TX_SITUACAO;
+            esfera = angular.isUndefined($scope.esferaSelecionado) ? "" : $scope.esferaSelecionado;
+            search = $scope.searchParam==null || angular.isUndefined($scope.searchParam) ? "" : $scope.searchParam;
 
-        filtro = montaFiltro(filtros, '&sort_by=DT_INICIO_VIGENCIA');
+            filtros = [
+                {campo: 'UF_PROPONENTE', objeto: estado, result: 'UF_PROPONENTE:{$regex:"' + estado + '"}'},
+                {campo: 'NM_MUNICIPIO_PROPONENTE', objeto: cidade, result: 'NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"}'},
+                {campo: 'NM_ORGAO_SUPERIOR', objeto: ministerio,result: 'NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' },
+                {campo:'TX_SITUACAO', objeto: situacao,result: 'TX_SITUACAO:{$regex:"' + situacao + '"}'},
+                {campo:'TX_ESFERA_ADM_PROPONENTE', objeto: esfera,result: 'TX_ESFERA_ADM_PROPONENTE:{$regex:"' + esfera + '"}'},
+                {campo:'SEARCH', objeto: search ,result: parseSearchString(search)}
+            ]
 
-        // $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';$scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
-        $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + ''+ filtro +'&hal=f';
-        $scope.requisition();
+            filtro = montaFiltro(filtros, '&sort_by=DT_INICIO_VIGENCIA');
+
+            // $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';$scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&filter={UF_PROPONENTE:{$regex:"' + estado + '"},NM_MUNICIPIO_PROPONENTE:{$regex:"' + cidade + '"},TX_SITUACAO:{$regex:"' + situacao + '"},NM_ORGAO_SUPERIOR:{$regex:"' + ministerio + '"}' + textSearchArg + '}&sort_by=DT_INICIO_VIGENCIA&hal=f';
+            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + ''+ filtro +'&hal=f';
+
+            $scope.requisition();    
+        }
+        else {
+            alert("É necessário selecionar um Estado");
+        }
+
     }
 
     // Requisition Scroll 
@@ -113,6 +157,14 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Estados?sort_by=UF_PROPONENTE').then(function(result) {
             $scope.estados = angular.fromJson(result._embedded["rh:doc"]);
+    
+                angular.forEach($scope.estados, function(value, key) {
+
+                        if (value.UF_PROPONENTE == GoogleMaps.getEstadoGoogleMaps()) {
+                            $scope.estadoSelecionado = value;
+
+                        }
+                 });
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -124,12 +176,15 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     }
 
     $scope.estadoChange = function() {
-            $scope.requisitionCidades($scope.estadoSelecionado);
+            if ($scope.estadoSelecionado != null) {
+                $scope.requisitionCidades($scope.estadoSelecionado);
+            };
         }
         // Requisition Cidades
     $scope.requisitionCidades = function(estado) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
+
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
 
         }, function(reason) {
@@ -191,7 +246,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         //Post Requisition
         requisicaoFactory.postRequest(ADDRESS + '/hackathon/Fiscalizados', $scope.fiscalizado).then(function(result) {
-            alert('UUID: ' + $scope.fiscalizado.uuid + ' Fiscalizando Convenio: ' + $scope.fiscalizado.convenio.NR_CONVENIO);
+            alert('A partir de agora você se tornou fiscalizador do convênio ' + $scope.fiscalizado.convenio.NR_CONVENIO + '  e passará a receber notificações toda vez que houverem mudanças no mesmo.');
 
             $scope.refreshFiscalizados();
 
@@ -264,6 +319,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         $scope.cidadeSelecionado = Search.getCidade();
         $scope.ministerioSelecionado = Search.getMinisterio();
         $scope.situacaoSelecionado = Search.getSituacao();
+        $scope.esferaSelecionado = Search.getEsfera();
         
     }
 
@@ -273,6 +329,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         delete $scope.cidadeSelecionado;
         delete $scope.ministerioSelecionado;
         delete $scope.situacaoSelecionado;
+        delete $scope.esferaSelecionado;
     }
 
     //Reposição do Scroll ao Voltar - Futura Build
@@ -341,6 +398,8 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.requisitionMinisterios();
     $scope.requisitionSituacoes();
     $scope.refreshFiscalizados();
+    
+    
   
 
 });

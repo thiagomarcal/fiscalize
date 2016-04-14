@@ -1,23 +1,40 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios) {
 
     // Page Initial Value
     page = 1;
 
     // Const Values
-    PAGESIZE = 10;
+    PAGESIZE = 20;
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'ConveniosProgramasFTS'
 
     // Watcher para retorno da Geolocalizacao
     $scope.$watch(function(){return GoogleMaps.getEstadoGoogleMaps()}, function(NewValue, OldValue){
+
         console.log(NewValue + ' ' + OldValue);
 
-        angular.forEach($scope.estados, function(value, key) {
+        if (NewValue != OldValue) {
 
-                        if (value.UF_PROPONENTE == NewValue) {
+            Estados.getLista().then(function(result) {
+
+               $scope.estados = angular.fromJson(result.data._embedded["rh:doc"]);
+
+               console.log('tamanho: ' + $scope.estados);
+            
+                angular.forEach($scope.estados, function(value, key) {
+                    if (value.UF_PROPONENTE == NewValue) {
+                            console.log('teste requisition')
                             $scope.estadoSelecionado = value;
-                        }
-                 });
+
+
+                            Municipios.getLista(value.UF_PROPONENTE).then(function(result) {
+                                $scope.cidades = angular.fromJson(result.data._embedded["rh:doc"]);
+                            });
+ 
+                    }
+                });
+            });
+        };
 
 
     }, true);
@@ -25,11 +42,13 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     // Requisition Home 
     $scope.home = function() {
 
+        console.log('inicio home');
+
         $scope.restorePreviousHome();
 
-        if (angular.isUndefined($scope.convenios)) {
+        if (angular.isUndefined($scope.convenios) && angular.isUndefined($scope.estadoSelecionado)) {
             $scope.convenios = [];
-            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE + '&hal=f';
+            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE +'&filter={UF_PROPONENTE:"DF"}'+'&hal=f';
             $scope.requisition();
         };
     }
@@ -143,6 +162,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
                         if (value.UF_PROPONENTE == GoogleMaps.getEstadoGoogleMaps()) {
                             $scope.estadoSelecionado = value;
+
                         }
                  });
 
@@ -164,6 +184,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.requisitionCidades = function(estado) {
 
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
+
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
 
         }, function(reason) {

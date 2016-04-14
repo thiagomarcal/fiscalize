@@ -18,6 +18,9 @@
         },
         "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.example.hello"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.example.hello"
         }
     },
     "dependent_plugins": {}

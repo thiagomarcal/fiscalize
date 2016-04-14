@@ -1,25 +1,29 @@
 <div ui-content-for="title">
     <span>Minhas Denúncias e Manifestações</span>
 </div>
-<div class="section" ng-repeat="row in manifestacoes">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-        </div>
-        <div class="panel-body">
-            <table>
-                <tr>
-                    <td>Convenio:</td>
-                    <td>{{ row.NR_CONVENIO }}</td>
-                </tr>
-                <tr>
-                    <td>Tipo:</td>
-                    <td><em>{{ row.tipo }} </em></td>
-                </tr>
-                <tr>
-                    <td>Motivo:</td>
-                    <td>{{ row.motivo }}</td>
-                </tr>
-            </table>
+<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="section" ng-repeat="row in manifestacoes">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <table>
+                        <tr>
+                            <td>Convenio:</td>
+                            <td>{{ row.NR_CONVENIO }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tipo:</td>
+                            <td><em>{{ row.tipo }} </em></td>
+                        </tr>
+                        <tr>
+                            <td>Motivo:</td>
+                            <td>{{ row.motivo }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</div>    

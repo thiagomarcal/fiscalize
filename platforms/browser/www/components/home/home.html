@@ -35,6 +35,15 @@
                 </option>
             </select>
             <br>
+            <label> Esfera: </label>
+            <br>
+            <select class="form-control" ng-model="esferaSelecionado">
+                <option value="">Selecionar</option>
+                <option value="ESTADUAL">ESTADUAL</option>
+                <option value="MUNICIPAL">MUNICIPAL</option>
+                <option value="PRIVADA">PRIVADA</option>
+            </select>
+            <br>
             <label> Situação: </label>
             <br>
             <select class="form-control" ng-model="situacaoSelecionado" ng-options="situacao.TX_SITUACAO for situacao in situacoes track by situacao.TX_SITUACAO">
@@ -42,6 +51,9 @@
                     Selecionar
                 </option>
             </select>
+            <br>
+            <button ng-click='search()' class='btn btn-primary form-control'>Buscar <i class="fa fa-search"></i></button>
+            <br>
             <br>
             <button ng-click='limparBusca()' class='btn btn-primary form-control'>Limpar <i class="fa fa-trash-o"></i></button>
         </div>
@@ -102,7 +114,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="conv-lbl">Nome Programa:</td>
+                            <td class="conv-lbl">Executor:</td>
+                            <td colspan="2" class="conv-data">{{ convenio.NM_PROPONENTE }}
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="conv-lbl">Programa:</td>
                             <td colspan="2" class="conv-data">{{convenio.NM_PROGRAMA}}
                                 <br>
                             </td>

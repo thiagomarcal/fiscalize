@@ -2,41 +2,28 @@
     <span>Minhas Denúncias e Manifestações</span>
 </div>
 <div class="scrollable">
-    <div class="scrollable-content section">
-        <form role="form" id="denunciaForm" ng-submit='denunciar()'>
-            <fieldset>
-                <legend>Convênio: {{denuncia.NR_CONVENIO}}</legend>
-                <legend>Qual tipo de manifestação você quer fazer?</legend>
-                <div class="form-group has-success has-feedback">
-                    <div class="btn-group nav-tabs">
-                        <img src="../../assets/images/denuncias/linkDenuncia.png" style="max-width: 18%;" ng-click="selecionarTipo('Denúncia')"></img>
-                        <img src="../../assets/images/denuncias/linkReclamacao.png" style="max-width: 18%;" ng-click="selecionarTipo('Reclamação')"></img>
-                        <img src="../../assets/images/denuncias/linkSolicitacao.png" style="max-width: 18%;" ng-click="selecionarTipo('Solicitação')"></img>
-                        <img src="../../assets/images/denuncias/linkSugestao.png" style="max-width: 18%;" ng-click="selecionarTipo('Sugestão')"></img>
-                        <img src="../../assets/images/denuncias/linkElogio.png" style="max-width: 18%;" ng-click="selecionarTipo('Elogio')"></img>
-                    </div>
+    <div class="scrollable-content">
+        <div class="section" ng-repeat="row in manifestacoes">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                 </div>
-                <div ng-show="tipoDefinido()">
-                    <legend>{{denuncia.tipo}}</legend>
-                    <div class="form-group has-success has-feedback">
-                        <label> Motivo: </label>
-                        <br>
-                        <textarea style="resize: none;" ng-model="denuncia.motivo" class="form-control" rows="6" cols="100" name="comment" form="denunciaForm" draggable="false"></textarea>
-                    </div>
-                    <div class="form-group has-success has-feedback">
-                        <label>Email(opcional):</label>
-                        <input type="email" ng-model="denuncia.email" class="form-control" placeholder="Enter email">
-                    </div>
-                    <div class="form-group has-success has-feedback">
-                        <label>Telefone(opcional):</label>
-                        <input type="text" ng-model="denuncia.phone" class="form-control" placeholder="Enter phone">
-                    </div>
+                <div class="panel-body">
+                    <table>
+                        <tr>
+                            <td>Convenio:</td>
+                            <td>{{ row.NR_CONVENIO }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tipo:</td>
+                            <td><em>{{ row.tipo }} </em></td>
+                        </tr>
+                        <tr>
+                            <td>Motivo:</td>
+                            <td>{{ row.motivo }}</td>
+                        </tr>
+                    </table>
                 </div>
-            </fieldset>
-            <hr>
-            <button class="btn btn-primary btn-block" ng-show="tipoDefinido()">
-                Enviar
-            </button>
-        </form>
+            </div>
+        </div>
     </div>
-</div>
+</div>    

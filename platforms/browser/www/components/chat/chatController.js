@@ -3,6 +3,7 @@ myApp.controller('ChatController', function($scope, $timeout , $http, $location,
 		$scope.messages = [{
                 id: '535d625f898df4e80e2a125e',
                 text: 'Quem é o responsável por esse convênio?',
+                userName: 'Leandro',
                 userId: 'hilsqdhfods5990K226DHS01NOHoh',
                 avatar: 'http://polyligne.be/wp-content/uploads/2014/06/Man_Avatar.gif',
                 date: '1455110273886'
@@ -11,6 +12,7 @@ myApp.controller('ChatController', function($scope, $timeout , $http, $location,
 
         $scope.you = {
             userId: myCache.get('uuid'),
+            userName: 'Roberta',
             avatar: 'http://polyligne.be/wp-content/uploads/2014/06/Man_Avatar.gif'
         };
 

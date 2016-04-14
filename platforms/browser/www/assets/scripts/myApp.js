@@ -115,6 +115,37 @@ myApp.service("Convenios", function (myCache, $http) {
 });
 
 
+myApp.service("Estados", function (myCache, $http) {
+
+        function getLista() {
+            return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/Estados?sort_by=UF_PROPONENTE"
+            });
+        }
+
+        return {
+            getLista: getLista,
+
+        }
+});
+
+myApp.service("Municipios", function (myCache, $http) {
+
+        function getLista(estado) {
+            return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado + '"}&sort_by=NM_MUNICIPIO_PROPONENTE'
+            });
+        }
+
+        return {
+            getLista: getLista,
+
+        }
+});
+
+
 myApp.service("Search", function (myCache, $http) {
 
         var search;
@@ -122,6 +153,7 @@ myApp.service("Search", function (myCache, $http) {
         var cidade;
         var ministerio;
         var situacao;
+        var esfera;
 
 
         function getSearch() {
@@ -148,6 +180,10 @@ myApp.service("Search", function (myCache, $http) {
             cidade = newCidade;
         }
 
+        function setEsfera(newEsfera) {
+            esfera = newEsfera;
+        }
+
         function getMinisterio() {
             return ministerio;
         }
@@ -162,6 +198,10 @@ myApp.service("Search", function (myCache, $http) {
 
         function setSituacao(newSituacao) {
             situacao = newSituacao;
+        }
+
+        function getEsfera() {
+            return esfera;
         }
 
         return {
@@ -179,6 +219,9 @@ myApp.service("Search", function (myCache, $http) {
 
             getSituacao: getSituacao,
             setSituacao: setSituacao,
+
+            getEsfera: getEsfera,
+            setEsfera: setEsfera,
         }
 });
 
@@ -201,7 +244,75 @@ myApp.service("Page", function (myCache, $http) {
 });
 
 
-myApp.run(function(myCache, ngMeta, $cordovaDevice) {
+myApp.service("GeoLocation", function (myCache, $http) {
+
+        var lat;
+        var long;
+
+        function getLat() {
+            return lat;
+        }
+
+        function setLat(newLat) {
+            lat = newLat;
+        }
+
+        function getLong() {
+            return long;
+        }
+
+        function setLong(newLong) {
+            long = newLong;
+        }
+
+        return {
+            getLat: getLat,
+            setLat: setLat,
+            getLong: getLong,
+            setLong: setLong,
+        }
+});
+
+myApp.service("GoogleMaps", function ($http) {
+
+        var estadoGoogleMaps;
+
+        function getEstadoGoogleMaps() {
+            return estadoGoogleMaps;
+        }
+
+        function setEstadoGoogleMaps(newEstadoGoogleMaps) {
+            estadoGoogleMaps = newEstadoGoogleMaps;
+        }
+
+        function getService(lat, long) {
+            return $http({
+            "method": "get",
+            "url": 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+long+'&result_type=administrative_area_level_1&key=AIzaSyA9RYw22yX7oYezsESEWnmcAIZ5Jvq2Q7A'
+            });
+        }
+
+        return {
+
+            getEstadoGoogleMaps: getEstadoGoogleMaps,
+            setEstadoGoogleMaps: setEstadoGoogleMaps,
+            getService: getService,
+        }
+});
+
+Number.prototype.formatMoney = function(c, d, t){
+var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "." : d, 
+    t = t == undefined ? "," : t, 
+    s = n < 0 ? "-" : "", 
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
+
+
+myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
 
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -213,7 +324,34 @@ myApp.run(function(myCache, ngMeta, $cordovaDevice) {
             uuid = 'b07b42e74b01efed'
         };
         myCache.put('uuid', uuid);
+
+        //GeoLocation
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        
+
+        $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+                .then(function (position) {
+                    GeoLocation.setLat(position.coords.latitude);
+                    GeoLocation.setLong(position.coords.longitude);
+
+                    GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+
+                        
+                        var geoLocEstado = result.data.results[0].address_components[0].short_name;
+                        // alert("Estado preenchido com : " + geoLocEstado);
+                        GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
+                        // $rootScope.estadoSelecionado =  geoLocEstado;
+
+
+                    });
+
+
+                }, function(err) {
+                // error
+        });
     }
+
 
     ngMeta.init();
 

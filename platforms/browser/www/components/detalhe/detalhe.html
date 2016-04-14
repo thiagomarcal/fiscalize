@@ -52,7 +52,7 @@
                     <li ng-class="{ 'active': activeTab == 4, 'disabled': false }" ng-click="requisitionExecucaoFinanceira()">
                         <a ui-set="{'activeTab': 4}" role="tab" data-toggle="tab">Repasses</a>
                     </li>
-                    <li ng-class="{ 'active': activeTab == 5, 'disabled': false }" ng-click="requisitionPagamentoOBTV()">
+                    <li ng-class="{ 'active': activeTab == 5, 'disabled': false }" ng-click="requisitionDocumentoLiquidacao()">
                         <a ui-set="{'activeTab': 5}" role="tab" data-toggle="tab">Prestação de Contas</a>
                     </li>
                     <li ng-class="{ 'active': activeTab == 6, 'disabled': false }" ng-click="requisitionCronogramaFinanceiroXRepasses()">
@@ -72,16 +72,20 @@
                             <td><em>{{ convenio.NM_ORGAO_CONCEDENTE }} </em></td>
                         </tr>
                         <tr>
-                            <td>Proponente:</td>
+                            <td>Executor:</td>
                             <td>{{ convenio.NM_PROPONENTE }}</td>
                         </tr>
                         <tr>
-                            <td>CNPJ:</td>
+                            <td>CNPJ Executor:</td>
                             <td>{{ convenio.CD_IDENTIF_PROPONENTE }}</td>
                         </tr>
                         <tr>
-                            <td>UF:</td>
-                            <td>{{ convenio.UF_PROPONENTE }}</td>
+                            <td>Esfera:</td>
+                            <td>{{ convenio.TX_ESFERA_ADM_PROPONENTE }}</td>
+                        </tr>
+                        <tr>
+                            <td>Munícipio:</td>
+                            <td>{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</td>
                         </tr>
                         <tr>
                             <td>Situação:</td>
@@ -99,8 +103,10 @@
                             <td>Justificativa:</td>
                             <td> {{ convenio.TX_JUSTIFICATIVA }}</td>
                         </tr>
-                    </table>
-                    <table class="table  table-responsive">
+                        <tr>
+                            <td>Programa:</td>
+                            <td>{{ convenio.NM_PROGRAMA }}</td>
+                        </tr>
                         <tr>
                             <td>Valor Total do Convênio:</td>
                             <td>{{ convenio.VL_GLOBAL }}</td>
@@ -117,6 +123,39 @@
                             <td>Valor Desembolsado:</td>
                             <td>{{ convenio.VL_DESEMBOLSADO }}</td>
                         </tr>
+                        <tr>
+                            <td>Valor Empenhado:</td>
+                            <td>{{ convenio.VL_EMPENHADO }}</td>
+                        </tr>
+                        <tr>
+                            <td>Responsável Execução:</td>
+                            <td>{{ convenio.NM_RESPONS_PROPONENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Ident. Responsável Execução:</td>
+                            <td>{{ convenio.CD_RESPONS_PROPONENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cargo Responsável Execução:</td>
+                            <td>{{ convenio.TX_CARGO_RESPONS_PROPONENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Responsável Concedente:</td>
+                            <td>{{ convenio.NM_RESPONS_CONCEDENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Ident. Responsável Concedente:</td>
+                            <td>{{ convenio.CD_RESPONS_CONCEDENTE }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Cargo Responsável Concedente:</td>
+                            <td>{{ convenio.TX_CARGO_RESPONS_CONCEDENTE }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -131,13 +170,13 @@
                 </h3>
                 <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                 <div class="panel-body" ng-show="!emptyResultSet">
-                    <div class="panel panel-default panel-card">
+                    <div class="panel panel-default">
                         <canvas tc-chartjs-pie chart-options="options" chart-data="dataEmpenhos" chart-legend="legend"></canvas>
                         <div tc-chartjs-legend chart-legend="legend"></div>
                     </div>
                 </div>
                 <div class="section" ng-repeat="row in empenhos" ng-show="!emptyResultSet">
-                    <div class="panel panel-default panel-card">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                         </div>
                         <div class="panel-body">
@@ -203,13 +242,13 @@
                 <div ui-if="activeSubTab == 1">
                     <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                     <div class="panel-body" ng-show="!emptyResultSet">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataPlanoAplicacao" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in planoAplicacao" ng-show="!emptyResultSet">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
@@ -246,13 +285,13 @@
                 <div ui-if="activeSubTab == 2">
                     <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                     <div class="panel-body" ng-show="!emptyResultSet">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataCronogramaFisico" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in cronogramaFisico" ng-show="!emptyResultSet">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
@@ -281,13 +320,13 @@
                 <div ui-if="activeSubTab == 3">
                     <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                     <div class="panel-body" ng-show="!emptyResultSet">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <canvas tc-chartjs-line chart-options="optionsLine" chart-data="dataCronogramaDesembolso" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in cronogramaDesembolso" ng-show="!emptyResultSet">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">
@@ -319,13 +358,13 @@
                 </h3>
                 <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                 <div class="panel-body" ng-show="!emptyResultSet">
-                    <div class="panel panel-default panel-card">
+                    <div class="panel panel-default">
                         <canvas tc-chartjs-pie chart-options="options" chart-data="dataExecucaoFinanceira" chart-legend="legend"></canvas>
                         <div tc-chartjs-legend chart-legend="legend"></div>
                     </div>
                 </div>
                 <div class="section" ng-repeat="row in execucaoFinanceira" ng-show="!emptyResultSet">
-                    <div class="panel panel-default panel-card">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                         </div>
                         <div class="panel-body">
@@ -356,7 +395,7 @@
                     </span>
                 </h3>
                 <div class="panel-body">
-                    <ui-state id='activeSubTab' default='11'></ui-state>
+                    <ui-state id='activeSubTab' default='12'></ui-state>
                     <div class="btn-group nav-tabs">
                         <a ng-click="requisitionDocumentoLiquidacao()" ui-set="{'activeSubTab': 12}" ui-class="{'active': activeSubTab == 12}" class="btn btn-default">Documento Liquidação</a>
                         <a ng-click="requisitionPagamentoOBTV()" ui-set="{'activeSubTab': 11}" ui-class="{'active': activeSubTab == 11}" class="btn btn-default">Pagamentos</a>
@@ -365,13 +404,13 @@
                     <div ui-if="activeSubTab == 11">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                         <div class="panel-body" ng-show="!emptyResultSet">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataPagamentoOBTV" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                         </div>
                         <div class="section" ng-repeat="row in pagamentoOBTV" ng-show="!emptyResultSet">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -420,13 +459,13 @@
                     <div ui-if="activeSubTab == 12">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                         <div class="panel-body" ng-show="!emptyResultSet">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataDocumentoLiquidacao" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                         </div>
                         <div class="section" ng-repeat="row in documentoLiquidacao" ng-show="!emptyResultSet">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -475,13 +514,13 @@
                     <div ui-if="activeSubTab == 13">
                         <legend ng-show="emptyResultSet">Não há dados cadastrados</legend>
                         <div class="panel-body" ng-show="!emptyResultSet">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <canvas tc-chartjs-pie chart-options="options" chart-data="dataDiscriminacaoOBTV" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
                         </div>
                         <div class="section" ng-repeat="row in discriminacaoOBTV" ng-show="!emptyResultSet">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
                                 <div class="panel-body">
@@ -540,7 +579,7 @@
                     </div>
                     <div ui-if="activeSubTab == 30">
                         <div class="panel-body">
-                            <div class="panel panel-default panel-card">
+                            <div class="panel panel-default">
                                 <canvas tc-chartjs-bar chart-options="optionsLine" chart-data="dataCronogramaFinanceiroXRepasses" chart-legend="legend"></canvas>
                                 <div tc-chartjs-legend chart-legend="legend"></div>
                             </div>
@@ -600,13 +639,13 @@
                 </div>
                 <div ui-if="activeSubTab == 21">
                     <div class="panel-body">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <canvas tc-chartjs-pie chart-options="options" chart-data="dataProgramaConvenios" chart-legend="legend"></canvas>
                             <div tc-chartjs-legend chart-legend="legend"></div>
                         </div>
                     </div>
                     <div class="section" ng-repeat="row in programaConvenios">
-                        <div class="panel panel-default panel-card">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                             </div>
                             <div class="panel-body">

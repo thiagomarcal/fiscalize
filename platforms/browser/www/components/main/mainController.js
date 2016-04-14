@@ -39,12 +39,14 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
 
     // Compara Datas Para ver Recentes
     $scope.verificaRecentes = function() {
+
+        $scope.qtdRecentes = 0;
         angular.forEach($scope.fiscalizados, function(value, key) {
 
             if (angular.isDefined($scope.mapaConveniosFiscalizados)) {
 
                 // Fiscalizados Recentes
-                $scope.qtdRecentes = 0;
+                
                 if (new Date(value.dt_updated) < new Date($scope.mapaConveniosFiscalizados[value.convenio.NR_CONVENIO].lastUpdateDate.$date)) {
                     value.recente = 1;
                     $scope.qtdRecentes++;
@@ -89,7 +91,7 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
     }
 
     $scope.getMoney = function(str) {
-        return parseFloat(parseInt(str.replace(/[\D]+/g, '')) / 100);
+        return parseFloat(parseInt(str.toString().replace(/[\D]+/g, '')) / 100);
     }
     $scope.formatReal = function(int) {
         var tmp = int + '';
