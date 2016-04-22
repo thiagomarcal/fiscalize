@@ -1,4 +1,4 @@
-myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache)  {
+myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache, $cordovaCamera)  {
 
 	//Parametros
 	$scope.params = $routeParams;
@@ -44,6 +44,30 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 
 	$scope.tipoDefinido = function() {
 		return $scope.denuncia.tipo != undefined;
+	}
+
+	$scope.tirarFoto = function() {
+
+		var options = {
+	      quality: 80,
+	      destinationType: Camera.DestinationType.FILE_URI,
+	      sourceType: Camera.PictureSourceType.CAMERA,
+	      allowEdit: false,
+	      encodingType: Camera.EncodingType.JPEG,
+	      // targetWidth: 250,
+	      //targetHeight: 200,
+	      popoverOptions: CameraPopoverOptions,
+	      saveToPhotoAlbum: false,
+		  correctOrientation:true
+	    };
+
+	    $cordovaCamera.getPicture(options).then(function(imageURI) {
+			var image = document.getElementById('myImage');
+			image.src = imageURI;
+
+	    }, function(err) {
+	      // error
+	    });
 	}
 
 });
