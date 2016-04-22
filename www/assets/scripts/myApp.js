@@ -145,6 +145,29 @@ myApp.service("Municipios", function (myCache, $http) {
         }
 });
 
+myApp.service("Chat", function (myCache, $http) {
+
+        function sendMessage(data) {
+            return $http({
+                "method": "post",
+                "data" : data,
+                "url": "http://74.124.24.115:8080/hackathon/Mensagens"
+            });
+        }
+
+        function getMessages(convenioId) {
+            return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Mensagens?pagesize=1000&filter={convenio:' + convenioId + '}&sort_by=dataEnvio'
+            });
+        }
+
+        return {
+            sendMessage: sendMessage,
+            getMessages: getMessages,
+        }
+});
+
 
 myApp.service("Search", function (myCache, $http) {
 
