@@ -1,10 +1,29 @@
 var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs']);
+
 myApp.config(function($routeProvider) {
     $routeProvider
     .when('/', {
+        templateUrl: 'components/inicial/inicial.html',
+        controller: 'InicialController',
+        resolve: {
+                estadoGeoLocation: function(Initial){
+                return Initial.getGeoLocation();
+            },
+                estados: function(Initial){
+                    return Initial.getEstados();
+            },
+                ministerios: function(Initial){
+                    return Initial.getMinisterios();
+            },
+                situacoes: function(Initial){
+                    return Initial.getSituacoes();
+            }
+        }
+    })
+    .when('/home', {
         templateUrl: 'components/home/home.html',
         controller: 'HomeController'
-        })
+    })
     .when('/denuncia/:convenioId', {
         templateUrl: 'components/denuncia/denuncia.html',
         controller: 'DenunciaController'
@@ -117,6 +136,8 @@ myApp.service("Convenios", function (myCache, $http) {
 
 myApp.service("Estados", function (myCache, $http) {
 
+        var estados;
+
         function getLista() {
             return $http({
             "method": "get",
@@ -124,8 +145,76 @@ myApp.service("Estados", function (myCache, $http) {
             });
         }
 
+        function get() {
+            return estados;
+        }
+
+        function set(newEstados) {
+            estados = newEstados;
+        }
+
+
         return {
             getLista: getLista,
+            get: get,
+            set: set,
+
+        }
+});
+
+
+myApp.service("Ministerios", function (myCache, $http) {
+
+        var ministerios;
+
+        function getLista() {
+            return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/Ministerios?sort_by=NM_ORGAO_SUPERIOR"
+            });
+        }
+
+        function get() {
+            return ministerios;
+        }
+
+        function set(newMinisterios) {
+            ministerios = newMinisterios;
+        }
+
+
+        return {
+            getLista: getLista,
+            get: get,
+            set: set,
+
+        }
+});
+
+myApp.service("Situacoes", function (myCache, $http) {
+
+        var situacoes;
+
+        function getLista() {
+            return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/SituacaoConvenio?sort_by=TX_SITUACAO"
+            });
+        }
+
+        function get() {
+            return situacoes;
+        }
+
+        function set(newSituacoes) {
+            situacoes = newSituacoes;
+        }
+
+
+        return {
+            getLista: getLista,
+            get: get,
+            set: set,
 
         }
 });
@@ -267,7 +356,7 @@ myApp.service("Page", function (myCache, $http) {
 });
 
 
-myApp.service("GeoLocation", function (myCache, $http) {
+myApp.service("GeoLocation", function (myCache, $http, $cordovaGeolocation, GoogleMaps) {
 
         var lat;
         var long;
@@ -288,11 +377,112 @@ myApp.service("GeoLocation", function (myCache, $http) {
             long = newLong;
         }
 
+     
         return {
             getLat: getLat,
             setLat: setLat,
             getLong: getLong,
             setLong: setLong,
+        }
+});
+
+
+myApp.service("Initial", function ($q,myCache, $http, $cordovaGeolocation, GeoLocation,GoogleMaps, Estados, Ministerios, Situacoes) {
+
+    
+        function getEstados() {
+
+            var deferred = $q.defer();
+
+            Estados.getLista().then(function(result) {
+
+                var estados = angular.fromJson(result.data._embedded["rh:doc"]);
+
+               Estados.set(estados);
+               deferred.resolve();
+
+            });
+
+            return deferred.promise;
+        }
+
+
+        function getMinisterios() {
+
+            var deferred = $q.defer();
+
+            Ministerios.getLista().then(function(result) {
+
+                var ministerios = angular.fromJson(result.data._embedded["rh:doc"]);
+
+               Ministerios.set(ministerios);
+               deferred.resolve();
+
+            });
+
+            return deferred.promise;
+        }
+
+
+        function getSituacoes() {
+
+            var deferred = $q.defer();
+
+            Situacoes.getLista().then(function(result) {
+
+                var situacoes = angular.fromJson(result.data._embedded["rh:doc"]);
+
+               Situacoes.set(situacoes);
+               deferred.resolve();
+
+            });
+
+            return deferred.promise;
+        }
+
+
+
+        function getGeoLocation() {
+
+            var deferred = $q.defer();
+             //GeoLocation
+                var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
+
+                if (angular.isUndefined(GoogleMaps.getEstadoGoogleMaps())) {
+                    $cordovaGeolocation
+                        .getCurrentPosition(posOptions)
+                            .then(function (position) {
+                                GeoLocation.setLat(position.coords.latitude);
+                                GeoLocation.setLong(position.coords.longitude);
+
+                                GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+
+                                    var geoLocEstado = result.data.results[0].address_components[0].short_name;
+                                    // alert("Estado preenchido com : " + geoLocEstado);
+                                    GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
+                                    // $rootScope.estadoSelecionado =  geoLocEstado;
+                                    deferred.resolve();
+
+                                });    
+                            }, function(err) {
+                            deferred.resolve();        
+                    });
+                }
+                else {
+                    deferred.resolve();                    
+                }
+
+
+            return deferred.promise;
+        }
+
+    
+        return {
+            getEstados: getEstados,
+            getMinisterios: getMinisterios,
+            getSituacoes: getSituacoes,
+            getGeoLocation: getGeoLocation,
         }
 });
 
@@ -337,9 +527,9 @@ var n = this,
 
 myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    // document.addEventListener("deviceready", onDeviceReady, false);
 
-    function onDeviceReady () {
+    // function onDeviceReady () {
 
         //Capture Mobile UUID
         var uuid = $cordovaDevice.getUUID();
@@ -352,31 +542,11 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
         
 
-        $cordovaGeolocation
-            .getCurrentPosition(posOptions)
-                .then(function (position) {
-                    GeoLocation.setLat(position.coords.latitude);
-                    GeoLocation.setLong(position.coords.longitude);
-
-                    GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
-
-                        
-                        var geoLocEstado = result.data.results[0].address_components[0].short_name;
-                        // alert("Estado preenchido com : " + geoLocEstado);
-                        GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
-                        // $rootScope.estadoSelecionado =  geoLocEstado;
-
-
-                    });
-
-
-                }, function(err) {
-                // error
-        });
-    }
+    // }
 
 
     ngMeta.init();
 
     console.log(myCache.get('uuid'));
 });
+

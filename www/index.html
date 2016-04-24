@@ -20,8 +20,6 @@
 <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 <link rel="stylesheet" href="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.css">
 <link rel="stylesheet" href="assets/styles/ngPercentDisplay.css" />
-
-
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="assets/scripts/jquery.js"></script>
 <script type="text/javascript" src="assets/scripts/index.js"></script>
@@ -44,6 +42,7 @@
 <script type="text/javascript" src="components/detalhe/detalheController.js"></script>
 <script type="text/javascript" src="components/main/mainController.js"></script>
 <script type="text/javascript" src="components/chat/chatController.js"></script>
+<script type="text/javascript" src="components/inicial/inicialController.js"></script>
 <script type="text/javascript" src="components/denuncia/minhasmanifestacoes.js"></script>
 
 <script src="bower_components/moment/moment.js"></script>
@@ -62,8 +61,7 @@
 <link rel="stylesheet" href="assets/styles/styles.css" />
 </head>
 
-<body id="app" ng-controller="MainController">
-
+<body id="teste" ng-controller="MainController">
 
 
 	<!-- Sidebars -->
@@ -72,7 +70,9 @@
 			<h1 class="scrollable-header app-name">Fiscalize!</h1>
 			<div class="scrollable-content">
 				<div class="list-group" ui-turn-off='uiSidebarLeft'>
-					<a class="list-group-item" href="#/">Pesquisa de Convênios 
+					<a class="list-group-item" href="#/">Inicio
+					<i class="fa fa-chevron-right pull-right"></i></a>
+					<a class="list-group-item" href="#/home">Pesquisa de Convênios 
 					<i class="fa fa-chevron-right pull-right"></i></a>
 					<a class="list-group-item" href ui-toggle='uiSidebarRight'>Convênios Fiscalizados
 					<i class="fa fa-chevron-right pull-right"></i></a>
