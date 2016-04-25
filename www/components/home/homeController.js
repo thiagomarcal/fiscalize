@@ -147,6 +147,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
 
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
+            Municipios.set($scope.cidades);
 
         }, function(reason) {
             alert("Erro ver console!")
