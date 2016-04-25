@@ -14,10 +14,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         angular.forEach(Estados.get(), function(value, key) {
             if (value.UF_PROPONENTE == NewValue) {                            
                     $scope.estadoSelecionado = value;
-
-                    Municipios.getLista(value.UF_PROPONENTE).then(function(result) {
-                        $scope.cidades = angular.fromJson(result.data._embedded["rh:doc"]);
-                    });
             }
         });
 
@@ -151,6 +147,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
 
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
+            Municipios.set($scope.cidades);
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -333,6 +330,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.home();
     $scope.ministerios = Ministerios.get();
     $scope.situacoes = Situacoes.get();
+    $scope.cidades = Municipios.get();
     $scope.refreshFiscalizados();
     
     

@@ -221,6 +221,8 @@ myApp.service("Situacoes", function (myCache, $http) {
 
 myApp.service("Municipios", function (myCache, $http) {
 
+        var municipios;
+
         function getLista(estado) {
             return $http({
             "method": "get",
@@ -228,9 +230,18 @@ myApp.service("Municipios", function (myCache, $http) {
             });
         }
 
+        function get() {
+            return municipios;
+        }
+
+        function set(newMunicipios) {
+            municipios = newMunicipios;
+        }
+
         return {
             getLista: getLista,
-
+            get: get,
+            set: set,
         }
 });
 
