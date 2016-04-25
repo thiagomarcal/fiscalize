@@ -7,8 +7,8 @@
             <a class='form-control btn btn-primary' ng-click='search()'>search</a>
         </div> -->
     <div class="searchbox">
-        <button id="advancedsearch" ng-click='flagSearch(true)' class='btn btn-primary pull-left'>&nbsp;</button>
-        <input ng-model="searchParam" type="search" placeholder="Pesquisar" />
+        <input class="searchInput" ng-model="searchParam" type="search" placeholder="Pesquisar" />
+        <button id="advancedsearch" ng-click='flagSearch(true)' class='btn btn-primary pull-right'>&nbsp;</button>
         <button id="searchSubmit" type="submit" value="search" ng-click='search()' class="btn btn-primary pull-right">&nbsp;</button>
         <div ng-show="advSearch">
             <label> Estado: </label>

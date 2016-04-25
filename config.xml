@@ -23,7 +23,7 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-installLocation" value="auto" />
-    <preference name="AutoHideSplashScreen" value="false" />  
+    <preference name="AutoHideSplashScreen" value="false" />
     <preference name="SplashScreenDelay" value="10000" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
@@ -83,6 +83,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="browser" spec="~4.0.0" />
     <engine name="android" spec="~5.1.1" />
+    <engine name="browser" spec="~4.0.0" />
 </widget>

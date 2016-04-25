@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.css" />
 <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.css" />
 <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.css" />
+<!-- <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" /> -->
+<!-- <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" /> -->
 <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 <link rel="stylesheet" href="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.css">
 <link rel="stylesheet" href="assets/styles/ngPercentDisplay.css" />
@@ -25,6 +27,8 @@
 <script type="text/javascript" src="assets/scripts/index.js"></script>
 <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
 <script type="text/javascript" src="assets/scripts/angular-route.js"></script>
+<!-- <script src="bower_components/angular-material/angular-material.min.js"></script> -->
+<!-- <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script> -->
 <script src="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
 <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
 <script src="bower_components/Chart.js/Chart.js"></script>
@@ -67,7 +71,10 @@
 	<!-- Sidebars -->
 	<div class="sidebar sidebar-left" >
 		<div class="scrollable">
-			<h1 class="scrollable-header app-name">Fiscalize!</h1>
+			<!-- <h1 class="scrollable-header app-name">
+				<img src="assets/images/logo-white.png" alt="">
+			</h1> -->
+			<!-- <h1 class="scrollable-header app-name">Fiscalize!</h1> -->
 			<div class="scrollable-content">
 				<div class="list-group" ui-turn-off='uiSidebarLeft'>
 					<a class="list-group-item" href="#/">Inicio
@@ -109,9 +116,6 @@
 		</div>
 	</div>
 
-	
-
-
   <div class="app">
 
   	<div id="processing" >
@@ -120,7 +124,8 @@
 
     <div class="navbar navbar-app navbar-absolute-top">
 		<div class="navbar-brand navbar-brand-center">
-			Fiscalize!
+			<!-- Fiscalize! -->
+			<img src="assets/images/logo-white.png" class="mainlogo" alt="">
 		</div>
 
 		<div class="btn-group pull-left">
@@ -137,7 +142,6 @@
 	</div>
 
     <!-- App body -->
-
     <div class='app-body'>
       <div class='app-content'>
        	<!-- <div ui-view></div>  -->
@@ -146,8 +150,6 @@
       </div>
     </div>
   </div><!-- ~ .app -->
-
-  
 
   <!-- Modals and Overlays -->
   <div ui-yield-to="modals"></div>
