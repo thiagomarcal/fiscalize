@@ -4,8 +4,19 @@
 <div class="scrollable">
     <div class="scrollable-content">
         <div class='section'>
-            <legend>Detalhe - Convênio: {{convenio.NR_CONVENIO}}</legend>
+            <legend>Convênio: {{convenio.NR_CONVENIO}} - {{convenio.TX_OBJETO_CONVENIO | limitTo:100}}</legend>
             <a ng-href="https://www.convenios.gov.br/siconv/ConsultarProposta/ResultadoDaConsultaDeConvenioSelecionarConvenio.do?Usr=guest&Pwd=guest&idConvenio={{convenio.ID_CONVENIO}}" target="_blank">SISCONV</a>
+            <div class="btn-group pull-right">                        
+                        <a ng-click="fiscalizar(convenio)" class='btn'>
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}" class='btn'>
+                            <i class="fa fa-bullhorn"></i>
+                        </a>
+                        <a ng-click="midiaShare(convenio)" class='btn'>
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+                    </div>
 
               <div scrolling-tabs-wrapper scroll-to-tab-edge="true">
                 <ui-state id='activeTab' default='1'></ui-state>

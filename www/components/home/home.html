@@ -73,18 +73,17 @@
                         <a ng-click="midiaShare(convenio)" class='btn'>
                             <i class="fa fa-share-alt"></i>
                         </a>
-                        <a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}" class='btn'>
-                            <i class="fa fa-bullhorn"></i>
-                        </a>
                         <a ui-turn-on='myDropdown{{convenio.NR_CONVENIO}}' class='btn'>
                             <i class="fa fa-ellipsis-v"></i>
+                        </a>
+                        <a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}" class='btn'>
+                            <i class="fa fa-bullhorn"></i>
                         </a>
                         <ul ui-state="myDropdown{{convenio.NR_CONVENIO}}" class="dropdown-menu" ui-outer-click="Ui.turnOff('myDropdown' + convenio.NR_CONVENIO)" ui-outer-click-if="Ui.active('myDropdown' + convenio.NR_CONVENIO)" role="menu" ui-show="myDropdown{{convenio.NR_CONVENIO}}" ui-turn-off="myDropdown{{convenio.NR_CONVENIO}}">
                             <!-- <li><a ui-sref="denuncia({convenioId:convenio.NR_CONVENIO})">Denunciar</a></li> -->
                             <li><a ng-click="setPageProperties()" href="#/detalhe/{{convenio.NR_CONVENIO}}">Detalhe</a></li>
-                            <li><a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}">Denunciar</a></li>
-                            <li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>
-                            <li class="divider"></li>
+                            <li><a ng-click="fiscalizar(convenio)">Fiscalizar</a></li>                            
+                            <li><a ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}">Manifestação</a></li>
                             <li><a ng-click="midiaShare(convenio)">Compartilhar</a></li>
                         </ul>
                     </div>
