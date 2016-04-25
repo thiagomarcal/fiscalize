@@ -14,10 +14,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         angular.forEach(Estados.get(), function(value, key) {
             if (value.UF_PROPONENTE == NewValue) {                            
                     $scope.estadoSelecionado = value;
-
-                    Municipios.getLista(value.UF_PROPONENTE).then(function(result) {
-                        $scope.cidades = angular.fromJson(result.data._embedded["rh:doc"]);
-                    });
             }
         });
 
@@ -333,6 +329,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.home();
     $scope.ministerios = Ministerios.get();
     $scope.situacoes = Situacoes.get();
+    $scope.cidades = Municipios.get();
     $scope.refreshFiscalizados();
     
     
