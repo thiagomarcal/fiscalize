@@ -1,0 +1,217 @@
+@import "mixins/placeholderColor";
+//fonts
+$font_default: Roboto;
+$main-color: #00b53e;
+$secondary-color: #007bff;
+$app-background: shade($main-color, 20);
+//@extend-elements
+//original selectors
+//.sidebar .list-group-item, .sidebar a.list-group-item
+%sidebarMenuItem {
+    margin-bottom: 0;
+    border: 0 none;
+    border-bottom: 0;
+    background: transparent;
+    color: #fff;
+    padding: 15px;
+    opacity: 0.85;
+}
+
+body {
+    font-family: $font_default;
+    font-weight: 400;
+}
+
+#homeScroll,
+.section {
+    background: $app-background;
+}
+
+#processing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: grey;
+    opacity: .6;
+}
+
+.loader {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#progress {
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.progressBar {
+    top: 37px;
+    right: -14px;
+    position: relative;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.searchbox {
+    background-color: $app-background;
+    padding: 6px;
+    @include placeholderColor(rgba(255, 255, 255, 0.7));
+    input[type="search"] {
+        color: #fff;
+        background: transparent;
+        font-weight: 100;
+        font-style: italic;
+        border-botom: 1px solid rgba(255, 255, 255, 0.7);
+        &:focus {
+            border-botom: 1px solid rgba(255, 255, 255, 1);
+        }
+    }
+}
+
+.flagQtdRetornados {
+    color: #999;
+    padding: 5px 0 15px;
+    text-align: center;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.9em;
+    background: #ffffff;
+    display: block;
+    margin-bottom: 0;
+}
+
+input[type="search"] {
+    padding: 5px;
+    border-radius: 6px;
+    border: none;
+    color: #080808;
+    font-weight: 500;
+    background-color: #fffbf8;
+    &:focus {
+        outline: 0;
+    }
+}
+
+#searchSubmit {
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/search-btn.png);
+    background-repeat: no-repeat;
+    background-position: 10px 5px;
+    background-color: transparent;
+    background-size: 20px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#advancedsearch {
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/advsearch-btn.png);
+    background-repeat: no-repeat;
+    background-position: 0 -2px;
+    background-color: transparent;
+    background-size: 35px 35px;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar {
+    background: shade($main-color, 40);
+    .list-group-item {
+        @extend %sidebarMenuItem;
+        a {
+            color: #fff;
+        }
+        &.active {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+    a.list-group-item {
+        @extend %sidebarMenuItem;
+    }
+}
+
+.panel-card {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
+    border: 0;
+    border-radius: 1px;
+    .panel-heading {
+        color: #000;
+        background-color: #fff;
+        border-color: #dddddd;
+        border-bottom: 1px solid #ccc;
+        min-height: 80px;
+        border-radius: 1px 1px 0 0;
+    }
+    .panel-title {
+        &.orgaoSuperior {
+            color: #000;
+            font-weight: 600;
+        }
+        &.municipio {
+            font-weight: 100;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+            color: #888;
+        }
+    }
+    table.table-responsive {
+        border: 0;
+    }
+}
+
+.convenio {
+    padding-left: 0;
+    padding-right: 0;
+    .conv-txt {
+        font-style: italic;
+        font-weight: 600;
+        color: #666;
+    }
+    .conv-lbl {
+        font-size: 0.9em;
+        font-weight: 500;
+        color: #666;
+        padding: 5px;
+    }
+    .conv-data {
+        font-size: 0.9em;
+        font-weight: 300;
+        color: #888;
+        padding: 5px;
+    }
+}
+
+.navbar {
+    &.navbar-app {
+        background: $main-color;
+        color: white;
+        border-bottom: 1px solid $main-color;
+        a {
+            color: white;
+        }
+    }
+    .navbar-brand {
+        img.mainlogo {
+            width: 25vw;
+            margin: auto;
+        }
+    }
+}
