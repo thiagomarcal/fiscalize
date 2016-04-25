@@ -27,7 +27,7 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 		
 		requisicaoFactory.postRequest(ADDRESS+'/hackathon/'+ COLLECTION, $scope.denuncia).then(function(result) {
 			alert($scope.denuncia.tipo + ' enviado(a)!');
-			 $location.path("/");
+			 $location.path("/home");
 		}, function(reason) {
 		    alert("Erro ver console!")
 		    console.log("reason:", reason);
