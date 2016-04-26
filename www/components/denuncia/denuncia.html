@@ -1,50 +1,83 @@
 <div ui-content-for="title">
     <span>Denúncias e Manifestações</span>
 </div>
-<div class="scrollable">
+<div class="scrollable denuncia">
     <div class="scrollable-content section">
         <form role="form" id="denunciaForm" ng-submit='denunciar()'>
-            <fieldset>
-                <legend>Convênio: {{denuncia.NR_CONVENIO}}</legend>
-                <legend>Qual tipo de manifestação você quer fazer?</legend>
-                <div class="form-group has-success has-feedback">
-                    <div class="btn-group nav-tabs"> 
-                        <img src="./assets/images/denuncias/linkDenuncia.png" style="max-width: 18%;" ng-click="selecionarTipo('Denúncia')"></img>
-                        <img src="./assets/images/denuncias/linkReclamacao.png" style="max-width: 18%;" ng-click="selecionarTipo('Reclamação')"></img>
-                        <img src="./assets/images/denuncias/linkSolicitacao.png" style="max-width: 18%;" ng-click="selecionarTipo('Solicitação')"></img>
-                        <img src="./assets/images/denuncias/linkSugestao.png" style="max-width: 18%;" ng-click="selecionarTipo('Sugestão')"></img>
-                        <img src="./assets/images/denuncias/linkElogio.png" style="max-width: 18%;" ng-click="selecionarTipo('Elogio')"></img>
-                    </div>
-                </div>
-                <div ng-show="tipoDefinido()">
-                    <legend>{{denuncia.tipo}}</legend>
-                    <div class="form-group has-success has-feedback">
-                        <label> Motivo: </label>
+        <br>
+            <md-card class="detailCard">
+                <md-card-title>
+                    <md-card-title-text flex>
+                        <span class="md-headline">Convênio: {{denuncia.NR_CONVENIO}}</span>
+                        <span class="md-subhead">Qual tipo de manifestação você quer fazer?</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <fieldset>
+                        <div flex layout layout-wrap layout-align="center center">
+                                <img src="./assets/images/denuncias/linkDenuncia.png" flex="20" ng-click="selecionarTipo('Denúncia')"></img>
+                                <img src="./assets/images/denuncias/linkReclamacao.png" flex="20" ng-click="selecionarTipo('Reclamação')"></img>
+                                <img src="./assets/images/denuncias/linkSolicitacao.png" flex="20" ng-click="selecionarTipo('Solicitação')"></img>
+                                <img src="./assets/images/denuncias/linkSugestao.png" flex="20" ng-click="selecionarTipo('Sugestão')"></img>
+                                <img src="./assets/images/denuncias/linkElogio.png" flex="20" ng-click="selecionarTipo('Elogio')"></img layout-align="center center">
+                        </div>
+                        <md-content ng-show="tipoDefinido()">
                         <br>
-                        <textarea style="resize: none;" ng-model="denuncia.motivo" class="form-control" rows="6" cols="100" name="comment" form="denunciaForm" draggable="false"></textarea>
-                    </div>
-                    <div class="form-group has-success has-feedback">
-                        <label>Email(opcional):</label>
-                        <input type="email" ng-model="denuncia.email" class="form-control" placeholder="Enter email">
-                    </div>
-                    <div class="form-group has-success has-feedback">
-                        <label>Telefone(opcional):</label>
-                        <input type="text" ng-model="denuncia.phone" class="form-control" placeholder="Enter phone">
-                    </div>
-                    <div class="form-group has-success has-feedback">
-                        <a class="btn btn-default btn-block" ng-click="tirarFoto()">
+                            <legend>{{denuncia.tipo}}</legend>
+
+                            <div layout="column">
+                                <md-input-container flex>
+                                    <label>Motivo</label>
+                                    <textarea style="resize: none;" ng-model="denuncia.motivo" class="form-control" rows="6" cols="100" name="comment" form="denunciaForm" draggable="false"></textarea>
+                                  </md-input-container>
+                                  <md-input-container flex>
+                                    <label>Email(opcional)</label>
+                                    <input type="email" ng-model="denuncia.email">
+                                  </md-input-container>
+                                  <md-input-container flex>
+                                    <label>Telefone(opcional)</label>
+                                    <input type="text" ng-model="denuncia.phone">
+                                  </md-input-container>
+                            </div>
+                              <a class="btn btn-default btn-block" ng-click="tirarFoto()">
                             Foto
                             <i class="fa fa-camera" aria-hidden="true"></i>
                         </a>
                         <br>
                         <img id="myImage"></a>
-                    </div>
-                </div>
-            </fieldset>
-            <hr>
-            <button class="btn btn-primary btn-block" ng-show="tipoDefinido()">
-                Enviar
-            </button>
+
+                            <!-- <div class="form-group has-success has-feedback">
+                                <label> Motivo: </label>
+                                <br>
+                                <textarea style="resize: none;" ng-model="denuncia.motivo" class="form-control" rows="6" cols="100" name="comment" form="denunciaForm" draggable="false"></textarea>
+                            </div>
+                            <div class="form-group has-success has-feedback">
+                                <label>Email(opcional):</label>
+                                <input type="email" ng-model="denuncia.email" class="form-control" placeholder="Enter email">
+                            </div>
+                            <div class="form-group has-success has-feedback">
+                                <label>Telefone(opcional):</label>
+                                <input type="text" ng-model="denuncia.phone" class="form-control" placeholder="Enter phone">
+                            </div>
+                            <div class="form-group has-success has-feedback">
+                                <a class="btn btn-default btn-block" ng-click="tirarFoto()">
+                            Foto
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </a>
+                                <br>
+                                <img id="myImage"></a> -->
+                            <!-- </div> -->
+                        </md-content>
+                    </fieldset>
+                </md-card-content>
+
+                    <md-card-action layout layout-align="end center">
+                    <md-button class="md-primary" ng-show="tipoDefinido()">
+                        Enviar
+                    </md-button>
+
+                    </md-card-action>
+            </md-card>
         </form>
     </div>
 </div>

@@ -56,6 +56,12 @@
     <script src="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.js"></script>
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
     <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
+    <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick-theme.css">
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/slick-carousel/slick/slick.js"></script>
+    <script src="../bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
     <link rel="stylesheet" href="assets/styles/styles.css" />
 </head>
 
@@ -92,11 +98,12 @@
 
 	      							<span class="pull-left" ng-show="fiscalizado.recente">
   										<i class="fa fa-exclamation fa-lg text-danger"></i> 
-  									</span> &nbsp;
-                                <a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO + ' - ' + mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
+  									</span>
+                                <a ng-click="atualizaData(fiscalizado)"><strong>{{ fiscalizado.convenio.NR_CONVENIO }}</strong> - {{ mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
                                 <a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
                                 </span>
                             </div>
+                            <br>
                         </div>
                     </div>
                 </div>
