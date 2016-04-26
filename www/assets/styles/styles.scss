@@ -3,7 +3,9 @@
 $font_default: Roboto;
 $main-color: #00b53e;
 $secondary-color: #007bff;
+$fadedWhite: rgba(255, 255, 255, 0.7);
 $app-background: shade($main-color, 20);
+$navbar-height: 60px;
 //@extend-elements
 //original selectors
 //.sidebar .list-group-item, .sidebar a.list-group-item
@@ -68,16 +70,28 @@ body {
 
 .searchbox {
     background-color: $app-background;
-    padding: 6px;
-    @include placeholderColor(rgba(255, 255, 255, 0.7));
-    input[type="search"] {
-        color: #fff;
-        background: transparent;
-        font-weight: 100;
+    padding: 20px 20px 0px;
+    .md-errors-spacer {
+        min-height: 0px;
+    }
+    ng-md-icon {
+        fill: $fadedWhite;
+    }
+    md-input-container label {
+        color: $fadedWhite;
+        font-weight: 300;
         font-style: italic;
-        border-botom: 1px solid rgba(255, 255, 255, 0.7);
-        &:focus {
-            border-botom: 1px solid rgba(255, 255, 255, 1);
+    }
+    md-input-container .md-input {
+        border-color: $fadedWhite;
+    }
+    .advSearch {
+        label {
+            color: $fadedWhite;
+            font-weight: 400;
+        }
+        select > option {
+            padding: 4px;
         }
     }
 }
@@ -178,8 +192,8 @@ input[type="search"] {
 }
 
 .convenio {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 5px;
+    padding-right: 5px;
     .conv-txt {
         font-style: italic;
         font-weight: 600;
@@ -204,14 +218,40 @@ input[type="search"] {
         background: $main-color;
         color: white;
         border-bottom: 1px solid $main-color;
+        min-height: $navbar-height;
         a {
             color: white;
+            line-height: $navbar-height;
+            i.fa {
+                font-size: 1.25em;
+            }
+            &.notifications{
+                position: absolute;
+                right: 25px;
+            }
+            .notCount {
+                position: absolute;
+                text-align: center;
+                background: red;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.7);
+                box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                line-height: 19px;
+                font-size: 0.8em;
+                font-weight: 900;
+                top: 10px;
+                right: -10px;
+            }
         }
     }
     .navbar-brand {
-        img.mainlogo {
-            width: 25vw;
-            margin: auto;
-        }
+        height: $navbar-height;
     }
+}
+
+img.mainlogo {
+    width: 25vw;
+    margin: auto;
 }
