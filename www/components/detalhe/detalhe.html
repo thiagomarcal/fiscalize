@@ -4,17 +4,17 @@
 <div class="scrollable detailView">
     <div class="scrollable-content">
         <div class='section'>
-        <br>
+            <br>
             <md-card class="detailCard">
-                <md-card-title>
+                <md-card-title flex layout>
                     <div layout layout-align="start top" flex>
-                            <md-card-title-text flex="none">
-                                <span class="md-headline">Convênio: {{convenio.NR_CONVENIO}}</span>
-                                <span class="md-subheads">{{convenio.TX_OBJETO_CONVENIO | limitTo:100}}</span>
-                            </md-card-title-text>
+                        <md-card-title-text flex="100" style="flex: 100;">
+                            <span class="md-headline">Convênio: {{convenio.NR_CONVENIO}}</span>
+                            <span class="md-subhead">{{convenio.TX_OBJETO_CONVENIO | limitTo:100}}</span>
+                        </md-card-title-text>
                         <span flex></span>
                         <div flex="none">
-                            <md-menu >
+                            <md-menu>
                                 <md-button class="md-icon-button" ng-click="$mdOpenMenu()">
                                     <ng-md-icon icon="more_vert" style="fill: #666"></ng-md-icon>
                                 </md-button>
