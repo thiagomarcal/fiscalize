@@ -39,6 +39,9 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
 
     // $scope.init();
 
+    //Ativar a apresentação
+    $scope.firstTime = true;
+
 
     // Requisition Fiscalizado
     $scope.requisitionFiscalizados = function() {

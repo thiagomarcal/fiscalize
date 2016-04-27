@@ -22,6 +22,8 @@
     <script type="text/javascript" src="assets/scripts/index.js"></script>
     <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
     <script type="text/javascript" src="assets/scripts/angular-route.js"></script>
+    <!-- <script src="bower_components/angular-material/angular-material.min.js"></script> -->
+    <!-- <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script> -->
     <script src="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
     <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
     <script src="bower_components/Chart.js/Chart.js"></script>
@@ -40,25 +42,26 @@
     <script type="text/javascript" src="components/chat/chatController.js"></script>
     <script type="text/javascript" src="components/inicial/inicialController.js"></script>
     <script type="text/javascript" src="components/denuncia/minhasmanifestacoes.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/angular-material-icons/angular-material-icons.min.js"></script>
     <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/angular-simple-chat/dist/angular-simple-chat.min.js"></script>
-    <script src="bower_components/ngMeta/dist/ngMeta.js"></script>
-    <script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
-    <script src="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.js"></script>
-    <script src="bower_components/slick-carousel/slick/slick.js"></script>
-    <script src="bower_components/angular-slick/dist/slick.js"></script>
-    <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
     <link rel="stylesheet" href="bower_components/angular-simple-chat/dist/angular-simple-chat.min.css">
+    <script src="bower_components/angular-simple-chat/dist/angular-simple-chat.min.js"></script>
     <link rel="stylesheet" href="bower_components/angular-tooltips/dist/angular-tooltips.min.css">
+    <script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
+    <script src="bower_components/ngMeta/dist/ngMeta.js"></script>
     <link rel="stylesheet" href="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.css">
+    <script src="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.js"></script>
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
-    <link rel="stylesheet" href="bower_components/angular-materia	l-icons/angular-material-icons.css" />
-    <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css">
-    <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css">
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
+    <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick-theme.css">
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/slick-carousel/slick/slick.js"></script>
+    <script src="../bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
     <link rel="stylesheet" href="assets/styles/styles.css" />
 </head>
 
@@ -95,6 +98,7 @@
 
 	      							<span class="pull-left" ng-show="fiscalizado.recente">
   										<i class="fa fa-exclamation fa-lg text-danger"></i> 
+  										&nbsp;
   									</span>
                                 <a ng-click="atualizaData(fiscalizado)"><strong>{{ fiscalizado.convenio.NR_CONVENIO }}</strong> - {{ mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
                                 <a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
@@ -107,6 +111,14 @@
             </div>
         </div>
     </div>
+    	<slick infinite=false arrows=false dots=true slides-to-show=1 slides-to-scroll=1 ng-show="firstTime == true" class="preslide">
+            <div class="preslide-item"><img src="assets/images/preslide/01.png" /></div>
+            <div class="preslide-item"><img src="assets/images/preslide/02.png" /></div>
+            <div class="preslide-item"><img src="assets/images/preslide/03.png" /></div>
+            <div class="preslide-item"><img src="assets/images/preslide/04.png" /></div>
+            <div class="preslide-item bemvindo"><img src="assets/images/preslide/05.png" />
+            <a href="home"></a></div>
+        </slick>
     <div class="app">
         <div id="processing">
             <div class="loader"><i class="fa fa-cog fa-spin fa-3x"></i></div>
