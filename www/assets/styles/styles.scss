@@ -287,13 +287,13 @@ slick.preslide {
             height: 100vh;
         }
     }
-        .bemvindo a {
-            display: block;
-            height: 19vh;
-            position: absolute;
-            width: 100vw;
-            bottom: 0;
-        }
+    .bemvindo a {
+        display: block;
+        height: 19vh;
+        position: absolute;
+        width: 100vw;
+        bottom: 0;
+    }
     .slick-dots {
         bottom: 35px;
         position: fixed;
@@ -332,8 +332,17 @@ slick.preslide {
 }
 
 .denuncia,
-.minhasManifestacoes {
+.minhasManifestacoes,
+.chat {
     .section {
         background: $intern-app-background;
     }
+}
+
+simple-chat {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
 }

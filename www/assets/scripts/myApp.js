@@ -1,67 +1,71 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs', 'ngMaterial', 'ngMdIcons', 'slick']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js', 'tc.chartjs', 'ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs', 'ngMaterial', 'ngMdIcons', 'slick']);
 
 myApp.config(function($routeProvider) {
     $routeProvider
-    .when('/', {
-        templateUrl: 'components/inicial/inicial.html',
-        controller: 'InicialController',
-        resolve: {
-                estadoGeoLocation: function(Initial){
-                return Initial.getGeoLocation();
-            },
-                estados: function(Initial){
+        .when('/', {
+            templateUrl: 'components/inicial/inicial.html',
+            controller: 'InicialController',
+            resolve: {
+                estadoGeoLocation: function(Initial) {
+                    return Initial.getGeoLocation();
+                },
+                estados: function(Initial) {
                     return Initial.getEstados();
-            },
-                ministerios: function(Initial){
+                },
+                ministerios: function(Initial) {
                     return Initial.getMinisterios();
-            },
-                situacoes: function(Initial){
+                },
+                situacoes: function(Initial) {
                     return Initial.getSituacoes();
+                }
             }
-        }
-    })
-    .when('/home', {
-        templateUrl: 'components/home/home.html',
-        controller: 'HomeController'
-    })
-    .when('/denuncia/:convenioId', {
-        templateUrl: 'components/denuncia/denuncia.html',
-        controller: 'DenunciaController'
         })
-    .when('/detalhe/:convenioId', {
-        templateUrl: 'components/detalhe/detalhe.html',
-        controller: 'DetalheController'
+        .when('/home', {
+            templateUrl: 'components/home/home.html',
+            controller: 'HomeController'
         })
-    .when('/chat/:convenioId', {
-        templateUrl: 'components/chat/chat.html',
-        controller: 'ChatController'
+        .when('/denuncia/:convenioId', {
+            templateUrl: 'components/denuncia/denuncia.html',
+            controller: 'DenunciaController'
         })
-    .when('/minhasmanifestacoes', {
-        templateUrl: 'components/denuncia/minhasmanifestacoes.html',
-        controller: 'MinhasManifestacoesController'
+        .when('/detalhe/:convenioId', {
+            templateUrl: 'components/detalhe/detalhe.html',
+            controller: 'DetalheController'
+        })
+        .when('/chat/:convenioId', {
+            templateUrl: 'components/chat/chat.html',
+            controller: 'ChatController'
+        })
+        .when('/minhasmanifestacoes', {
+            templateUrl: 'components/denuncia/minhasmanifestacoes.html',
+            controller: 'MinhasManifestacoesController'
         });
 });
 
-myApp.config(function($httpProvider) {
+myApp.config(function($httpProvider, $mdThemingProvider) {
 
     $httpProvider.interceptors.push(function($q) {
         return {
-         'request': function(config) {
-             $('#processing').show();
-             return config;
-          },
+            'request': function(config) {
+                $('#processing').show();
+                return config;
+            },
 
-          'response': function(response) {
-             $('#processing').hide();
-             return response;
-          },
-          'responseError': function(response) {
-             $('#processing').hide();
-             return response;
-          }
+            'response': function(response) {
+                $('#processing').hide();
+                return response;
+            },
+            'responseError': function(response) {
+                $('#processing').hide();
+                return response;
+            }
         };
     });
-    
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('green')
+        .accentPalette('light-green');
+
 });
 
 // Set up the cache ‘myCache’
@@ -71,21 +75,21 @@ myApp.factory('myCache', function($cacheFactory) {
 
 
 
-myApp.service("Fiscalizados", function (myCache, $http) {
-    
+myApp.service("Fiscalizados", function(myCache, $http) {
+
     function getLista() {
         return $http({
             "method": "get",
-            "url": 'http://74.124.24.115:8080/hackathon/Fiscalizados?filter={uuid:"'+ myCache.get('uuid') +'"},{situacao:1}&hal=f'
+            "url": 'http://74.124.24.115:8080/hackathon/Fiscalizados?filter={uuid:"' + myCache.get('uuid') + '"},{situacao:1}&hal=f'
         });
     }
 
     function updateDate(oid, etag, data) {
         return $http({
             "method": "patch",
-            "headers": {'If-Match': etag},
-            "data" : data,
-            "url": "http://74.124.24.115:8080/hackathon/Fiscalizados/"+oid
+            "headers": { 'If-Match': etag },
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/Fiscalizados/" + oid
         });
     }
 
@@ -95,445 +99,444 @@ myApp.service("Fiscalizados", function (myCache, $http) {
     }
 });
 
-myApp.service("Convenios", function (myCache, $http) {
+myApp.service("Convenios", function(myCache, $http) {
 
-        var listaConvenios = [];
-        var totalConvenios;
+    var listaConvenios = [];
+    var totalConvenios;
 
-        function getLista() {
-            return listaConvenios;
-        }
+    function getLista() {
+        return listaConvenios;
+    }
 
-        function setLista(novaLista) {
-            listaConvenios = novaLista;
-        }
+    function setLista(novaLista) {
+        listaConvenios = novaLista;
+    }
 
-        function getListaFilter(filter) {
-            return $http({
+    function getListaFilter(filter) {
+        return $http({
             "method": "get",
-            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS"+filter
-            });
-        }
+            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS" + filter
+        });
+    }
 
-        function getTotal() {
-            return totalConvenios;
-        }
+    function getTotal() {
+        return totalConvenios;
+    }
 
-        function setTotal(novoTotal) {
-            totalConvenios = novoTotal;
-        }
+    function setTotal(novoTotal) {
+        totalConvenios = novoTotal;
+    }
 
-        return {
-            getLista: getLista,
-            setLista: setLista,
-            getTotal: getTotal,
-            setTotal: setTotal,
-            getListaFilter: getListaFilter,
+    return {
+        getLista: getLista,
+        setLista: setLista,
+        getTotal: getTotal,
+        setTotal: setTotal,
+        getListaFilter: getListaFilter,
 
-        }
+    }
 });
 
 
-myApp.service("Estados", function (myCache, $http) {
+myApp.service("Estados", function(myCache, $http) {
 
-        var estados;
+    var estados;
 
-        function getLista() {
-            return $http({
+    function getLista() {
+        return $http({
             "method": "get",
             "url": "http://74.124.24.115:8080/hackathon/Estados?sort_by=UF_PROPONENTE"
-            });
-        }
+        });
+    }
 
-        function get() {
-            return estados;
-        }
+    function get() {
+        return estados;
+    }
 
-        function set(newEstados) {
-            estados = newEstados;
-        }
+    function set(newEstados) {
+        estados = newEstados;
+    }
 
 
-        return {
-            getLista: getLista,
-            get: get,
-            set: set,
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
 
-        }
+    }
 });
 
 
-myApp.service("Ministerios", function (myCache, $http) {
+myApp.service("Ministerios", function(myCache, $http) {
 
-        var ministerios;
+    var ministerios;
 
-        function getLista() {
-            return $http({
+    function getLista() {
+        return $http({
             "method": "get",
             "url": "http://74.124.24.115:8080/hackathon/Ministerios?sort_by=NM_ORGAO_SUPERIOR"
-            });
-        }
+        });
+    }
 
-        function get() {
-            return ministerios;
-        }
+    function get() {
+        return ministerios;
+    }
 
-        function set(newMinisterios) {
-            ministerios = newMinisterios;
-        }
+    function set(newMinisterios) {
+        ministerios = newMinisterios;
+    }
 
 
-        return {
-            getLista: getLista,
-            get: get,
-            set: set,
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
 
-        }
+    }
 });
 
-myApp.service("Situacoes", function (myCache, $http) {
+myApp.service("Situacoes", function(myCache, $http) {
 
-        var situacoes;
+    var situacoes;
 
-        function getLista() {
-            return $http({
+    function getLista() {
+        return $http({
             "method": "get",
             "url": "http://74.124.24.115:8080/hackathon/SituacaoConvenio?sort_by=TX_SITUACAO"
-            });
-        }
+        });
+    }
 
-        function get() {
-            return situacoes;
-        }
+    function get() {
+        return situacoes;
+    }
 
-        function set(newSituacoes) {
-            situacoes = newSituacoes;
-        }
+    function set(newSituacoes) {
+        situacoes = newSituacoes;
+    }
 
 
-        return {
-            getLista: getLista,
-            get: get,
-            set: set,
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
 
-        }
+    }
 });
 
-myApp.service("Municipios", function (myCache, $http) {
+myApp.service("Municipios", function(myCache, $http) {
 
-        var municipios;
+    var municipios;
 
-        function getLista(estado) {
-            return $http({
+    function getLista(estado) {
+        return $http({
             "method": "get",
             "url": 'http://74.124.24.115:8080/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado + '"}&sort_by=NM_MUNICIPIO_PROPONENTE'
-            });
-        }
+        });
+    }
 
-        function get() {
-            return municipios;
-        }
+    function get() {
+        return municipios;
+    }
 
-        function set(newMunicipios) {
-            municipios = newMunicipios;
-        }
+    function set(newMunicipios) {
+        municipios = newMunicipios;
+    }
 
-        return {
-            getLista: getLista,
-            get: get,
-            set: set,
-        }
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+    }
 });
 
-myApp.service("Chat", function (myCache, $http) {
+myApp.service("Chat", function(myCache, $http) {
 
-        function sendMessage(data) {
-            return $http({
-                "method": "post",
-                "data" : data,
-                "url": "http://74.124.24.115:8080/hackathon/Mensagens"
-            });
-        }
+    function sendMessage(data) {
+        return $http({
+            "method": "post",
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/Mensagens"
+        });
+    }
 
-        function getMessages(convenioId) {
-            return $http({
+    function getMessages(convenioId) {
+        return $http({
             "method": "get",
             "url": 'http://74.124.24.115:8080/hackathon/Mensagens?pagesize=1000&filter={convenio:' + convenioId + '}&sort_by=dataEnvio'
-            });
-        }
+        });
+    }
 
-        return {
-            sendMessage: sendMessage,
-            getMessages: getMessages,
-        }
+    return {
+        sendMessage: sendMessage,
+        getMessages: getMessages,
+    }
 });
 
 
-myApp.service("Search", function (myCache, $http) {
+myApp.service("Search", function(myCache, $http) {
 
-        var search;
-        var estado;
-        var cidade;
-        var ministerio;
-        var situacao;
-        var esfera;
+    var search;
+    var estado;
+    var cidade;
+    var ministerio;
+    var situacao;
+    var esfera;
 
 
-        function getSearch() {
-            return search;
-        }
+    function getSearch() {
+        return search;
+    }
 
-        function setSearch(newSearch) {
-            search = newSearch;
-        }
+    function setSearch(newSearch) {
+        search = newSearch;
+    }
 
-        function getEstado() {
-            return estado;
-        }
+    function getEstado() {
+        return estado;
+    }
 
-        function setEstado(newEstado) {
-            estado = newEstado;
-        }
+    function setEstado(newEstado) {
+        estado = newEstado;
+    }
 
-        function getCidade() {
-            return cidade;
-        }
+    function getCidade() {
+        return cidade;
+    }
 
-        function setCidade(newCidade) {
-            cidade = newCidade;
-        }
+    function setCidade(newCidade) {
+        cidade = newCidade;
+    }
 
-        function setEsfera(newEsfera) {
-            esfera = newEsfera;
-        }
+    function setEsfera(newEsfera) {
+        esfera = newEsfera;
+    }
 
-        function getMinisterio() {
-            return ministerio;
-        }
+    function getMinisterio() {
+        return ministerio;
+    }
 
-        function setMinisterio(newMinisterio) {
-            ministerio = newMinisterio;
-        }
+    function setMinisterio(newMinisterio) {
+        ministerio = newMinisterio;
+    }
 
-        function getSituacao() {
-            return situacao;
-        }
+    function getSituacao() {
+        return situacao;
+    }
 
-        function setSituacao(newSituacao) {
-            situacao = newSituacao;
-        }
+    function setSituacao(newSituacao) {
+        situacao = newSituacao;
+    }
 
-        function getEsfera() {
-            return esfera;
-        }
+    function getEsfera() {
+        return esfera;
+    }
 
-        return {
-            getSearch: getSearch,
-            setSearch: setSearch,
+    return {
+        getSearch: getSearch,
+        setSearch: setSearch,
 
-            getEstado: getEstado,
-            setEstado: setEstado,
+        getEstado: getEstado,
+        setEstado: setEstado,
 
-            getCidade: getCidade,
-            setCidade: setCidade,
+        getCidade: getCidade,
+        setCidade: setCidade,
 
-            getMinisterio: getMinisterio,
-            setMinisterio: setMinisterio,
+        getMinisterio: getMinisterio,
+        setMinisterio: setMinisterio,
 
-            getSituacao: getSituacao,
-            setSituacao: setSituacao,
+        getSituacao: getSituacao,
+        setSituacao: setSituacao,
 
-            getEsfera: getEsfera,
-            setEsfera: setEsfera,
-        }
+        getEsfera: getEsfera,
+        setEsfera: setEsfera,
+    }
 });
 
-myApp.service("Page", function (myCache, $http) {
+myApp.service("Page", function(myCache, $http) {
 
-        var scrollPos;
+    var scrollPos;
 
-        function getScrollPos() {
-            return scrollPos;
-        }
+    function getScrollPos() {
+        return scrollPos;
+    }
 
-        function setScrollPos(newScrollPos) {
-            scrollPos = newScrollPos;
-        }
+    function setScrollPos(newScrollPos) {
+        scrollPos = newScrollPos;
+    }
 
-        return {
-            getScrollPos: getScrollPos,
-            setScrollPos: setScrollPos,
-        }
-});
-
-
-myApp.service("GeoLocation", function (myCache, $http, $cordovaGeolocation, GoogleMaps) {
-
-        var lat;
-        var long;
-
-        function getLat() {
-            return lat;
-        }
-
-        function setLat(newLat) {
-            lat = newLat;
-        }
-
-        function getLong() {
-            return long;
-        }
-
-        function setLong(newLong) {
-            long = newLong;
-        }
-
-     
-        return {
-            getLat: getLat,
-            setLat: setLat,
-            getLong: getLong,
-            setLong: setLong,
-        }
+    return {
+        getScrollPos: getScrollPos,
+        setScrollPos: setScrollPos,
+    }
 });
 
 
-myApp.service("Initial", function ($q,myCache, $http, $cordovaGeolocation, GeoLocation,GoogleMaps, Estados, Ministerios, Situacoes) {
+myApp.service("GeoLocation", function(myCache, $http, $cordovaGeolocation, GoogleMaps) {
 
-    
-        function getEstados() {
+    var lat;
+    var long;
 
-            var deferred = $q.defer();
+    function getLat() {
+        return lat;
+    }
 
-            Estados.getLista().then(function(result) {
+    function setLat(newLat) {
+        lat = newLat;
+    }
 
-                var estados = angular.fromJson(result.data._embedded["rh:doc"]);
+    function getLong() {
+        return long;
+    }
 
-               Estados.set(estados);
-               deferred.resolve();
-
-            });
-
-            return deferred.promise;
-        }
-
-
-        function getMinisterios() {
-
-            var deferred = $q.defer();
-
-            Ministerios.getLista().then(function(result) {
-
-                var ministerios = angular.fromJson(result.data._embedded["rh:doc"]);
-
-               Ministerios.set(ministerios);
-               deferred.resolve();
-
-            });
-
-            return deferred.promise;
-        }
+    function setLong(newLong) {
+        long = newLong;
+    }
 
 
-        function getSituacoes() {
-
-            var deferred = $q.defer();
-
-            Situacoes.getLista().then(function(result) {
-
-                var situacoes = angular.fromJson(result.data._embedded["rh:doc"]);
-
-               Situacoes.set(situacoes);
-               deferred.resolve();
-
-            });
-
-            return deferred.promise;
-        }
+    return {
+        getLat: getLat,
+        setLat: setLat,
+        getLong: getLong,
+        setLong: setLong,
+    }
+});
 
 
-
-        function getGeoLocation() {
-
-            var deferred = $q.defer();
-             //GeoLocation
-                var posOptions = {timeout: 10000, enableHighAccuracy: false};
+myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLocation, GoogleMaps, Estados, Ministerios, Situacoes) {
 
 
-                if (angular.isUndefined(GoogleMaps.getEstadoGoogleMaps())) {
-                    $cordovaGeolocation
-                        .getCurrentPosition(posOptions)
-                            .then(function (position) {
-                                GeoLocation.setLat(position.coords.latitude);
-                                GeoLocation.setLong(position.coords.longitude);
+    function getEstados() {
 
-                                GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+        var deferred = $q.defer();
 
-                                    var geoLocEstado = result.data.results[0].address_components[0].short_name;
-                                    // alert("Estado preenchido com : " + geoLocEstado);
-                                    GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
-                                    // $rootScope.estadoSelecionado =  geoLocEstado;
-                                    deferred.resolve();
+        Estados.getLista().then(function(result) {
 
-                                });    
-                            }, function(err) {
-                            deferred.resolve();        
+            var estados = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Estados.set(estados);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getMinisterios() {
+
+        var deferred = $q.defer();
+
+        Ministerios.getLista().then(function(result) {
+
+            var ministerios = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Ministerios.set(ministerios);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getSituacoes() {
+
+        var deferred = $q.defer();
+
+        Situacoes.getLista().then(function(result) {
+
+            var situacoes = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Situacoes.set(situacoes);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+
+
+    function getGeoLocation() {
+
+        var deferred = $q.defer();
+        //GeoLocation
+        var posOptions = { timeout: 10000, enableHighAccuracy: false };
+
+
+        if (angular.isUndefined(GoogleMaps.getEstadoGoogleMaps())) {
+            $cordovaGeolocation
+                .getCurrentPosition(posOptions)
+                .then(function(position) {
+                    GeoLocation.setLat(position.coords.latitude);
+                    GeoLocation.setLong(position.coords.longitude);
+
+                    GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+
+                        var geoLocEstado = result.data.results[0].address_components[0].short_name;
+                        // alert("Estado preenchido com : " + geoLocEstado);
+                        GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
+                        // $rootScope.estadoSelecionado =  geoLocEstado;
+                        deferred.resolve();
+
                     });
-                }
-                else {
-                    deferred.resolve();                    
-                }
-
-
-            return deferred.promise;
+                }, function(err) {
+                    deferred.resolve();
+                });
+        } else {
+            deferred.resolve();
         }
 
-    
-        return {
-            getEstados: getEstados,
-            getMinisterios: getMinisterios,
-            getSituacoes: getSituacoes,
-            getGeoLocation: getGeoLocation,
-        }
+
+        return deferred.promise;
+    }
+
+
+    return {
+        getEstados: getEstados,
+        getMinisterios: getMinisterios,
+        getSituacoes: getSituacoes,
+        getGeoLocation: getGeoLocation,
+    }
 });
 
-myApp.service("GoogleMaps", function ($http) {
+myApp.service("GoogleMaps", function($http) {
 
-        var estadoGoogleMaps;
+    var estadoGoogleMaps;
 
-        function getEstadoGoogleMaps() {
-            return estadoGoogleMaps;
-        }
+    function getEstadoGoogleMaps() {
+        return estadoGoogleMaps;
+    }
 
-        function setEstadoGoogleMaps(newEstadoGoogleMaps) {
-            estadoGoogleMaps = newEstadoGoogleMaps;
-        }
+    function setEstadoGoogleMaps(newEstadoGoogleMaps) {
+        estadoGoogleMaps = newEstadoGoogleMaps;
+    }
 
-        function getService(lat, long) {
-            return $http({
+    function getService(lat, long) {
+        return $http({
             "method": "get",
-            "url": 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+long+'&result_type=administrative_area_level_1&key=AIzaSyA9RYw22yX7oYezsESEWnmcAIZ5Jvq2Q7A'
-            });
-        }
+            "url": 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&result_type=administrative_area_level_1&key=AIzaSyA9RYw22yX7oYezsESEWnmcAIZ5Jvq2Q7A'
+        });
+    }
 
-        return {
+    return {
 
-            getEstadoGoogleMaps: getEstadoGoogleMaps,
-            setEstadoGoogleMaps: setEstadoGoogleMaps,
-            getService: getService,
-        }
+        getEstadoGoogleMaps: getEstadoGoogleMaps,
+        setEstadoGoogleMaps: setEstadoGoogleMaps,
+        getService: getService,
+    }
 });
 
-Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-    j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };
+Number.prototype.formatMoney = function(c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
 
 
 myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
@@ -542,16 +545,16 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
 
     // function onDeviceReady () {
 
-        //Capture Mobile UUID
-        var uuid = $cordovaDevice.getUUID();
-        if (angular.isUndefined(uuid) || uuid == null) {
-            uuid = 'b07b42e74b01efed'
-        };
-        myCache.put('uuid', uuid);
+    //Capture Mobile UUID
+    var uuid = $cordovaDevice.getUUID();
+    if (angular.isUndefined(uuid) || uuid == null) {
+        uuid = 'b07b42e74b01efed'
+    };
+    myCache.put('uuid', uuid);
 
-        //GeoLocation
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        
+    //GeoLocation
+    var posOptions = { timeout: 10000, enableHighAccuracy: false };
+
 
     // }
 
@@ -560,4 +563,3 @@ myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocat
 
     console.log(myCache.get('uuid'));
 });
-

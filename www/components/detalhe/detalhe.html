@@ -8,12 +8,10 @@
             <md-card class="detailCard">
                 <md-card-title>
                     <div layout layout-align="start top" flex>
-                        <div flex="none">
-                            <md-card-title-text >
+                            <md-card-title-text flex="none">
                                 <span class="md-headline">Convênio: {{convenio.NR_CONVENIO}}</span>
-                                <span class="md-subhead">{{convenio.TX_OBJETO_CONVENIO | limitTo:100}}</span>
+                                <span class="md-subheads">{{convenio.TX_OBJETO_CONVENIO | limitTo:100}}</span>
                             </md-card-title-text>
-                        </div>
                         <span flex></span>
                         <div flex="none">
                             <md-menu >
@@ -42,7 +40,7 @@
                                     <md-menu-item>
                                         <md-button ng-click="setPageProperties()" href="#/denuncia/{{convenio.NR_CONVENIO}}">
                                             <ng-md-icon flex="none" icon="volume_up" style="fill: #666"></ng-md-icon>
-                                            <span flex flex-offset="10">Denúncia</span>
+                                            <span flex flex-offset="10">Manifeste-se</span>
                                         </md-button>
                                     </md-menu-item>
                                 </md-menu-content>
