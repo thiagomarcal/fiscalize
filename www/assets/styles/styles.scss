@@ -20,7 +20,7 @@ $navbar-height: 60px;
     opacity: 0.85;
 }
 
-.app{
+.app {
     background: $intern-app-background;
 }
 
@@ -279,24 +279,35 @@ img.mainlogo {
     }
 }
 
-slick.presentation {
-    display: block;
-    margin: 0 -14px 0;
-    z-index: 2000;
-    top: -60px;
-    .slick-list {
-        position: relative;
-        display: block;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        width: 100vw;
-        background: #fff;
+slick.preslide {
+    margin: 0;
+    .slick-slide {
+        img {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+        .bemvindo a {
+            display: block;
+            height: 19vh;
+            position: absolute;
+            width: 100vw;
+            bottom: 0;
+        }
+    .slick-dots {
+        bottom: 35px;
+        position: fixed;
+        li button:before {
+            font-size: 18px;
+        }
+        li.slick-active button:before {
+            opacity: 0.5;
+        }
     }
 }
 
-.detailCard, .minhasManifestacoes {
+.detailCard,
+.minhasManifestacoes {
     .section {
         background: transparent !important;
     }
@@ -320,10 +331,9 @@ slick.presentation {
     }
 }
 
-.denuncia, .minhasManifestacoes{
+.denuncia,
+.minhasManifestacoes {
     .section {
         background: $intern-app-background;
     }
 }
-
-

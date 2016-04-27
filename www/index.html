@@ -108,13 +108,13 @@
             </div>
         </div>
     </div>
-    	<slick infinite=false arrows=false dots=true slides-to-show=1 slides-to-scroll=1 class="preslide">
+    	<slick infinite=false arrows=false dots=false slides-to-show=1 slides-to-scroll=1 class="preslide" ng-hide="!firstTime">
             <div class="preslide-item"><img src="assets/images/preslide/01.png" /></div>
             <div class="preslide-item"><img src="assets/images/preslide/02.png" /></div>
             <div class="preslide-item"><img src="assets/images/preslide/03.png" /></div>
             <div class="preslide-item"><img src="assets/images/preslide/04.png" /></div>
             <div class="preslide-item bemvindo"><img src="assets/images/preslide/05.png" />
-            <a href="home"></a></div>
+            <a href="home" ng-click="endPresentation()"></a></div>
         </slick>
     <div class="app">
         <div id="processing">

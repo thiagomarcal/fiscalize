@@ -41,6 +41,10 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
 
     //Ativar a apresentação
     $scope.firstTime = true;
+    $scope.endPresentation = function() {
+        $scope.firstTime = false;
+        $location.path('/home');
+    }
 
 
     // Requisition Fiscalizado
