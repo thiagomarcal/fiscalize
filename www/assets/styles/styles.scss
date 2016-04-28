@@ -349,9 +349,33 @@ simple-chat {
 
 .numDenuncias{
     margin: 5px 2px;
+    display: inline-block;
     color: #A01313;
 }
 .numElogios{
     margin: 5px 2px;
+    display: inline-block;
     color: #00B53E;
+}
+
+
+md-content{
+    background: transparent;
+}
+.manifestCard{
+    &.sugestao{
+        border-left: 10px solid #FAC532;
+    }
+    &.denuncia{
+        border-left: 10px solid #E9353B;
+    }
+    &.elogio{
+        border-left: 10px solid #CE337A;
+    }
+    &.reclamacao{
+        border-left: 10px solid #FC8729;
+    }
+    &.solicitacao{
+        border-left: 10px solid #007633;
+    }
 }

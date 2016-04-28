@@ -90,7 +90,7 @@
             <div class="panel panel-default panel-card">
                 <div class="panel-heading">
                     <div layout="column">
-                        <div flex layout layout-align="start baseline">
+                        <div flex layout layout-align="start center" style="align-items: baseline">
                             <!-- <a ng-click="setPageProperties()" href="#/detalhe/{{convenio.NR_CONVENIO}}" tooltip="Detalhe" class='btn'>
                                 <i class="fa fa-plus"></i>
                             </a>
@@ -115,8 +115,8 @@
                             <div flex>
                                 <h3 class="panel-title orgaoSuperior">{{ convenio.NM_ORGAO_SUPERIOR }}</h3>
                                 <h3 class="panel-title municipio">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
-                                <span class="numElogios" style="margin: 5px 2px; color: #00B53E; display: inline-block;" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de elogios.">{{convenio.num_elogios}}<ng-md-icon icon="thumb_up"></ng-md-icon></span>
-                                <span class="numDenuncias" style="margin: 5px 2px; color: #A01313; display: inline-block;" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de denúncias e reclamações somadas.">  {{convenio.num_denuncias + convenio.num_reclamacoes}}<ng-md-icon icon="thumb_down"></ng-md-icon> </span>
+                                <span class="numElogios" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de elogios.">{{convenio.num_elogios}}<ng-md-icon icon="thumb_up"></ng-md-icon></span>
+                                <span class="numDenuncias" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de denúncias e reclamações somadas.">  {{convenio.num_denuncias + convenio.num_reclamacoes}}<ng-md-icon icon="thumb_down"></ng-md-icon> </span>
                             </div>
                             <!-- <span flex></span> -->
                             <md-menu flex="none">

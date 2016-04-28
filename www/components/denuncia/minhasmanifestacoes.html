@@ -3,30 +3,33 @@
 </div>
 <div class="scrollable minhasManifestacoes">
     <div class="scrollable-content">
-        <md-content class ="section">
-        <br>
-        <h3>Minhas Manifestações</h3>
-        <br>
-            <div ng-repeat="row in manifestacoes">
-                <div class="panel panel-default panel-card">
-                    <div class="panel-body">
-                        <table class="table table-responsive">
-                            <tr>
-                                <td class="conv-lbl"><strong>Convênio:</strong></td>
-                                <td colspan="2" class="conv-data"><em>{{ row.NR_CONVENIO }}</em></td>
-                            </tr>
-                            <tr>
-                                <td class="conv-lbl"><strong>Tipo:</strong></td>
-                                <td colspan="2" class="conv-data"><em>{{ row.tipo }}</em></td>
-                            </tr>
-                            <tr>
-                                <td class="conv-lbl"><strong>Motivo:</strong></td>
-                                <td colspan="2" class="conv-data"><em>{{ row.motivo }}</em></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-         </md-content>
-        </div> 
-</div>    
+        <md-content class="section">
+            <br>
+            <h3>Minhas Manifestações</h3>
+            <br>
+            <md-content ng-repeat="row in manifestacoes">
+                <md-card class="manifestCard" ng-class="[{'denuncia': row.tipo == 'Denúncia', 'elogio': row.tipo == 'Elogio', 'reclamacao': row.tipo == 'Reclamação', 'sugestao': row.tipo == 'Sugestão', 'solicitacao': row.tipo == 'Solicitação'}]" layout="column">
+                    <md-card-title-text flex="100" style="flex: 100;" layout-padding>
+                        <span class="md-headline">{{ row.tipo }}</span> <br>
+                        <span class="md-subhead"><strong>Convênio:</strong> <em>{{ row.NR_CONVENIO }}</em></span>
+                    </md-card-title-text>
+                    <md-card-content>
+                        <md-divider></md-divider>
+                        <br>
+                        <strong>Motivo:</strong> <em>{{ row.motivo }}</em>
+                        <br>
+                        <strong>Status:</strong> <em>Aguardando resposta</em>
+                        <br>
+                        <br>
+                        <md-divider></md-divider>
+                        <br>
+                        <h3 class="panel-title orgaoSuperior"><strong>Resposta</strong></h3>
+                        <p class="resposta">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro dolorem, vero praesentium voluptates adipisci doloremque aspernatur voluptate soluta incidunt, placeat sapiente unde amet!
+                        </p>
+                    </md-card-content>
+                </md-card>
+            </md-content>
+        </md-content>
+    </div>
+</div>
