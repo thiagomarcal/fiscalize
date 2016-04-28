@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes, Contador, Numeros, NumReclamacoes, NumDenuncias, NumElogios) {
 
     // Page Initial Value
     page = 1;
@@ -111,6 +111,20 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
                     angular.forEach(convenios_temp, function(value, key) {
 
                         value = $scope.prepareConvenioDetail(value);
+
+                        Numeros.getNumReclamacoes(value.NR_CONVENIO).then(function(result) {
+                          value.num_reclamacoes = NumReclamacoes.get();
+                        });
+                        
+                        Numeros.getNumDenuncias(value.NR_CONVENIO).then(function(result) {
+                          value.num_denuncias = NumDenuncias.get();
+                        });
+                        
+                        Numeros.getNumElogios(value.NR_CONVENIO).then(function(result) {
+                          value.num_elogios = NumElogios.get();
+                        });
+
+                        
 
                         $scope.convenios.push(value);
 

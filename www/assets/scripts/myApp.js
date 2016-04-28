@@ -137,6 +137,150 @@ myApp.service("Convenios", function(myCache, $http) {
     }
 });
 
+myApp.service("Contador", function($q,myCache, $http) {
+
+    function getDenuncias(NR_CONVENIO) {
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Denuncias?count&filter={NR_CONVENIO:'+ NR_CONVENIO +',tipo: "Denúncia"}'
+        });
+    }
+
+    function getReclamacoes(NR_CONVENIO) {
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Denuncias?count&filter={NR_CONVENIO:'+ NR_CONVENIO +',tipo: "Reclamação"}'
+        });
+    }
+
+    function getElogios(NR_CONVENIO) {
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Denuncias?count&filter={NR_CONVENIO:'+ NR_CONVENIO +',tipo: "Elogio"}'
+        });
+    }
+
+    return {
+        getDenuncias: getDenuncias,
+        getReclamacoes: getReclamacoes,
+        getElogios: getElogios
+    }
+});
+
+
+myApp.service("NumDenuncias", function($q,myCache, $http) {
+    var numDenuncias;
+
+    function get() {
+        return numDenuncias;
+    }
+
+    function set(newNumDenuncias) {
+        numDenuncias = newNumDenuncias;
+    }
+
+
+    return {
+        get: get,
+        set: set,
+    }
+});
+
+myApp.service("NumReclamacoes", function($q,myCache, $http) {
+    var numReclamacoes;
+
+    function get() {
+        return numReclamacoes;
+    }
+
+    function set(newNumReclamacoes) {
+        numReclamacoes = newNumReclamacoes;
+    }
+
+    return {
+        get: get,
+        set: set,
+    }
+});
+
+
+myApp.service("NumElogios", function($q,myCache, $http) {
+    var numElogios;
+
+    function get() {
+        return numElogios;
+    }
+
+    function set(newNumElogios) {
+        numElogios = newNumElogios;
+    }
+
+
+    return {
+        get: get,
+        set: set,
+    }
+});
+
+
+myApp.service("Numeros", function($q,myCache, $http, Contador, NumDenuncias, NumElogios, NumReclamacoes) {
+
+    function getNumDenuncias(NR_CONVENIO) {
+
+        var deferred = $q.defer();
+
+        Contador.getDenuncias(NR_CONVENIO).then(function(result) {
+
+            var numDenuncias = angular.fromJson(result.data._returned);
+
+            NumDenuncias.set(numDenuncias);
+
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    function getNumReclamacoes(NR_CONVENIO) {
+
+        var deferred = $q.defer();
+
+        Contador.getReclamacoes(NR_CONVENIO).then(function(result) {
+
+            var numReclamacoes = angular.fromJson(result.data._returned);
+            NumReclamacoes.set(numReclamacoes);
+
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    function getNumElogios(NR_CONVENIO) {
+
+        var deferred = $q.defer();
+
+        Contador.getElogios(NR_CONVENIO).then(function(result) {
+
+            var numElogios = angular.fromJson(result.data._returned);
+            NumElogios.set(numElogios);
+
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    return {
+        getNumDenuncias:getNumDenuncias,
+        getNumReclamacoes:getNumReclamacoes,
+        getNumElogios:getNumElogios,
+    }
+});
+
 
 myApp.service("Estados", function(myCache, $http) {
 
