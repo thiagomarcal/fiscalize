@@ -17,6 +17,7 @@
 		var filter = '?filter={uuid:"' + myCache.get('uuid') + '"}';
 		requisicaoFactory.getRequest(ADDRESS+'/hackathon/'+ COLLECTION + filter).then(function(result) {
 			$scope.manifestacoes = angular.fromJson(result._embedded["rh:doc"]);
+			console.log(angular.fromJson(result._embedded["rh:doc"]));
 		}, function(reason) {
 		    alert("Erro ver console!")
 		    console.log("reason:", reason);
