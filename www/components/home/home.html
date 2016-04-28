@@ -197,6 +197,10 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr ng-if="convenio.IN_ADITIVO_SN == 'S'">
+                            <td class="conv-lbl">Aditivos:</td>
+                            <td class="conv-data">{{ convenio.QT_ADITIVOS }}</td>
+                        </tr>
                         <tr>
                             <td class="conv-lbl">
                                 Total:
