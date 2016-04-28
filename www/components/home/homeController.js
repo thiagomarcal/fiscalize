@@ -107,7 +107,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
                 if (result._size > 0) {
                     convenios_temp = angular.fromJson(result._embedded["rh:doc"]);
-
+                    
                     angular.forEach(convenios_temp, function(value, key) {
 
                         value = $scope.prepareConvenioDetail(value);
@@ -115,7 +115,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
                         Numeros.getNumReclamacoes(value.NR_CONVENIO).then(function(result) {
                           value.num_reclamacoes = NumReclamacoes.get();
                         });
-                        
+
                         Numeros.getNumDenuncias(value.NR_CONVENIO).then(function(result) {
                           value.num_denuncias = NumDenuncias.get();
                         });
@@ -123,8 +123,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
                         Numeros.getNumElogios(value.NR_CONVENIO).then(function(result) {
                           value.num_elogios = NumElogios.get();
                         });
-
-                        
 
                         $scope.convenios.push(value);
 
@@ -285,6 +283,10 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     //     var ScrollPos = retrieveScrollableContent().scrollableContent.scrollTop;
     //     Page.setScrollPos(ScrollPos);
     // }
+
+    $scope.cacheConvenio = function(convenio) {
+        Convenios.set(convenio); 
+    }
 
     // function retrieveScrollableContent() {
     //     var elem = angular.element("#homeScroll");
