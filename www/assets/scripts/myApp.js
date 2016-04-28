@@ -27,6 +27,10 @@ myApp.config(function($routeProvider) {
             templateUrl: 'components/home/home.html',
             controller: 'HomeController'
         })
+        .when('/transferencia', {
+            templateUrl: 'components/transferencia/transferencia.html',
+            controller: 'TransferenciaController'
+        })
         .when('/denuncia/:convenioId', {
             templateUrl: 'components/denuncia/denuncia.html',
             controller: 'DenunciaController'
