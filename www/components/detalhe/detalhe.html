@@ -143,6 +143,10 @@
                                         <td>Programa:</td>
                                         <td>{{ convenio.NM_PROGRAMA }}</td>
                                     </tr>
+                                    <tr ng-if="convenio.IN_ADITIVO_SN == 'S'">
+                                        <td>Aditivos:</td>
+                                        <td>{{ convenio.QT_ADITIVOS }}</td>
+                                    </tr>
                                     <tr>
                                         <td>Valor Total do Convênio:</td>
                                         <td>{{ convenio.VL_GLOBAL }}</td>

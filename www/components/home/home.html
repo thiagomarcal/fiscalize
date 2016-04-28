@@ -90,7 +90,7 @@
             <div class="panel panel-default panel-card">
                 <div class="panel-heading">
                     <div layout="column">
-                        <div flex layout layout-align="start center">
+                        <div flex layout layout-align="start baseline">
                             <!-- <a ng-click="setPageProperties()" href="#/detalhe/{{convenio.NR_CONVENIO}}" tooltip="Detalhe" class='btn'>
                                 <i class="fa fa-plus"></i>
                             </a>
@@ -115,7 +115,8 @@
                             <div flex>
                                 <h3 class="panel-title orgaoSuperior">{{ convenio.NM_ORGAO_SUPERIOR }}</h3>
                                 <h3 class="panel-title municipio">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
-                                D {{convenio.num_denuncias}} R {{convenio.num_reclamacoes}} E {{convenio.num_elogios}}
+                                <span class="numElogios" style="margin: 5px 2px; color: #00B53E; display: inline-block;" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de elogios.">{{convenio.num_elogios}}<ng-md-icon icon="thumb_up"></ng-md-icon></span>
+                                <span class="numDenuncias" style="margin: 5px 2px; color: #A01313; display: inline-block;" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de denúncias e reclamações somadas.">  {{convenio.num_denuncias + convenio.num_reclamacoes}}<ng-md-icon icon="thumb_down"></ng-md-icon> </span>
                             </div>
                             <!-- <span flex></span> -->
                             <md-menu flex="none">
@@ -197,6 +198,10 @@
                                 <div round-progress max="100" current="convenio.percentVigencia" color="#45ccce" bgcolor="#eaeaea" radius="30" stroke="10" semi="false" rounded="false" clockwise="true" responsive="false" duration="800" animation="easeOutCubic" animation-delay="0">
                                 </div>
                             </td>
+                        </tr>
+                        <tr ng-if="convenio.IN_ADITIVO_SN == 'S'">
+                            <td class="conv-lbl">Aditivos:</td>
+                            <td class="conv-data">{{ convenio.QT_ADITIVOS }}</td>
                         </tr>
                         <tr>
                             <td class="conv-lbl">
