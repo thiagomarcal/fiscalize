@@ -17,6 +17,9 @@ myApp.config(function($routeProvider) {
                 },
                 situacoes: function(Initial) {
                     return Initial.getSituacoes();
+                },
+                categorias: function(Initial) {
+                    return Initial.getCategorias();
                 }
             }
         })
@@ -130,7 +133,7 @@ myApp.service("Convenios", function(myCache, $http) {
 
     function update(oid, etag, data) {
         return $http({
-            "method": "put",
+            "method": "patch",
             "headers": { 'If-Match': etag },
             "data": data,
             "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS/" + oid
@@ -388,6 +391,34 @@ myApp.service("Situacoes", function(myCache, $http) {
     }
 });
 
+myApp.service("Categorias", function(myCache, $http) {
+
+    var categorias;
+
+    function getLista() {
+        return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/Categorias"
+        });
+    }
+
+    function get() {
+        return categorias;
+    }
+
+    function set(newCategorias) {
+        categorias = newCategorias;
+    }
+
+
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+
+    }
+});
+
 myApp.service("Municipios", function(myCache, $http) {
 
     var municipios;
@@ -567,7 +598,7 @@ myApp.service("GeoLocation", function(myCache, $http, $cordovaGeolocation, Googl
 });
 
 
-myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLocation, GoogleMaps, Estados, Ministerios, Situacoes) {
+myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLocation, GoogleMaps, Estados, Ministerios, Situacoes, Categorias) {
 
 
     function getEstados() {
@@ -620,6 +651,21 @@ myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLo
         return deferred.promise;
     }
 
+    function getCategorias() {
+
+        var deferred = $q.defer();
+
+        Categorias.getLista().then(function(result) {
+
+            var categorias = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Categorias.set(categorias);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
 
 
     function getGeoLocation() {
@@ -661,6 +707,7 @@ myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLo
         getEstados: getEstados,
         getMinisterios: getMinisterios,
         getSituacoes: getSituacoes,
+        getCategorias: getCategorias,
         getGeoLocation: getGeoLocation,
     }
 });

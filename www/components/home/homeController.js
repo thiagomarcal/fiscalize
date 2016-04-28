@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes, Contador, Numeros, NumReclamacoes, NumDenuncias, NumElogios) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes, Contador, Numeros, NumReclamacoes, NumDenuncias, NumElogios, Categorias) {
 
     // Page Initial Value
     page = 1;
@@ -347,9 +347,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.ministerios = Ministerios.get();
     $scope.situacoes = Situacoes.get();
     $scope.cidades = Municipios.get();
+    $scope.categorias = Categorias.get();
     $scope.refreshFiscalizados();
     
-    
-  
-
 });
