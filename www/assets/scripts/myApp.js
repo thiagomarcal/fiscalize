@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js', 'tc.chartjs', 'ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs', 'ngMaterial', 'ngMdIcons', 'slick']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js', 'tc.chartjs', 'ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs', 'ngMaterial', 'ngMdIcons', 'slick', 'ngAnimate', 'md.chips.select']);
 
 myApp.config(function($routeProvider) {
     $routeProvider
@@ -715,8 +715,8 @@ myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLo
 
 
         return deferred.promise;
-    }
 
+    }
 
     return {
         getEstados: getEstados,

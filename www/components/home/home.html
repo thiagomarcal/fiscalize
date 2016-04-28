@@ -224,7 +224,7 @@
                 </div>
 
                     <md-content layout-padding>
-                        <md-input-container>
+                        <!-- <md-input-container>
                             <label>Categorize este convënio</label>
                             <md-select ng-model="categoriaSelecionada">
                                 <md-option ng-repeat="categoria in categorias track by categoria.CATEGORIA" ng-value="categoria.CATEGORIA" ng-click="salvaMetadadoCategorias()">
@@ -234,7 +234,8 @@
                         </md-input-container>
                         <div>
                             <md-chips ng-model="categoriasBuffer" readonly="true"></md-chips>
-                        </div>
+                        </div> -->
+                        <md-chips-select ng-model="categoriaSelecionada" select-items="listItems" main-title="categoria"><md-chips-select>
                     </md-content>
             </div>
         </div>
