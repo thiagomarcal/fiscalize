@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes, Contador, Numeros, NumReclamacoes, NumDenuncias, NumElogios, Categorias) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes, Contador, Numeros, NumReclamacoes, NumDenuncias, NumElogios, Categorias, Metadados) {
 
     // Page Initial Value
     page = 1;
@@ -238,6 +238,12 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 		});
 	}
 
+    $scope.salvaMetadadoCategorias = function(convenio) {
+        var metadado = {};
+        metadado.NR_CONVENIO = convenio.NR_CONVENIO;
+        metadado.CATEGORIA = $scope.categoriaSelecionada;
+        Metadados.sendCategoriaMetadado(metadado);
+    }
 
 
     $scope.restorePreviousHome = function() {
