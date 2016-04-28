@@ -103,6 +103,15 @@ myApp.service("Convenios", function(myCache, $http) {
 
     var listaConvenios = [];
     var totalConvenios;
+    var convenio;
+
+    function get() {
+        return convenio;
+    }
+
+    function set(newConvenio) {
+        convenio = newConvenio;
+    }
 
     function getLista() {
         return listaConvenios;
@@ -119,6 +128,15 @@ myApp.service("Convenios", function(myCache, $http) {
         });
     }
 
+    function update(oid, etag, data) {
+        return $http({
+            "method": "put",
+            "headers": { 'If-Match': etag },
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS/" + oid
+        });
+    }
+
     function getTotal() {
         return totalConvenios;
     }
@@ -129,6 +147,9 @@ myApp.service("Convenios", function(myCache, $http) {
 
     return {
         getLista: getLista,
+        get: get,
+        set: set,
+        update:update,
         setLista: setLista,
         getTotal: getTotal,
         setTotal: setTotal,

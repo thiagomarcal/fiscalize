@@ -114,7 +114,7 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
             console.log('Data - UUID: ' + myCache.get('uuid') + ' Convenio: ' + fiscalizado.convenio.NR_CONVENIO + ' foi atualizado!');
         });
     }
-
+    
 
 
     $scope.refreshFiscalizados = function() {

@@ -1,4 +1,4 @@
-myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache, $cordovaCamera)  {
+myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache, $cordovaCamera, Convenios)  {
 
 	//Parametros
 	$scope.params = $routeParams;
@@ -27,7 +27,10 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 		
 		requisicaoFactory.postRequest(ADDRESS+'/hackathon/'+ COLLECTION, $scope.denuncia).then(function(result) {
 			alert($scope.denuncia.tipo + ' enviado(a)!');
-			 $location.path("/home");
+
+			$scope.atualizaQtdConvenios($scope.denuncia.tipo);
+
+			$location.path("/home");
 		}, function(reason) {
 		    alert("Erro ver console!")
 		    console.log("reason:", reason);
@@ -36,6 +39,33 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 		    console.log("update:", update);
 		})
 	}
+
+	// Requisition Update Fiscalizado
+    $scope.atualizaQtdConvenios = function(tipo) {
+        var convenio = Convenios.get();
+        $scope.data = {};
+
+        if (tipo == "Denúncia") {
+        	$scope.data.qtdDenuncias = convenio.qtdDenuncias+1;
+        }
+
+        if (tipo == "Elogio") {
+        	$scope.data.qtdElogio = convenio.qtdElogio+1;	
+        }
+
+        if (tipo == "Reclamação") {
+        	$scope.data.qtdReclamacao = convenio.qtdReclamacao+1;	
+        }
+
+        //Request Header Config apenas necessário para updates
+        var config = { headers: { 'If-Match': convenio._etag.$oid } };
+
+        Convenios.update(convenio._id.$oid, convenio._etag.$oid, $scope.data).then(function(result) {
+          console.log("Convenio atualizado");
+        });
+    }
+
+
 
 	$scope.selecionarTipo = function(tipo) {
 		$scope.denuncia.tipo = tipo;
