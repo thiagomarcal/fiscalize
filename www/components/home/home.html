@@ -226,11 +226,8 @@
                     <md-content layout-padding>
                         <md-input-container>
                             <label>Categorize este convënio</label>
-                            <md-select ng-model="situacaoSelecionado">
-                                <md-option value="">
-                                    Selecionar
-                                </md-option>
-                                <md-option ng-repeat="categoria in categorias track by categoria.CATEGORIA" ng-value="categoria.CATEGORIA">
+                            <md-select ng-model="categoriaSelecionada">
+                                <md-option ng-repeat="categoria in categorias track by categoria.CATEGORIA" ng-value="categoria.CATEGORIA" ng-click="salvaMetadadoCategorias()">
                                     {{categoria.CATEGORIA}}
                                 </md-option>
                             </md-select>

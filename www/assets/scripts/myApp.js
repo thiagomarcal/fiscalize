@@ -445,6 +445,21 @@ myApp.service("Municipios", function(myCache, $http) {
     }
 });
 
+myApp.service("Metadados", function(myCache, $http) {
+    
+    function sendCategoriaMetadado(data) {
+        return $http({
+            "method": "post",
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/MetadadosCategoria"
+        });
+    }    
+
+    return {
+        sendCategoriaMetadado: sendCategoriaMetadado,
+    }
+});
+
 myApp.service("Chat", function(myCache, $http) {
 
     function sendMessage(data) {
