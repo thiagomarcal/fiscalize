@@ -223,15 +223,22 @@
                     </table>
                 </div>
 
-                
-                    
-                     <select class="form-control" ng-model="situacaoSelecionado" ng-options="categoria.CATEGORIA for categoria in categorias track by categoria.CATEGORIA">
-                        <option value="">
-                            Selecionar
-                        </option>
-                    </select>
-
-                
+                    <md-content layout-padding>
+                        <md-input-container>
+                            <label>Categorize este convënio</label>
+                            <md-select ng-model="situacaoSelecionado">
+                                <md-option value="">
+                                    Selecionar
+                                </md-option>
+                                <md-option ng-repeat="categoria in categorias track by categoria.CATEGORIA" ng-value="categoria.CATEGORIA">
+                                    {{categoria.CATEGORIA}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div>
+                            <md-chips ng-model="categoriasBuffer" readonly="true"></md-chips>
+                        </div>
+                    </md-content>
             </div>
         </div>
     </div>

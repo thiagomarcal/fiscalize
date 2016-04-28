@@ -339,6 +339,12 @@ slick.preslide {
     }
 }
 
+.minhasManifestacoes {
+    md-content {
+        background: transparent;
+    }
+}
+
 simple-chat {
     position: absolute;
     bottom: 0;
@@ -347,35 +353,32 @@ simple-chat {
     top: 0;
 }
 
-.numDenuncias{
+.numDenuncias {
     margin: 5px 2px;
     display: inline-block;
     color: #A01313;
 }
-.numElogios{
+
+.numElogios {
     margin: 5px 2px;
     display: inline-block;
     color: #00B53E;
 }
 
-
-md-content{
-    background: transparent;
-}
-.manifestCard{
-    &.sugestao{
+.manifestCard {
+    &.sugestao {
         border-left: 10px solid #FAC532;
     }
-    &.denuncia{
+    &.denuncia {
         border-left: 10px solid #E9353B;
     }
-    &.elogio{
+    &.elogio {
         border-left: 10px solid #CE337A;
     }
-    &.reclamacao{
+    &.reclamacao {
         border-left: 10px solid #FC8729;
     }
-    &.solicitacao{
+    &.solicitacao {
         border-left: 10px solid #007633;
     }
 }
