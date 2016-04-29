@@ -222,20 +222,17 @@
                         </tr>
                     </table>
                 </div>
-
-                    <md-content layout-padding>
-                        <md-input-container>
-                            <label>Categorize este convënio</label>
-                            <md-select ng-model="categoriaSelecionada">
+                <md-content layout-padding>
+                    <md-chips ng-model="categoriasBuffer" readonly="true">
+                            <md-select ng-model="categoriaSelecionada" placeholder="Categoria">
                                 <md-option ng-repeat="categoria in categorias track by categoria.CATEGORIA" ng-value="categoria.CATEGORIA" ng-click="salvaMetadadoCategorias()">
                                     {{categoria.CATEGORIA}}
                                 </md-option>
                             </md-select>
-                        </md-input-container>
                         <div>
-                            <md-chips ng-model="categoriasBuffer" readonly="true"></md-chips>
-                        </div>
-                    </md-content>
+                    </md-chips>
+                    </div>
+                </md-content>
             </div>
         </div>
     </div>
