@@ -113,7 +113,7 @@
                                 <li><a ng-click="midiaShare(convenio)">Compartilhar</a></li>
                             </ul> -->
                             <div flex>
-                                <h3 class="panel-title orgaoSuperior">{{ convenio.NM_ORGAO_SUPERIOR }}</h3>
+                                <h3 class="panel-title orgaoSuperior">INICIATIVA DO {{ convenio.NM_ORGAO_SUPERIOR }}</h3>
                                 <h3 class="panel-title municipio">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
                                 <span class="numElogios" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de elogios.">{{convenio.num_elogios}}<ng-md-icon icon="thumb_up"></ng-md-icon></span>
                                 <span class="numDenuncias" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de denúncias e reclamações somadas.">  {{convenio.num_denuncias + convenio.num_reclamacoes}}<ng-md-icon icon="thumb_down"></ng-md-icon> </span>
@@ -159,22 +159,22 @@
                             <span class="conv-txt">{{ convenio.TX_OBJETO_CONVENIO }}</span>
                             <hr>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="conv-lbl">Convênio:</td>
                             <td colspan="2" class="conv-data"><em>{{ convenio.NR_CONVENIO }} </em></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="conv-lbl">Situação:</td>
                             <td colspan="2" class="conv-data"><em>{{ convenio.TX_SITUACAO }} </em>
                                 <br>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="conv-lbl">Concedente:</td>
                             <td colspan="2" class="conv-data">{{ convenio.NM_ORGAO_CONCEDENTE }}
                                 <br>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="conv-lbl">Executor:</td>
                             <td colspan="2" class="conv-data">{{ convenio.NM_PROPONENTE }}
@@ -222,21 +222,6 @@
                         </tr>
                     </table>
                 </div>
-
-                    <md-content layout-padding>
-                        <!-- <md-input-container>
-                            <label>Categorize este convënio</label>
-                            <md-select ng-model="categoriaSelecionada">
-                                <md-option ng-repeat="categoria in categorias track by categoria.CATEGORIA" ng-value="categoria.CATEGORIA" ng-click="salvaMetadadoCategorias()">
-                                    {{categoria.CATEGORIA}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-                        <div>
-                            <md-chips ng-model="categoriasBuffer" readonly="true"></md-chips>
-                        </div> -->
-                        <md-chips-select ng-model="categoriaSelecionada" select-items="listItems" main-title="categoria"><md-chips-select>
-                    </md-content>
             </div>
         </div>
     </div>

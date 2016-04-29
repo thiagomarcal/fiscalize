@@ -8,23 +8,10 @@
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'Transferencias5'
 
-     // Watcher para retorno da Geolocalizacao
-    $scope.$watch(function(){return GoogleMaps.getEstadoGoogleMaps()}, function(NewValue, OldValue){
-            
-        angular.forEach(Estados.get(), function(value, key) {
-            if (value.UF_PROPONENTE == NewValue) {                            
-                    $scope.estadoSelecionado = value;
-            }
-        });
-
-    }, true);
-
     // Requisition Home 
     $scope.transferencia = function() {
 
         console.log('inicio home');
-
-        $scope.restorePreviousHome();
 
         if (angular.isUndefined($scope.convenios)) {
             $scope.convenios = [];
@@ -98,7 +85,12 @@
                 if (result._size > 0) {
                     convenios_temp = angular.fromJson(result._embedded["rh:doc"]);
                     
-                    Convenios.setLista(convenios_temp);
+                     angular.forEach(convenios_temp, function(value, key) {
+
+                        $scope.convenios.push(value);
+
+                    });
+                   
                 }
 
                 $scope.url = angular.isDefined(result._links.next) ? result._links.next.href : null;

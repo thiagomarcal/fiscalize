@@ -354,18 +354,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     $scope.situacoes = Situacoes.get();
     $scope.cidades = Municipios.get();
     $scope.categorias = Categorias.get();
-
-
-    $scope.categoriaSelecionada = [];
-    $scope.listItems = [];
-    angular.forEach($scope.categorias, function(value, key) {
-        var data = {};
-        data.categoria = value.CATEGORIA;
-        data.id = key;
-        $scope.listItems.push(data);                       
-    });
-
-
     $scope.refreshFiscalizados();
     
 });
