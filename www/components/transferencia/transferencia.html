@@ -67,10 +67,8 @@
                     <div layout="column">
                         <div flex layout layout-align="start center" style="align-items: baseline">
                             <div flex>
-                                <h3 class="panel-title orgaoSuperior">{{ convenio.NM_ORGAO_SUPERIOR }}</h3>
-                                <h3 class="panel-title municipio">{{ convenio.NM_MUNICIPIO_PROPONENTE + " - " + convenio.UF_PROPONENTE }}</h3>
-                                <span class="numElogios" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de elogios.">{{convenio.num_elogios}}<ng-md-icon icon="thumb_up"></ng-md-icon></span>
-                                <span class="numDenuncias" tooltip-size="small" tooltip-side="right" tooltips tooltip-template="Quantidade de denúncias e reclamações somadas.">  {{convenio.num_denuncias + convenio.num_reclamacoes}}<ng-md-icon icon="thumb_down"></ng-md-icon> </span>
+                                <h3 class="panel-title orgaoSuperior">{{ convenio.field2 }}</h3>
+                                <h3 class="panel-title municipio">{{ convenio.field4 }}</h3>
                             </div>
                             <!-- <span flex></span> -->
                             <md-menu flex="none">
@@ -109,13 +107,6 @@
                 </div>
                 <div class="panel-body">
                     <table class="table-responsive">
-                        <tr>
-                            <span class="conv-txt">{{ convenio.field2 }}</span>
-                            <hr>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="conv-data"><em>{{ convenio.field4 }} </em></td>
-                        </tr>
                         <tr>
                             <td colspan="2" class="conv-data"><em>{{ convenio.field10 }} </em>
                                 <br>
