@@ -7,7 +7,7 @@ Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
 ## Apresentação do Projeto
 
-    https://drive.google.com/file/d/0BwTX39fPd3faRXBSUWIxNjRXTkk/view?usp=sharing
+-https://drive.google.com/file/d/0BwTX39fPd3faRXBSUWIxNjRXTkk/view?usp=sharing
 
 ## Instalação PhoneGap
 
