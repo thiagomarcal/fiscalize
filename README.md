@@ -4,8 +4,6 @@
 > O Fiscalize! foi criado a partir das seguintes tecnologias:
 Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
-http://fiscalize.org/
-
 ## Instalação PhoneGap
 
 ### Requerimentos
