@@ -2,10 +2,10 @@
 
   O Fiscalize! foi criado a partir das seguintes tecnologias: Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
-  Equipe
-  Thiago Marçal - thiagormarcal@gmail.com
-  Leonardo Miccolis  - leomiccolis@gmail.com
-  Paulo Henrique - paulohsa32@gmail.com
+Equipe
+Thiago Marçal - thiagormarcal@gmail.com
+Leonardo Miccolis  - leomiccolis@gmail.com
+Paulo Henrique - paulohsa32@gmail.com
 
   Apresentação do Projeto
 
