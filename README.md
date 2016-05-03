@@ -2,13 +2,8 @@
 
   O Fiscalize! foi criado a partir das seguintes tecnologias: Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
-  Apresentação do Projeto
-
-  https://drive.google.com/file/d/0BwTX39fPd3faRXBSUWIxNjRXTkk/view?usp=sharing
-
-  Video do Projeto
-
-  https://www.youtube.com/watch?v=-fehb_-knLw
+   Apresentação do Projeto:  https://drive.google.com/file/d/0BwTX39fPd3faRXBSUWIxNjRXTkk/view?usp=sharing
+   Video do Projeto: https://www.youtube.com/watch?v=-fehb_-knLw
 
 
 ## Equipe
