@@ -6,7 +6,7 @@ Apresentação do Projeto:  https://drive.google.com/file/d/0BwTX39fPd3faRXBSUWI
 
 Vídeo do Projeto: https://www.youtube.com/watch?v=-fehb_-knLw
 
-Aplicação WEB (em construção): http://fiscalize.org/
+Aplicação WEB (em construção): http://fiscalize.org
 
 ## Equipe
 
