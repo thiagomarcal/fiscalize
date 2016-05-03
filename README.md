@@ -81,25 +81,3 @@ Certifique-se que o device esteja devidamente conectado no computador via USB
 
 
 Após esse comando o aplicativo começará a execução no device conectado.
-
-### Lista dos Serviços disponibilizados por nossa Api Rest (RestHeart) 
-
-Caso queira aprofundar-se nos parâmetros de pesquisa visite a página http://restheart.org/
-
-Lista de Convênios
-http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS
-
-Detalhe Convênio
-http://74.124.24.115:8080/hackathon/detalhe/<NR_CONVENIO>
-
-Lista de Fiscalizados
-http://74.124.24.115:8080/hackathon/Fiscalizados
-
-Lista de Estados
-http://74.124.24.115:8080/hackathon/Estados
-
-Lista de Municípios
-http://74.124.24.115:8080/hackathon/Municipios
-
-Lista de Situação Convênio
-http://74.124.24.115:8080/hackathon/SituacaoConvenio
