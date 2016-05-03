@@ -12,11 +12,11 @@
 
 
 ## Equipe
-Thiago Marçal - thiagormarcal@gmail.com
-Leonardo Miccolis  - leomiccolis@gmail.com
-Paulo Henrique - paulohsa32@gmail.com
 
-  
+    Thiago Marçal - thiagormarcal@gmail.com
+    Leonardo Miccolis  - leomiccolis@gmail.com
+    Paulo Henrique - paulohsa32@gmail.com
+
 ## Instalação PhoneGap
 
 ### Requerimentos
