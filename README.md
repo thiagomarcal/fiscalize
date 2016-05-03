@@ -6,9 +6,9 @@ Phonegap, Cordova, AngularJS, MongoDB e RestHeart
 
 ## Equipe
 
-Thiago Marçal - thiagormarcal@gmail.com
-Leonardo Miccolis  - leomiccolis@gmail.com
-Paulo Henrique - paulohsa32@gmail.com
+    Thiago Marçal - thiagormarcal@gmail.com
+    Leonardo Miccolis  - leomiccolis@gmail.com
+    Paulo Henrique - paulohsa32@gmail.com
 
 ## Apresentação do Projeto
 
