@@ -52,6 +52,6 @@
 
 document.addEventListener("deviceready", function() {
     // retrieve the DOM element that had the ng-app attribute
-    var domElement = document.getElementById("app");
+    var domElement = document.getElementById("teste");
     angular.bootstrap(domElement, ["myApp"]);
 }, false);

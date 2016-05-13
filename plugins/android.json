@@ -7,10 +7,19 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.example.hello"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.example.hello"
+        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.example.hello"
         },
         "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.example.hello"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.example.hello"
         },
         "cordova-plugin-whitelist": {

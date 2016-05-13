@@ -1,48 +1,78 @@
-var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js','tc.chartjs','ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs']);
+var myApp = angular.module('myApp', ['ngRoute', 'mobile-angular-ui', 'angular-svg-round-progressbar', 'chart.js', 'tc.chartjs', 'ngCordova', 'angular-simple-chat', 'ngMeta', '720kb.tooltips', 'ngPercentDisplay', 'mj.scrollingTabs', 'ngMaterial', 'ngMdIcons', 'slick', 'ngAnimate', 'md.chips.select']);
+
 myApp.config(function($routeProvider) {
     $routeProvider
-    .when('/', {
-        templateUrl: 'components/home/home.html',
-        controller: 'HomeController'
+        .when('/', {
+            templateUrl: 'components/inicial/inicial.html',
+            controller: 'InicialController',
+            resolve: {
+                estadoGeoLocation: function(Initial) {
+                    return Initial.getGeoLocation();
+                },
+                estados: function(Initial) {
+                    return Initial.getEstados();
+                },
+                ministerios: function(Initial) {
+                    return Initial.getMinisterios();
+                },
+                situacoes: function(Initial) {
+                    return Initial.getSituacoes();
+                },
+                categorias: function(Initial) {
+                    return Initial.getCategorias();
+                }
+            }
         })
-    .when('/denuncia/:convenioId', {
-        templateUrl: 'components/denuncia/denuncia.html',
-        controller: 'DenunciaController'
+        .when('/home', {
+            templateUrl: 'components/home/home.html',
+            controller: 'HomeController'
         })
-    .when('/detalhe/:convenioId', {
-        templateUrl: 'components/detalhe/detalhe.html',
-        controller: 'DetalheController'
+        .when('/transferencia', {
+            templateUrl: 'components/transferencia/transferencia.html',
+            controller: 'TransferenciaController'
         })
-    .when('/chat/:convenioId', {
-        templateUrl: 'components/chat/chat.html',
-        controller: 'ChatController'
+        .when('/denuncia/:convenioId', {
+            templateUrl: 'components/denuncia/denuncia.html',
+            controller: 'DenunciaController'
         })
-    .when('/minhasmanifestacoes', {
-        templateUrl: 'components/denuncia/minhasmanifestacoes.html',
-        controller: 'MinhasManifestacoesController'
+        .when('/detalhe/:convenioId', {
+            templateUrl: 'components/detalhe/detalhe.html',
+            controller: 'DetalheController'
+        })
+        .when('/chat/:convenioId', {
+            templateUrl: 'components/chat/chat.html',
+            controller: 'ChatController'
+        })
+        .when('/minhasmanifestacoes', {
+            templateUrl: 'components/denuncia/minhasmanifestacoes.html',
+            controller: 'MinhasManifestacoesController'
         });
 });
 
-myApp.config(function($httpProvider) {
+myApp.config(function($httpProvider, $mdThemingProvider) {
 
     $httpProvider.interceptors.push(function($q) {
         return {
-         'request': function(config) {
-             $('#processing').show();
-             return config;
-          },
+            'request': function(config) {
+                $('#processing').show();
+                return config;
+            },
 
-          'response': function(response) {
-             $('#processing').hide();
-             return response;
-          },
-          'responseError': function(response) {
-             $('#processing').hide();
-             return response;
-          }
+            'response': function(response) {
+                $('#processing').hide();
+                return response;
+            },
+            'responseError': function(response) {
+                $('#processing').hide();
+                return response;
+            }
         };
     });
-    
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('green')
+        .accentPalette('light-green');
+
 });
 
 // Set up the cache ‘myCache’
@@ -52,21 +82,21 @@ myApp.factory('myCache', function($cacheFactory) {
 
 
 
-myApp.service("Fiscalizados", function (myCache, $http) {
-    
+myApp.service("Fiscalizados", function(myCache, $http) {
+
     function getLista() {
         return $http({
             "method": "get",
-            "url": 'http://74.124.24.115:8080/hackathon/Fiscalizados?filter={uuid:"'+ myCache.get('uuid') +'"},{situacao:1}&hal=f'
+            "url": 'http://74.124.24.115:8080/hackathon/Fiscalizados?filter={uuid:"' + myCache.get('uuid') + '"},{situacao:1}&hal=f'
         });
     }
 
     function updateDate(oid, etag, data) {
         return $http({
             "method": "patch",
-            "headers": {'If-Match': etag},
-            "data" : data,
-            "url": "http://74.124.24.115:8080/hackathon/Fiscalizados/"+oid
+            "headers": { 'If-Match': etag },
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/Fiscalizados/" + oid
         });
     }
 
@@ -76,281 +106,688 @@ myApp.service("Fiscalizados", function (myCache, $http) {
     }
 });
 
-myApp.service("Convenios", function (myCache, $http) {
+myApp.service("Convenios", function(myCache, $http) {
 
-        var listaConvenios = [];
-        var totalConvenios;
+    var listaConvenios = [];
+    var totalConvenios;
+    var convenio;
 
-        function getLista() {
-            return listaConvenios;
-        }
+    function get() {
+        return convenio;
+    }
 
-        function setLista(novaLista) {
-            listaConvenios = novaLista;
-        }
+    function set(newConvenio) {
+        convenio = newConvenio;
+    }
 
-        function getListaFilter(filter) {
-            return $http({
+    function getLista() {
+        return listaConvenios;
+    }
+
+    function setLista(novaLista) {
+        listaConvenios = novaLista;
+    }
+
+    function getListaFilter(filter) {
+        return $http({
             "method": "get",
-            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS"+filter
-            });
-        }
+            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS" + filter
+        });
+    }
 
-        function getTotal() {
-            return totalConvenios;
-        }
+    function update(oid, etag, data) {
+        return $http({
+            "method": "patch",
+            "headers": { 'If-Match': etag },
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/ConveniosProgramasFTS/" + oid
+        });
+    }
 
-        function setTotal(novoTotal) {
-            totalConvenios = novoTotal;
-        }
+    function getTotal() {
+        return totalConvenios;
+    }
 
-        return {
-            getLista: getLista,
-            setLista: setLista,
-            getTotal: getTotal,
-            setTotal: setTotal,
-            getListaFilter: getListaFilter,
+    function setTotal(novoTotal) {
+        totalConvenios = novoTotal;
+    }
 
-        }
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+        update:update,
+        setLista: setLista,
+        getTotal: getTotal,
+        setTotal: setTotal,
+        getListaFilter: getListaFilter,
+
+    }
+});
+
+myApp.service("Contador", function($q,myCache, $http) {
+
+    function getDenuncias(NR_CONVENIO) {
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Denuncias?count&filter={NR_CONVENIO:'+ NR_CONVENIO +',tipo: "Denúncia"}'
+        });
+    }
+
+    function getReclamacoes(NR_CONVENIO) {
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Denuncias?count&filter={NR_CONVENIO:'+ NR_CONVENIO +',tipo: "Reclamação"}'
+        });
+    }
+
+    function getElogios(NR_CONVENIO) {
+        return $http({
+            "method": "get",
+            "url": 'http://74.124.24.115:8080/hackathon/Denuncias?count&filter={NR_CONVENIO:'+ NR_CONVENIO +',tipo: "Elogio"}'
+        });
+    }
+
+    return {
+        getDenuncias: getDenuncias,
+        getReclamacoes: getReclamacoes,
+        getElogios: getElogios
+    }
 });
 
 
-myApp.service("Estados", function (myCache, $http) {
+myApp.service("NumDenuncias", function($q,myCache, $http) {
+    var numDenuncias;
 
-        function getLista() {
-            return $http({
+    function get() {
+        return numDenuncias;
+    }
+
+    function set(newNumDenuncias) {
+        numDenuncias = newNumDenuncias;
+    }
+
+
+    return {
+        get: get,
+        set: set,
+    }
+});
+
+myApp.service("NumReclamacoes", function($q,myCache, $http) {
+    var numReclamacoes;
+
+    function get() {
+        return numReclamacoes;
+    }
+
+    function set(newNumReclamacoes) {
+        numReclamacoes = newNumReclamacoes;
+    }
+
+    return {
+        get: get,
+        set: set,
+    }
+});
+
+
+myApp.service("NumElogios", function($q,myCache, $http) {
+    var numElogios;
+
+    function get() {
+        return numElogios;
+    }
+
+    function set(newNumElogios) {
+        numElogios = newNumElogios;
+    }
+
+
+    return {
+        get: get,
+        set: set,
+    }
+});
+
+
+myApp.service("Numeros", function($q,myCache, $http, Contador, NumDenuncias, NumElogios, NumReclamacoes) {
+
+    function getNumDenuncias(NR_CONVENIO) {
+
+        var deferred = $q.defer();
+
+        Contador.getDenuncias(NR_CONVENIO).then(function(result) {
+
+            var numDenuncias = angular.fromJson(result.data._returned);
+
+            NumDenuncias.set(numDenuncias);
+
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    function getNumReclamacoes(NR_CONVENIO) {
+
+        var deferred = $q.defer();
+
+        Contador.getReclamacoes(NR_CONVENIO).then(function(result) {
+
+            var numReclamacoes = angular.fromJson(result.data._returned);
+            NumReclamacoes.set(numReclamacoes);
+
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    function getNumElogios(NR_CONVENIO) {
+
+        var deferred = $q.defer();
+
+        Contador.getElogios(NR_CONVENIO).then(function(result) {
+
+            var numElogios = angular.fromJson(result.data._returned);
+            NumElogios.set(numElogios);
+
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    return {
+        getNumDenuncias:getNumDenuncias,
+        getNumReclamacoes:getNumReclamacoes,
+        getNumElogios:getNumElogios,
+    }
+});
+
+
+myApp.service("Estados", function(myCache, $http) {
+
+    var estados;
+
+    function getLista() {
+        return $http({
             "method": "get",
             "url": "http://74.124.24.115:8080/hackathon/Estados?sort_by=UF_PROPONENTE"
-            });
-        }
+        });
+    }
 
-        return {
-            getLista: getLista,
+    function get() {
+        return estados;
+    }
 
-        }
+    function set(newEstados) {
+        estados = newEstados;
+    }
+
+
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+
+    }
 });
 
-myApp.service("Municipios", function (myCache, $http) {
 
-        function getLista(estado) {
-            return $http({
+myApp.service("Ministerios", function(myCache, $http) {
+
+    var ministerios;
+
+    function getLista() {
+        return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/Ministerios?sort_by=NM_ORGAO_SUPERIOR"
+        });
+    }
+
+    function get() {
+        return ministerios;
+    }
+
+    function set(newMinisterios) {
+        ministerios = newMinisterios;
+    }
+
+
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+
+    }
+});
+
+myApp.service("Situacoes", function(myCache, $http) {
+
+    var situacoes;
+
+    function getLista() {
+        return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/SituacaoConvenio?sort_by=TX_SITUACAO"
+        });
+    }
+
+    function get() {
+        return situacoes;
+    }
+
+    function set(newSituacoes) {
+        situacoes = newSituacoes;
+    }
+
+
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+
+    }
+});
+
+myApp.service("Categorias", function(myCache, $http) {
+
+    var categorias;
+
+    function getLista() {
+        return $http({
+            "method": "get",
+            "url": "http://74.124.24.115:8080/hackathon/Categorias"
+        });
+    }
+
+    function get() {
+        return categorias;
+    }
+
+    function set(newCategorias) {
+        categorias = newCategorias;
+    }
+
+
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+
+    }
+});
+
+myApp.service("Municipios", function(myCache, $http) {
+
+    var municipios;
+
+    function getLista(estado) {
+        return $http({
             "method": "get",
             "url": 'http://74.124.24.115:8080/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado + '"}&sort_by=NM_MUNICIPIO_PROPONENTE'
-            });
-        }
+        });
+    }
 
-        return {
-            getLista: getLista,
+    function get() {
+        return municipios;
+    }
 
-        }
+    function set(newMunicipios) {
+        municipios = newMunicipios;
+    }
+
+    return {
+        getLista: getLista,
+        get: get,
+        set: set,
+    }
 });
 
+myApp.service("Metadados", function(myCache, $http) {
+    
+    function sendCategoriaMetadado(data) {
+        return $http({
+            "method": "post",
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/MetadadosCategoria"
+        });
+    }    
 
-myApp.service("Search", function (myCache, $http) {
-
-        var search;
-        var estado;
-        var cidade;
-        var ministerio;
-        var situacao;
-        var esfera;
-
-
-        function getSearch() {
-            return search;
-        }
-
-        function setSearch(newSearch) {
-            search = newSearch;
-        }
-
-        function getEstado() {
-            return estado;
-        }
-
-        function setEstado(newEstado) {
-            estado = newEstado;
-        }
-
-        function getCidade() {
-            return cidade;
-        }
-
-        function setCidade(newCidade) {
-            cidade = newCidade;
-        }
-
-        function setEsfera(newEsfera) {
-            esfera = newEsfera;
-        }
-
-        function getMinisterio() {
-            return ministerio;
-        }
-
-        function setMinisterio(newMinisterio) {
-            ministerio = newMinisterio;
-        }
-
-        function getSituacao() {
-            return situacao;
-        }
-
-        function setSituacao(newSituacao) {
-            situacao = newSituacao;
-        }
-
-        function getEsfera() {
-            return esfera;
-        }
-
-        return {
-            getSearch: getSearch,
-            setSearch: setSearch,
-
-            getEstado: getEstado,
-            setEstado: setEstado,
-
-            getCidade: getCidade,
-            setCidade: setCidade,
-
-            getMinisterio: getMinisterio,
-            setMinisterio: setMinisterio,
-
-            getSituacao: getSituacao,
-            setSituacao: setSituacao,
-
-            getEsfera: getEsfera,
-            setEsfera: setEsfera,
-        }
+    return {
+        sendCategoriaMetadado: sendCategoriaMetadado,
+    }
 });
 
-myApp.service("Page", function (myCache, $http) {
+myApp.service("Chat", function(myCache, $http) {
 
-        var scrollPos;
+    function sendMessage(data) {
+        return $http({
+            "method": "post",
+            "data": data,
+            "url": "http://74.124.24.115:8080/hackathon/Mensagens"
+        });
+    }
 
-        function getScrollPos() {
-            return scrollPos;
-        }
-
-        function setScrollPos(newScrollPos) {
-            scrollPos = newScrollPos;
-        }
-
-        return {
-            getScrollPos: getScrollPos,
-            setScrollPos: setScrollPos,
-        }
-});
-
-
-myApp.service("GeoLocation", function (myCache, $http) {
-
-        var lat;
-        var long;
-
-        function getLat() {
-            return lat;
-        }
-
-        function setLat(newLat) {
-            lat = newLat;
-        }
-
-        function getLong() {
-            return long;
-        }
-
-        function setLong(newLong) {
-            long = newLong;
-        }
-
-        return {
-            getLat: getLat,
-            setLat: setLat,
-            getLong: getLong,
-            setLong: setLong,
-        }
-});
-
-myApp.service("GoogleMaps", function ($http) {
-
-        var estadoGoogleMaps;
-
-        function getEstadoGoogleMaps() {
-            return estadoGoogleMaps;
-        }
-
-        function setEstadoGoogleMaps(newEstadoGoogleMaps) {
-            estadoGoogleMaps = newEstadoGoogleMaps;
-        }
-
-        function getService(lat, long) {
-            return $http({
+    function getMessages(convenioId) {
+        return $http({
             "method": "get",
-            "url": 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+long+'&result_type=administrative_area_level_1&key=AIzaSyA9RYw22yX7oYezsESEWnmcAIZ5Jvq2Q7A'
-            });
-        }
+            "url": 'http://74.124.24.115:8080/hackathon/Mensagens?pagesize=1000&filter={convenio:' + convenioId + '}&sort_by=dataEnvio'
+        });
+    }
 
-        return {
-
-            getEstadoGoogleMaps: getEstadoGoogleMaps,
-            setEstadoGoogleMaps: setEstadoGoogleMaps,
-            getService: getService,
-        }
+    return {
+        sendMessage: sendMessage,
+        getMessages: getMessages,
+    }
 });
 
-Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-    j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };
+
+myApp.service("Search", function(myCache, $http) {
+
+    var search;
+    var estado;
+    var cidade;
+    var ministerio;
+    var situacao;
+    var esfera;
 
 
-myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
+    function getSearch() {
+        return search;
+    }
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    function setSearch(newSearch) {
+        search = newSearch;
+    }
 
-    function onDeviceReady () {
+    function getEstado() {
+        return estado;
+    }
 
-        //Capture Mobile UUID
-        var uuid = $cordovaDevice.getUUID();
-        if (angular.isUndefined(uuid) || uuid == null) {
-            uuid = 'b07b42e74b01efed'
-        };
-        myCache.put('uuid', uuid);
+    function setEstado(newEstado) {
+        estado = newEstado;
+    }
 
+    function getCidade() {
+        return cidade;
+    }
+
+    function setCidade(newCidade) {
+        cidade = newCidade;
+    }
+
+    function setEsfera(newEsfera) {
+        esfera = newEsfera;
+    }
+
+    function getMinisterio() {
+        return ministerio;
+    }
+
+    function setMinisterio(newMinisterio) {
+        ministerio = newMinisterio;
+    }
+
+    function getSituacao() {
+        return situacao;
+    }
+
+    function setSituacao(newSituacao) {
+        situacao = newSituacao;
+    }
+
+    function getEsfera() {
+        return esfera;
+    }
+
+    return {
+        getSearch: getSearch,
+        setSearch: setSearch,
+
+        getEstado: getEstado,
+        setEstado: setEstado,
+
+        getCidade: getCidade,
+        setCidade: setCidade,
+
+        getMinisterio: getMinisterio,
+        setMinisterio: setMinisterio,
+
+        getSituacao: getSituacao,
+        setSituacao: setSituacao,
+
+        getEsfera: getEsfera,
+        setEsfera: setEsfera,
+    }
+});
+
+myApp.service("Page", function(myCache, $http) {
+
+    var scrollPos;
+
+    function getScrollPos() {
+        return scrollPos;
+    }
+
+    function setScrollPos(newScrollPos) {
+        scrollPos = newScrollPos;
+    }
+
+    return {
+        getScrollPos: getScrollPos,
+        setScrollPos: setScrollPos,
+    }
+});
+
+
+myApp.service("GeoLocation", function(myCache, $http, $cordovaGeolocation, GoogleMaps) {
+
+    var lat;
+    var long;
+
+    function getLat() {
+        return lat;
+    }
+
+    function setLat(newLat) {
+        lat = newLat;
+    }
+
+    function getLong() {
+        return long;
+    }
+
+    function setLong(newLong) {
+        long = newLong;
+    }
+
+
+    return {
+        getLat: getLat,
+        setLat: setLat,
+        getLong: getLong,
+        setLong: setLong,
+    }
+});
+
+
+myApp.service("Initial", function($q, myCache, $http, $cordovaGeolocation, GeoLocation, GoogleMaps, Estados, Ministerios, Situacoes, Categorias) {
+
+
+    function getEstados() {
+
+        var deferred = $q.defer();
+
+        Estados.getLista().then(function(result) {
+
+            var estados = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Estados.set(estados);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getMinisterios() {
+
+        var deferred = $q.defer();
+
+        Ministerios.getLista().then(function(result) {
+
+            var ministerios = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Ministerios.set(ministerios);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getSituacoes() {
+
+        var deferred = $q.defer();
+
+        Situacoes.getLista().then(function(result) {
+
+            var situacoes = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Situacoes.set(situacoes);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+    function getCategorias() {
+
+        var deferred = $q.defer();
+
+        Categorias.getLista().then(function(result) {
+
+            var categorias = angular.fromJson(result.data._embedded["rh:doc"]);
+
+            Categorias.set(categorias);
+            deferred.resolve();
+
+        });
+
+        return deferred.promise;
+    }
+
+
+    function getGeoLocation() {
+
+        var deferred = $q.defer();
         //GeoLocation
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        
+        var posOptions = { timeout: 10000, enableHighAccuracy: false };
 
-        $cordovaGeolocation
-            .getCurrentPosition(posOptions)
-                .then(function (position) {
+
+        if (angular.isUndefined(GoogleMaps.getEstadoGoogleMaps())) {
+            $cordovaGeolocation
+                .getCurrentPosition(posOptions)
+                .then(function(position) {
                     GeoLocation.setLat(position.coords.latitude);
                     GeoLocation.setLong(position.coords.longitude);
 
                     GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
 
-                        
                         var geoLocEstado = result.data.results[0].address_components[0].short_name;
                         // alert("Estado preenchido com : " + geoLocEstado);
                         GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
                         // $rootScope.estadoSelecionado =  geoLocEstado;
-
+                        deferred.resolve();
 
                     });
-
-
                 }, function(err) {
-                // error
+                    deferred.resolve();
+                });
+        } else {
+            deferred.resolve();
+        }
+
+
+        return deferred.promise;
+
+    }
+
+    return {
+        getEstados: getEstados,
+        getMinisterios: getMinisterios,
+        getSituacoes: getSituacoes,
+        getCategorias: getCategorias,
+        getGeoLocation: getGeoLocation,
+    }
+});
+
+myApp.service("GoogleMaps", function($http) {
+
+    var estadoGoogleMaps;
+
+    function getEstadoGoogleMaps() {
+        return estadoGoogleMaps;
+    }
+
+    function setEstadoGoogleMaps(newEstadoGoogleMaps) {
+        estadoGoogleMaps = newEstadoGoogleMaps;
+    }
+
+    function getService(lat, long) {
+        return $http({
+            "method": "get",
+            "url": 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&result_type=administrative_area_level_1&key=AIzaSyA9RYw22yX7oYezsESEWnmcAIZ5Jvq2Q7A'
         });
     }
+
+    return {
+
+        getEstadoGoogleMaps: getEstadoGoogleMaps,
+        setEstadoGoogleMaps: setEstadoGoogleMaps,
+        getService: getService,
+    }
+});
+
+Number.prototype.formatMoney = function(c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
+
+myApp.run(function($rootScope, myCache, ngMeta, $cordovaDevice, $cordovaGeolocation, GeoLocation, GoogleMaps) {
+
+    // document.addEventListener("deviceready", onDeviceReady, false);
+
+    // function onDeviceReady () {
+
+    //Capture Mobile UUID
+    var uuid = $cordovaDevice.getUUID();
+    if (angular.isUndefined(uuid) || uuid == null) {
+        uuid = 'b07b42e74b01efed'
+    };
+    myCache.put('uuid', uuid);
+
+    //GeoLocation
+    var posOptions = { timeout: 10000, enableHighAccuracy: false };
+
+
+    // }
 
 
     ngMeta.init();

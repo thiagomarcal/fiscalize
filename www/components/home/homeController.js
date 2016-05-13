@@ -1,4 +1,4 @@
-myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios) {
+myApp.controller('HomeController', function($scope, $timeout, $window,$http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, $cordovaSocialSharing, $cordovaGeolocation,ngMeta, Convenios, Search, Page,GoogleMaps, Estados, Municipios, Ministerios, Situacoes, Contador, Numeros, NumReclamacoes, NumDenuncias, NumElogios, Categorias, Metadados) {
 
     // Page Initial Value
     page = 1;
@@ -8,34 +8,14 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     ADDRESS = 'http://74.124.24.115:8080'
     COLLECTION = 'ConveniosProgramasFTS'
 
-    // Watcher para retorno da Geolocalizacao
+     // Watcher para retorno da Geolocalizacao
     $scope.$watch(function(){return GoogleMaps.getEstadoGoogleMaps()}, function(NewValue, OldValue){
-
-        console.log(NewValue + ' ' + OldValue);
-
-        if (NewValue != OldValue) {
-
-            Estados.getLista().then(function(result) {
-
-               $scope.estados = angular.fromJson(result.data._embedded["rh:doc"]);
-
-               console.log('tamanho: ' + $scope.estados);
             
-                angular.forEach($scope.estados, function(value, key) {
-                    if (value.UF_PROPONENTE == NewValue) {
-                            console.log('teste requisition')
-                            $scope.estadoSelecionado = value;
-
-
-                            Municipios.getLista(value.UF_PROPONENTE).then(function(result) {
-                                $scope.cidades = angular.fromJson(result.data._embedded["rh:doc"]);
-                            });
- 
-                    }
-                });
-            });
-        };
-
+        angular.forEach(Estados.get(), function(value, key) {
+            if (value.UF_PROPONENTE == NewValue) {                            
+                    $scope.estadoSelecionado = value;
+            }
+        });
 
     }, true);
 
@@ -46,9 +26,12 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
         $scope.restorePreviousHome();
 
-        if (angular.isUndefined($scope.convenios) && angular.isUndefined($scope.estadoSelecionado)) {
+        if (angular.isUndefined($scope.convenios)) {
             $scope.convenios = [];
-            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE +'&filter={UF_PROPONENTE:"DF"}'+'&hal=f';
+
+            var estado = angular.isUndefined(GoogleMaps.getEstadoGoogleMaps()) ? "DF" : GoogleMaps.getEstadoGoogleMaps();
+
+            $scope.url = '/hackathon/' + COLLECTION + '?count&page=' + page + '&pagesize=' + PAGESIZE +'&filter={UF_PROPONENTE:"'+ estado +'"}'+'&hal=f';
             $scope.requisition();
         };
     }
@@ -124,10 +107,22 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
                 if (result._size > 0) {
                     convenios_temp = angular.fromJson(result._embedded["rh:doc"]);
-
+                    
                     angular.forEach(convenios_temp, function(value, key) {
 
                         value = $scope.prepareConvenioDetail(value);
+
+                        Numeros.getNumReclamacoes(value.NR_CONVENIO).then(function(result) {
+                          value.num_reclamacoes = NumReclamacoes.get();
+                        });
+
+                        Numeros.getNumDenuncias(value.NR_CONVENIO).then(function(result) {
+                          value.num_denuncias = NumDenuncias.get();
+                        });
+                        
+                        Numeros.getNumElogios(value.NR_CONVENIO).then(function(result) {
+                          value.num_elogios = NumElogios.get();
+                        });
 
                         $scope.convenios.push(value);
 
@@ -152,28 +147,6 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         }
     }
 
-    // Requisition Estados
-    $scope.requisitionEstados = function() {
-
-        requisicaoFactory.getRequest(ADDRESS + '/hackathon/Estados?sort_by=UF_PROPONENTE').then(function(result) {
-            $scope.estados = angular.fromJson(result._embedded["rh:doc"]);
-    
-                angular.forEach($scope.estados, function(value, key) {
-
-                        if (value.UF_PROPONENTE == GoogleMaps.getEstadoGoogleMaps()) {
-                            $scope.estadoSelecionado = value;
-
-                        }
-                 });
-
-        }, function(reason) {
-            alert("Erro ver console!")
-            console.log("reason:", reason);
-            // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
-        }, function(update) {
-            console.log("update:", update);
-        })
-    }
 
     $scope.estadoChange = function() {
             if ($scope.estadoSelecionado != null) {
@@ -186,35 +159,7 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
         requisicaoFactory.getRequest(ADDRESS + '/hackathon/Municipios?pagesize=1000&filter={UF_PROPONENTE:"' + estado.UF_PROPONENTE + '"}&sort_by=NM_MUNICIPIO_PROPONENTE').then(function(result) {
 
             $scope.cidades = angular.fromJson(result._embedded["rh:doc"]);
-
-        }, function(reason) {
-            alert("Erro ver console!")
-            console.log("reason:", reason);
-            // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
-        }, function(update) {
-            console.log("update:", update);
-        })
-    }
-
-    // Requisition Convenios
-    $scope.requisitionMinisterios = function() {
-
-        requisicaoFactory.getRequest(ADDRESS + '/hackathon/Ministerios?sort_by=NM_ORGAO_SUPERIOR').then(function(result) {
-            $scope.ministerios = angular.fromJson(result._embedded["rh:doc"]);
-
-        }, function(reason) {
-            alert("Erro ver console!")
-            console.log("reason:", reason);
-            // util._error(reason.data, reason.status, reason.headers, reason.config, $scope);
-        }, function(update) {
-            console.log("update:", update);
-        })
-    }
-
-    $scope.requisitionSituacoes = function() {
-
-        requisicaoFactory.getRequest(ADDRESS + '/hackathon/SituacaoConvenio?sort_by=TX_SITUACAO').then(function(result) {
-            $scope.situacoes = angular.fromJson(result._embedded["rh:doc"]);
+            Municipios.set($scope.cidades);
 
         }, function(reason) {
             alert("Erro ver console!")
@@ -293,6 +238,12 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 		});
 	}
 
+    $scope.salvaMetadadoCategorias = function(convenio) {
+        var metadado = {};
+        metadado.NR_CONVENIO = convenio.NR_CONVENIO;
+        metadado.CATEGORIA = $scope.categoriaSelecionada;
+        Metadados.sendCategoriaMetadado(metadado);
+    }
 
 
     $scope.restorePreviousHome = function() {
@@ -338,6 +289,10 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
     //     var ScrollPos = retrieveScrollableContent().scrollableContent.scrollTop;
     //     Page.setScrollPos(ScrollPos);
     // }
+
+    $scope.cacheConvenio = function(convenio) {
+        Convenios.set(convenio); 
+    }
 
     // function retrieveScrollableContent() {
     //     var elem = angular.element("#homeScroll");
@@ -393,13 +348,12 @@ myApp.controller('HomeController', function($scope, $timeout, $window,$http, $lo
 
 
     // Initial Call Home
+    $scope.estados = Estados.get();
     $scope.home();
-    $scope.requisitionEstados();
-    $scope.requisitionMinisterios();
-    $scope.requisitionSituacoes();
+    $scope.ministerios = Ministerios.get();
+    $scope.situacoes = Situacoes.get();
+    $scope.cidades = Municipios.get();
+    $scope.categorias = Categorias.get();
     $scope.refreshFiscalizados();
     
-    
-  
-
 });

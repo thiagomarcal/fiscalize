@@ -1,29 +1,32 @@
 <div ui-content-for="title">
     <span>Minhas Denúncias e Manifestações</span>
 </div>
-<div class="scrollable">
+<div class="scrollable minhasManifestacoes">
     <div class="scrollable-content">
-        <div class="section" ng-repeat="row in manifestacoes">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                </div>
-                <div class="panel-body">
-                    <table>
-                        <tr>
-                            <td>Convenio:</td>
-                            <td>{{ row.NR_CONVENIO }}</td>
-                        </tr>
-                        <tr>
-                            <td>Tipo:</td>
-                            <td><em>{{ row.tipo }} </em></td>
-                        </tr>
-                        <tr>
-                            <td>Motivo:</td>
-                            <td>{{ row.motivo }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <md-content class="section">
+            <br>
+            <h3 class="md-title">Minhas Manifestações</h3>
+            <br>
+            <md-content ng-repeat="row in manifestacoes">
+                <md-card class="manifestCard" ng-class="[{'denuncia': row.tipo == 'Denúncia', 'elogio': row.tipo == 'Elogio', 'reclamacao': row.tipo == 'Reclamação', 'sugestao': row.tipo == 'Sugestão', 'solicitacao': row.tipo == 'Solicitação'}]" layout="column">
+                    <md-card-title-text flex="100" style="flex: 100;" layout-padding>
+                        <span class="md-headline">{{ row.tipo }}</span> <br>
+                        <span class="md-subhead">Convênio: {{ row.NR_CONVENIO }}</span>
+                    </md-card-title-text>
+                    <md-card-content>
+                        <strong>Status:</strong> <em>Aguardando resposta</em>
+                        <br>
+                        <strong>Descrição:</strong> <em>{{ row.motivo }}</em><br>
+                        <br>
+                        <md-divider></md-divider>
+                        <br>
+                        <strong>Resposta</strong>
+                        <p class="resposta">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro dolorem, vero praesentium voluptates adipisci doloremque aspernatur voluptate soluta incidunt, placeat sapiente unde amet!
+                        </p>
+                    </md-card-content>
+                </md-card>
+            </md-content>
+        </md-content>
     </div>
-</div>    
+</div>

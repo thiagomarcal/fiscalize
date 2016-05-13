@@ -1,4 +1,51 @@
-myApp.controller('MainController', function($scope, $timeout, $http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, Convenios) {
+myApp.controller('MainController', function($scope, $timeout, $http, $location, $routeParams, requisicaoFactory, $cordovaDevice, myCache, Fiscalizados, Convenios,ngMeta,$cordovaGeolocation,GeoLocation,GoogleMaps) {
+
+    // $scope.init = function() {
+        
+    //             //Capture Mobile UUID
+    //             var uuid = $cordovaDevice.getUUID();
+    //             if (angular.isUndefined(uuid) || uuid == null) {
+    //                 uuid = 'b07b42e74b01efed'
+    //             };
+    //             myCache.put('uuid', uuid);
+
+    //             //GeoLocation
+    //             var posOptions = {timeout: 10000, enableHighAccuracy: false};
+                
+
+    //             $cordovaGeolocation
+    //                 .getCurrentPosition(posOptions)
+    //                     .then(function (position) {
+    //                         GeoLocation.setLat(position.coords.latitude);
+    //                         GeoLocation.setLong(position.coords.longitude);
+
+    //                         GoogleMaps.getService(GeoLocation.getLat(), GeoLocation.getLong()).then(function(result) {
+
+    //                             var geoLocEstado = result.data.results[0].address_components[0].short_name;
+    //                             // alert("Estado preenchido com : " + geoLocEstado);
+    //                             GoogleMaps.setEstadoGoogleMaps(geoLocEstado);
+    //                             // $rootScope.estadoSelecionado =  geoLocEstado;
+    //                         });
+    //                     }, function(err) {
+    //                     // error
+    //             });
+
+
+    //     ngMeta.init();
+
+    //     console.log(myCache.get('uuid'));
+
+    // }
+
+    // $scope.init();
+
+    //Ativar a apresentação
+    $scope.firstTime = true;
+    $scope.endPresentation = function() {
+        $scope.firstTime = false;
+        $location.path('/home');
+    }
+
 
     // Requisition Fiscalizado
     $scope.requisitionFiscalizados = function() {
@@ -67,7 +114,7 @@ myApp.controller('MainController', function($scope, $timeout, $http, $location, 
             console.log('Data - UUID: ' + myCache.get('uuid') + ' Convenio: ' + fiscalizado.convenio.NR_CONVENIO + ' foi atualizado!');
         });
     }
-
+    
 
 
     $scope.refreshFiscalizados = function() {

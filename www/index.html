@@ -1,126 +1,134 @@
 <!DOCTYPE HTML>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta property="og:title" content="Fiscalize!" />
+    <meta property="og:description" content="Detalhe do Convênio" />
+    <meta property="og:image" content="http://www.sinproesemmabdc.com.br/img/icon_convenios.png" />
+    <title>Fiscalize!</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="assets/images/splash/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.css" />
+    <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.css" />
+    <link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.css" />
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.css">
+    <link rel="stylesheet" href="assets/styles/ngPercentDisplay.css" />
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery.js"></script>
+    <script type="text/javascript" src="assets/scripts/index.js"></script>
+    <script type="text/javascript" src="assets/scripts/angular.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/angular-route.js"></script>
+    <script src="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
+    <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
+    <script src="bower_components/Chart.js/Chart.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.js"></script>
+    <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
+    <script type="text/javascript" src="assets/scripts/ngPercentDisplay.js"></script>
+    <script type="text/javascript" src="assets/scripts/myApp.js"></script>
+    <script type="text/javascript" src="assets/scripts/linq.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/requisicao.js"></script>
+    <script type="text/javascript" src="components/signup/signupController.js"></script>
+    <script type="text/javascript" src="components/home/homeController.js"></script>
+    <script type="text/javascript" src="components/transferencia/transferenciaController.js"></script>
+    <script type="text/javascript" src="components/denuncia/denunciaController.js"></script>
+    <script type="text/javascript" src="components/detalhe/detalheController.js"></script>
+    <script type="text/javascript" src="components/main/mainController.js"></script>
+    <script type="text/javascript" src="components/chat/chatController.js"></script>
+    <script type="text/javascript" src="components/inicial/inicialController.js"></script>
+    <script type="text/javascript" src="components/denuncia/minhasmanifestacoes.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-simple-chat/dist/angular-simple-chat.min.js"></script>
+    <script src="bower_components/ngMeta/dist/ngMeta.js"></script>
+    <script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
+    <script src="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.js"></script>
+    <script src="bower_components/slick-carousel/slick/slick.js"></script>
+    <script src="bower_components/angular-slick/dist/slick.js"></script>
+    <script src="bower_components/angular-slick-carousel/dist/angular-slick.min.js"></script>
+    <script src="bower_components/md-chips-select/md-chips-select.js"></script>
 
-<meta property="og:title" content="Fiscalize!" />
-<meta property="og:description" content="Detalhe do Convênio" />
-<meta property="og:image" content="http://www.sinproesemmabdc.com.br/img/icon_convenios.png"/>
-    
-<title>Fiscalize!</title>
-
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-<link rel="shortcut icon" href="assets/images/splash/favicon.ico" type="image/x-icon" /> 
-
-<link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.css" />
-<link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.css" />
-<link rel="stylesheet" href="bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.css" />
-<link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
-<link rel="stylesheet" href="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.css">
-<link rel="stylesheet" href="assets/styles/ngPercentDisplay.css" />
-
-
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="assets/scripts/jquery.js"></script>
-<script type="text/javascript" src="assets/scripts/index.js"></script>
-<script type="text/javascript" src="assets/scripts/angular.min.js"></script>
-<script type="text/javascript" src="assets/scripts/angular-route.js"></script>
-<script src="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
-<script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
-<script src="bower_components/Chart.js/Chart.js"></script>
-<script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
-<script src="bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.js"></script>
-<script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
-
-<script type="text/javascript" src="assets/scripts/ngPercentDisplay.js"></script>
-<script type="text/javascript" src="assets/scripts/myApp.js"></script>
-<script type="text/javascript" src="assets/scripts/linq.min.js"></script>
-<script type="text/javascript" src="assets/scripts/requisicao.js"></script>
-<script type="text/javascript" src="components/signup/signupController.js"></script>
-<script type="text/javascript" src="components/home/homeController.js"></script>
-<script type="text/javascript" src="components/denuncia/denunciaController.js"></script>
-<script type="text/javascript" src="components/detalhe/detalheController.js"></script>
-<script type="text/javascript" src="components/main/mainController.js"></script>
-<script type="text/javascript" src="components/chat/chatController.js"></script>
-<script type="text/javascript" src="components/denuncia/minhasmanifestacoes.js"></script>
-
-<script src="bower_components/moment/moment.js"></script>
-<link rel="stylesheet" href="bower_components/angular-simple-chat/dist/angular-simple-chat.min.css">
-<script src="bower_components/angular-simple-chat/dist/angular-simple-chat.min.js"></script>
-
-<link rel="stylesheet" href="bower_components/angular-tooltips/dist/angular-tooltips.min.css">
-<script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
-
-<script src="bower_components/ngMeta/dist/ngMeta.js"></script>
-
-<link rel="stylesheet" href="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.css">
-<script src="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.js"></script>
-
-
-<link rel="stylesheet" href="assets/styles/styles.css" />
+    <link rel="stylesheet" href="bower_components/angular-simple-chat/dist/angular-simple-chat.min.css">
+    <link rel="stylesheet" href="bower_components/angular-tooltips/dist/angular-tooltips.min.css">
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-scrolling-tabs/scrolling-tabs.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-materia	l-icons/angular-material-icons.css" />
+    <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="bower_components/slick-carousel/slick/slick-theme.css">
+    <link rel="stylesheet" href="bower_components/md-chips-select/md-chips-select.css">
+    <link rel="stylesheet" href="assets/styles/styles.css" />
 </head>
 
-<body id="app" ng-controller="MainController">
-
-
-
-	<!-- Sidebars -->
-	<div class="sidebar sidebar-left" >
-		<div class="scrollable">
-			<h1 class="scrollable-header app-name">Fiscalize!</h1>
-			<div class="scrollable-content">
-				<div class="list-group" ui-turn-off='uiSidebarLeft'>
-					<a class="list-group-item" href="#/">Pesquisa de Convênios 
+<body id="teste" ng-controller="MainController">
+    <!-- Sidebars -->
+    <div class="sidebar sidebar-left">
+        <div class="scrollable">
+            <!-- <h1 class="scrollable-header app-name">
+				<img src="assets/images/logo-white.png" alt="">
+			</h1> -->
+            <!-- <h1 class="scrollable-header app-name">Fiscalize!</h1> -->
+            <div class="scrollable-content">
+                <div class="list-group" ui-turn-off='uiSidebarLeft'>
+                    <!-- <a class="list-group-item" href="#/">Inicio
+					<i class="fa fa-chevron-right pull-right"></i></a> -->
+                    <a class="list-group-item" href="#/home">Pesquisa de Convênios 
 					<i class="fa fa-chevron-right pull-right"></i></a>
-					<a class="list-group-item" href ui-toggle='uiSidebarRight'>Convênios Fiscalizados
+                    <a class="list-group-item" href="#/transferencia">Pesquisa de Transferências 
+                    <i class="fa fa-chevron-right pull-right"></i></a>
+                    <a class="list-group-item" href ui-toggle='uiSidebarRight'>Convênios Fiscalizados
 					<i class="fa fa-chevron-right pull-right"></i></a>
-					<a class="list-group-item" href="#/minhasmanifestacoes">Minhas Manifestações
+                    <a class="list-group-item" href="#/minhasmanifestacoes">Minhas Manifestações
 					<i class="fa fa-chevron-right pull-right"></i></a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="sidebar sidebar-right">
-	  <div class="scrollable" >
-		  <div class="scrollable-content">
-		      <div class="list-group" ui-toggle="uiSidebarRight">
-
-		            <div id="fiscalizadosRightSideBar" class="scrollable-content">
-    					<div class="list-group">
-    						<div ng-repeat="fiscalizado in fiscalizados">
-	      						<span  class="list-group-item" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar sidebar-right">
+        <div class="scrollable">
+            <div class="scrollable-content">
+                <div class="list-group" ui-toggle="uiSidebarRight">
+                    <div id="fiscalizadosRightSideBar" class="scrollable-content">
+                        <div class="list-group">
+                            <div ng-repeat="fiscalizado in fiscalizados">
+                                <span class="list-group-item">
 
 	      							<span class="pull-left" ng-show="fiscalizado.recente">
   										<i class="fa fa-exclamation fa-lg text-danger"></i> 
+  										&nbsp;
   									</span>
-  									&nbsp;
-  									<a ng-click="atualizaData(fiscalizado)">{{ fiscalizado.convenio.NR_CONVENIO + ' - ' + mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
-        							<a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
-      							</span>
-      						</div>	
-    					</div>
-  					</div>
-
-		      </div>
-		  </div>
-		</div>
-	</div>
-
-	
-
-
-  <div class="app">
-
-  	<div id="processing" >
-		<div class="loader"><i class="fa fa-cog fa-spin fa-3x"></i></div>
-	</div>
-
-    <div class="navbar navbar-app navbar-absolute-top">
+                                <a ng-click="atualizaData(fiscalizado)"><strong>{{ fiscalizado.convenio.NR_CONVENIO }}</strong> - {{ mapaConveniosFiscalizados[fiscalizado.convenio.NR_CONVENIO].TX_OBJETO_CONVENIO | limitTo:100 }}</a>
+                                <a><i ng-click="abrirChat(fiscalizado)" class="fa fa-comment-o pull-right"></i></a>
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    	<slick infinite=false arrows=false dots=false slides-to-show=1 slides-to-scroll=1 class="preslide" ng-hide="!firstTime">
+            <div class="preslide-item"><img src="assets/images/preslide/01.png" /></div>
+            <div class="preslide-item"><img src="assets/images/preslide/02.png" /></div>
+            <div class="preslide-item"><img src="assets/images/preslide/03.png" /></div>
+            <div class="preslide-item"><img src="assets/images/preslide/04.png" /></div>
+            <div class="preslide-item bemvindo"><img src="assets/images/preslide/05.png" />
+            <a href="#/home" ng-click="endPresentation()"></a></div>
+        </slick>
+    <div class="app">
+        <div id="processing">
+            <div class="loader"><i class="fa fa-cog fa-spin fa-3x"></i></div>
+        </div>
+            <div class="navbar navbar-app navbar-absolute-top">
 		<div class="navbar-brand navbar-brand-center">
-			Fiscalize!
+			<img src="assets/images/logo-white.png" class="mainlogo" alt="">
 		</div>
 
 		<div class="btn-group pull-left">
@@ -131,26 +139,34 @@
 
 		<div class="btn-group pull-right">
 			<div class="btn btn-navbar">
-				<a href ui-toggle='uiSidebarRight'><i class="fa fa-bell"></i> {{qtdRecentes}} </a>
+				<a href ui-toggle='uiSidebarRight' class="notifications"><i class="fa fa-bell"></i> <div class="notCount">{{qtdRecentes}}</div></a>
 			</div>
 		</div>
 	</div>
-
-    <!-- App body -->
-
-    <div class='app-body'>
-      <div class='app-content'>
-       	<!-- <div ui-view></div>  -->
-
-       	<ng-view></ng-view>
-      </div>
+        <!-- <div class="navbar navbar-app navbar-absolute-top">
+            <div layout>
+                <md-button class="md-icon-button" ui-toggle='uiSidebarLeft'>
+                    <ng-md-icon icon="menu" style="fill: white"></ng-md-icon>
+                </md-button>
+                <div flex layout layout-align="center center">
+                    <img src="assets/images/logo-white.png" class="mainlogo" alt="">
+                </div>
+                <md-button class="md-icon-button" ui-toggle='uiSidebarRight'>
+                    <ng-md-icon ng-if="qtdRecentes != 0" icon="notifications"></ng-md-icon>
+                    <ng-md-icon ng-if="qtdRecentes == 0" icon="notifications_none"></ng-md-icon>
+                    <span class="notCount" ng-if="qtdRecentes != 0">{{qtdRecentes}}</span>
+                </md-button>
+            </div>
+        </div> -->
+        <!-- App body -->
+        <div class='app-body'>
+            <div class='app-content'>
+                <!-- <div ui-view></div>  -->
+                <ng-view></ng-view>
+            </div>
+        </div>
     </div>
-  </div><!-- ~ .app -->
-
-  
-
-  <!-- Modals and Overlays -->
-  <div ui-yield-to="modals"></div>
-
-
+    <!-- ~ .app -->
+    <!-- Modals and Overlays -->
+    <div ui-yield-to="modals"></div>
 </body>

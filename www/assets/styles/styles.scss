@@ -1,0 +1,384 @@
+@import "mixins/placeholderColor";
+//fonts
+$font_default: Roboto;
+$main-color: #00b53e;
+$secondary-color: #007bff;
+$fadedWhite: rgba(255, 255, 255, 0.7);
+$app-background: shade($main-color, 20);
+$intern-app-background: #f8f8f8;
+$navbar-height: 60px;
+//@extend-elements
+//original selectors
+//.sidebar .list-group-item, .sidebar a.list-group-item
+%sidebarMenuItem {
+    margin-bottom: 0;
+    border: 0 none;
+    border-bottom: 0;
+    background: transparent;
+    color: #fff;
+    padding: 15px;
+    opacity: 0.85;
+}
+
+.app {
+    background: $intern-app-background;
+}
+
+body {
+    font-family: $font_default;
+    font-weight: 400;
+}
+
+#homeScroll,
+.section {
+    background: $app-background;
+}
+
+#processing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: grey;
+    opacity: .6;
+}
+
+.loader {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#progress {
+    position: absolute;
+    color: #bbb;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.progressBar {
+    top: 37px;
+    right: -14px;
+    position: relative;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.searchbox {
+    background-color: $app-background;
+    padding: 20px 20px 0px;
+    .md-errors-spacer {
+        min-height: 0px;
+    }
+    ng-md-icon {
+        fill: $fadedWhite;
+    }
+    md-input-container label {
+        color: $fadedWhite;
+        font-weight: 300;
+        font-style: italic;
+    }
+    md-input-container .md-input {
+        border-color: $fadedWhite;
+    }
+    .advSearch {
+        label {
+            color: $fadedWhite;
+            font-weight: 400;
+        }
+        select > option {
+            padding: 4px;
+        }
+    }
+}
+
+.flagQtdRetornados {
+    color: $fadedWhite;
+    padding: 5px 0 15px;
+    text-align: center;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.9em;
+    background: $app-background;
+    display: block;
+    margin-bottom: 0;
+}
+
+input[type="search"] {
+    padding: 5px;
+    border-radius: 6px;
+    border: none;
+    color: #080808;
+    font-weight: 500;
+    background-color: #fffbf8;
+    &:focus {
+        outline: 0;
+    }
+}
+
+#searchSubmit {
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/search-btn.png);
+    background-repeat: no-repeat;
+    background-position: 10px 5px;
+    background-color: transparent;
+    background-size: 20px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#advancedsearch {
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/advsearch-btn.png);
+    background-repeat: no-repeat;
+    background-position: 0 -2px;
+    background-color: transparent;
+    background-size: 35px 35px;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar {
+    background: shade($main-color, 40);
+    .list-group-item {
+        @extend %sidebarMenuItem;
+        a {
+            color: #fff;
+        }
+        &.active {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+    a.list-group-item {
+        @extend %sidebarMenuItem;
+    }
+}
+
+.panel-card {
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
+    border: 0;
+    border-radius: 1px;
+    .panel-heading {
+        color: #000;
+        background-color: #fff;
+        border-color: #dddddd;
+        border-bottom: 1px solid #ccc;
+        min-height: 80px;
+        border-radius: 1px 1px 0 0;
+    }
+    .panel-title {
+        &.orgaoSuperior {
+            color: #000;
+            font-weight: 600;
+        }
+        &.municipio {
+            font-weight: 100;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+            color: #888;
+        }
+    }
+    table.table-responsive {
+        border: 0;
+    }
+}
+
+.convenio {
+    padding-left: 5px;
+    padding-right: 5px;
+    .conv-txt {
+        font-style: italic;
+        font-weight: 600;
+        color: #666;
+    }
+    .conv-lbl {
+        font-size: 0.9em;
+        font-weight: 500;
+        color: #666;
+        padding: 5px;
+    }
+    .conv-data {
+        font-size: 0.9em;
+        font-weight: 300;
+        color: #888;
+        padding: 5px;
+    }
+}
+
+.navbar {
+    &.navbar-app {
+        background: $main-color;
+        color: white;
+        border-bottom: 1px solid $main-color;
+        min-height: $navbar-height;
+        a {
+            color: white;
+            line-height: $navbar-height;
+            i.fa {
+                font-size: 1.25em;
+            }
+            &.notifications {
+                position: absolute;
+                right: 25px;
+            }
+            .notCount {
+                position: absolute;
+                text-align: center;
+                background: red;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.7);
+                box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                line-height: 19px;
+                font-size: 0.8em;
+                font-weight: 900;
+                top: 10px;
+                right: -10px;
+            }
+        }
+    }
+    .navbar-brand {
+        height: $navbar-height;
+    }
+}
+
+img.mainlogo {
+    width: 25vw;
+    margin: auto;
+}
+
+.detailView {
+    .section {
+        background: $intern-app-background;
+    }
+    h3.title {
+        margin-top: 25px;
+        color: rgba(0, 0, 0, 0.8);
+        font-weight: 700;
+        font-size: 1.5em;
+        span {
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 200;
+            font-style: italic;
+            font-size: 0.7em;
+        }
+    }
+}
+
+slick.preslide {
+    margin: 0;
+    .slick-slide {
+        img {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+    .bemvindo a {
+        display: block;
+        height: 19vh;
+        position: absolute;
+        width: 100vw;
+        bottom: 0;
+    }
+    .slick-dots {
+        bottom: 35px;
+        position: fixed;
+        li button:before {
+            font-size: 18px;
+        }
+        li.slick-active button:before {
+            opacity: 0.5;
+        }
+    }
+}
+
+.detailCard,
+.minhasManifestacoes {
+    .section {
+        background: transparent !important;
+    }
+    .page-header {
+        margin-top: 10px;
+        font-size: 1.5em;
+        font-weight: 700;
+        padding: 15px;
+    }
+    table {
+        border: 0px !important;
+        td {
+            border-top: 0px !important;
+            &:first-child {
+                font-weight: 900;
+            }
+            &:last-child {
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+.denuncia,
+.minhasManifestacoes,
+.chat {
+    .section {
+        background: $intern-app-background;
+    }
+}
+
+.minhasManifestacoes {
+    md-content {
+        background: transparent;
+    }
+}
+
+simple-chat {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.numDenuncias {
+    margin: 5px 2px;
+    display: inline-block;
+    color: #A01313;
+}
+
+.numElogios {
+    margin: 5px 2px;
+    display: inline-block;
+    color: #00B53E;
+}
+
+.manifestCard {
+    &.sugestao {
+        border-left: 10px solid #FAC532;
+    }
+    &.denuncia {
+        border-left: 10px solid #E9353B;
+    }
+    &.elogio {
+        border-left: 10px solid #CE337A;
+    }
+    &.reclamacao {
+        border-left: 10px solid #FC8729;
+    }
+    &.solicitacao {
+        border-left: 10px solid #007633;
+    }
+}

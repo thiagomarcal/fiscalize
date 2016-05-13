@@ -1,4 +1,4 @@
-myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache)  {
+myApp.controller('DenunciaController', function($scope, $timeout , $http, $location, $routeParams, requisicaoFactory, myCache, $cordovaCamera, Convenios)  {
 
 	//Parametros
 	$scope.params = $routeParams;
@@ -27,7 +27,10 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 		
 		requisicaoFactory.postRequest(ADDRESS+'/hackathon/'+ COLLECTION, $scope.denuncia).then(function(result) {
 			alert($scope.denuncia.tipo + ' enviado(a)!');
-			 $location.path("/");
+
+			$scope.atualizaQtdConvenios($scope.denuncia.tipo);
+
+			$location.path("/home");
 		}, function(reason) {
 		    alert("Erro ver console!")
 		    console.log("reason:", reason);
@@ -37,6 +40,33 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 		})
 	}
 
+	// Requisition Update Fiscalizado
+    $scope.atualizaQtdConvenios = function(tipo) {
+        var convenio = Convenios.get();
+        $scope.data = {};
+
+        if (tipo == "Denúncia") {
+        	$scope.data.qtdDenuncias = convenio.qtdDenuncias+1;
+        }
+
+        if (tipo == "Elogio") {
+        	$scope.data.qtdElogio = convenio.qtdElogio+1;	
+        }
+
+        if (tipo == "Reclamação") {
+        	$scope.data.qtdReclamacao = convenio.qtdReclamacao+1;	
+        }
+
+        //Request Header Config apenas necessário para updates
+        var config = { headers: { 'If-Match': convenio._etag.$oid } };
+
+        Convenios.update(convenio._id.$oid, convenio._etag.$oid, $scope.data).then(function(result) {
+          console.log("Convenio atualizado");
+        });
+    }
+
+
+
 	$scope.selecionarTipo = function(tipo) {
 		$scope.denuncia.tipo = tipo;
 	}
@@ -44,6 +74,30 @@ myApp.controller('DenunciaController', function($scope, $timeout , $http, $locat
 
 	$scope.tipoDefinido = function() {
 		return $scope.denuncia.tipo != undefined;
+	}
+
+	$scope.tirarFoto = function() {
+
+		var options = {
+	      quality: 80,
+	      destinationType: Camera.DestinationType.FILE_URI,
+	      sourceType: Camera.PictureSourceType.CAMERA,
+	      allowEdit: false,
+	      encodingType: Camera.EncodingType.JPEG,
+	      // targetWidth: 250,
+	      //targetHeight: 200,
+	      popoverOptions: CameraPopoverOptions,
+	      saveToPhotoAlbum: false,
+		  correctOrientation:true
+	    };
+
+	    $cordovaCamera.getPicture(options).then(function(imageURI) {
+			var image = document.getElementById('myImage');
+			image.src = imageURI;
+
+	    }, function(err) {
+	      // error
+	    });
 	}
 
 });
